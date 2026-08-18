@@ -1,0 +1,779 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Tour package details, itinerary, inclusions and booking — TRM Holidays.">
+<meta name="theme-color" content="#1A2B6B">
+<title>Tour Details | TRM Holidays</title>
+
+<link rel="icon" href="assets/images/logo.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<link rel="stylesheet" href="assets/css/trm.css">
+
+<style>
+.detail-top{padding-top:calc(var(--nav-h) + 26px)}
+
+/* ---------- Gallery ---------- */
+.gallery{display:grid;grid-template-columns:60% 1fr;gap:12px;height:420px;margin-bottom:26px}
+.gallery .main{border-radius:var(--radius);overflow:hidden;cursor:zoom-in;position:relative}
+.gallery .main img{width:100%;height:100%;object-fit:cover;transition:transform .5s var(--ease)}
+.gallery .main:hover img{transform:scale(1.04)}
+.gallery .thumbs{display:grid;grid-template-columns:1fr 1fr;grid-template-rows:1fr 1fr;gap:12px}
+.gallery .thumbs div{border-radius:var(--radius);overflow:hidden;cursor:zoom-in;position:relative}
+.gallery .thumbs img{width:100%;height:100%;object-fit:cover;transition:transform .5s var(--ease)}
+.gallery .thumbs div:hover img{transform:scale(1.07)}
+.more-badge{
+  position:absolute;inset:0;background:rgba(17,29,79,.62);color:#fff;
+  display:grid;place-items:center;font-family:var(--font-head);font-weight:700;font-size:18px;
+}
+
+/* ---------- Title area ---------- */
+.title-row{display:flex;flex-wrap:wrap;gap:18px;justify-content:space-between;align-items:flex-start;margin-bottom:12px}
+.title-row h1{font-size:clamp(1.5rem,3vw,2.2rem);margin-bottom:8px}
+.rating-line{display:flex;align-items:center;gap:10px;font-size:14px;color:var(--gray);flex-wrap:wrap}
+.rating-line .stars{color:var(--gold)}
+.rating-line b{color:var(--navy);font-family:var(--font-head)}
+.act-btns{display:flex;gap:10px}
+.icon-btn{
+  width:42px;height:42px;border-radius:var(--radius-sm);border:1.5px solid #DCE5F3;
+  background:#fff;color:var(--navy);display:grid;place-items:center;font-size:15px;
+  transition:all .2s var(--ease);
+}
+.icon-btn:hover{border-color:var(--sky);color:var(--sky)}
+.icon-btn.on{background:var(--red);border-color:var(--red);color:#fff}
+
+.info-pills{display:flex;flex-wrap:wrap;gap:10px;margin:18px 0 30px}
+.info-pill{
+  display:inline-flex;align-items:center;gap:9px;background:var(--off);
+  border:1px solid #E1E9F6;border-radius:var(--radius-sm);padding:10px 16px;font-size:13.5px;
+}
+.info-pill i{color:var(--sky)}
+.info-pill b{font-family:var(--font-head);color:var(--navy);font-weight:600}
+
+/* ---------- Layout ---------- */
+.detail-grid{display:grid;grid-template-columns:1fr 350px;gap:32px;align-items:start;padding-bottom:80px}
+
+/* ---------- Tabs ---------- */
+.dtabs{display:flex;gap:4px;border-bottom:2px solid #E8EEF8;margin-bottom:26px;overflow-x:auto}
+.dtab{
+  padding:13px 20px;font-family:var(--font-head);font-size:14px;font-weight:600;
+  color:var(--gray);border-bottom:3px solid transparent;margin-bottom:-2px;
+  white-space:nowrap;transition:all .2s var(--ease);
+}
+.dtab:hover{color:var(--navy)}
+.dtab.active{color:var(--navy);border-bottom-color:var(--gold)}
+.dpanel{display:none;animation:fadeIn .35s var(--ease)}
+.dpanel.active{display:block}
+@keyframes fadeIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+.dpanel h3{margin-bottom:14px}
+.dpanel p{color:#42506E;margin-bottom:16px;line-height:1.8}
+
+.highlights{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:8px}
+.highlights li{display:flex;gap:11px;align-items:flex-start;font-size:14.5px;color:#42506E}
+.highlights i{color:var(--ok);margin-top:5px;flex:0 0 auto}
+.map-holder{
+  height:260px;border-radius:var(--radius);background:var(--off);border:1px dashed #C9D8EE;
+  display:grid;place-items:center;color:var(--gray);text-align:center;margin-top:24px;padding:20px;
+}
+.map-holder i{font-size:34px;color:var(--sky);margin-bottom:10px;display:block}
+
+/* ---------- Accordion ---------- */
+.acc{border:1px solid #E4EBF6;border-radius:var(--radius);overflow:hidden;margin-bottom:10px}
+.acc-head{
+  width:100%;display:flex;align-items:center;gap:14px;padding:15px 18px;
+  background:#fff;text-align:left;transition:background .2s;
+}
+.acc-head:hover{background:var(--off)}
+.acc.open .acc-head{background:var(--off)}
+.day-no{
+  flex:0 0 42px;width:42px;height:42px;border-radius:11px;
+  background:linear-gradient(135deg,var(--sky),var(--royal));color:#fff;
+  display:grid;place-items:center;font-family:var(--font-head);font-weight:700;font-size:12px;
+  line-height:1.1;text-align:center;
+}
+.acc-head b{flex:1;font-family:var(--font-head);font-size:15px;color:var(--navy);font-weight:600}
+.acc-head .chev{color:var(--gray);transition:transform .25s var(--ease)}
+.acc.open .acc-head .chev{transform:rotate(180deg)}
+.acc-body{max-height:0;overflow:hidden;transition:max-height .3s var(--ease)}
+.acc-body p{padding:4px 18px 18px 74px;margin:0;font-size:14.5px;color:#42506E}
+
+/* ---------- Inclusions ---------- */
+.inc-grid{display:grid;grid-template-columns:1fr 1fr;gap:26px}
+.inc-col h4{display:flex;align-items:center;gap:9px;margin-bottom:14px;font-size:15px}
+.inc-col li{display:flex;gap:11px;align-items:flex-start;font-size:14.5px;color:#42506E;margin-bottom:11px}
+.inc-yes h4{color:var(--ok)} .inc-yes i{color:var(--ok);margin-top:5px}
+.inc-no h4{color:var(--red)}  .inc-no i{color:var(--red);margin-top:5px}
+
+/* ---------- Gallery tab ---------- */
+.photo-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
+.photo-grid div{height:150px;border-radius:var(--radius-sm);overflow:hidden;cursor:zoom-in}
+.photo-grid img{width:100%;height:100%;object-fit:cover;transition:transform .45s var(--ease)}
+.photo-grid div:hover img{transform:scale(1.09)}
+
+/* ---------- Reviews ---------- */
+.rev-summary{display:grid;grid-template-columns:180px 1fr;gap:30px;align-items:center;
+  background:var(--off);border-radius:var(--radius);padding:24px;margin-bottom:26px}
+.rev-score{text-align:center}
+.rev-score b{display:block;font-family:var(--font-head);font-size:44px;font-weight:800;color:var(--navy);line-height:1}
+.rev-score .stars{color:var(--gold);margin:6px 0 4px}
+.rev-score small{color:var(--gray);font-size:12.5px}
+.bar-row{display:flex;align-items:center;gap:12px;margin-bottom:8px;font-size:13px;color:var(--gray)}
+.bar-row span:first-child{width:42px;white-space:nowrap}
+.bar{flex:1;height:8px;border-radius:8px;background:#DFE8F5;overflow:hidden}
+.bar i{display:block;height:100%;background:var(--gold);border-radius:8px}
+.rev-card{border:1px solid #E8EEF8;border-radius:var(--radius);padding:20px;margin-bottom:14px}
+.rev-card .who{display:flex;align-items:center;gap:12px;margin-bottom:12px}
+.rev-card .avatar{width:42px;height:42px;flex:0 0 42px;border-radius:50%;
+  background:linear-gradient(135deg,var(--sky),var(--royal));display:grid;place-items:center;
+  color:#fff;font-family:var(--font-head);font-weight:700}
+.rev-card .who b{display:block;font-family:var(--font-head);font-size:14.5px;color:var(--navy)}
+.rev-card .who small{color:var(--gray);font-size:12.5px}
+.rev-card p{font-size:14.5px;color:#42506E;margin:0;line-height:1.75}
+
+/* ---------- Booking sidebar ---------- */
+.book-box{
+  position:sticky;top:calc(var(--nav-h-scrolled) + 20px);
+  background:#fff;border:1px solid #E4EBF6;border-radius:var(--radius-lg);
+  box-shadow:var(--shadow);overflow:hidden;
+}
+.book-head{background:linear-gradient(135deg,var(--navy),var(--royal));color:#fff;padding:22px}
+.book-head small{font-size:12.5px;color:rgba(255,255,255,.8);display:block}
+.book-head .amt{display:flex;align-items:baseline;gap:10px;margin-top:4px}
+.book-head b{font-family:var(--font-head);font-size:30px;font-weight:800}
+.book-head del{font-size:15px;color:rgba(255,255,255,.6)}
+.save-tag{
+  display:inline-block;margin-top:8px;background:var(--gold);color:#fff;
+  font-family:var(--font-head);font-size:11px;font-weight:700;letter-spacing:.5px;
+  padding:4px 12px;border-radius:20px;text-transform:uppercase;
+}
+.book-body{padding:22px}
+.total-box{
+  background:var(--off);border-radius:var(--radius-sm);padding:15px 16px;margin:6px 0 18px;
+  display:flex;justify-content:space-between;align-items:center;
+}
+.total-box span{font-size:13.5px;color:var(--gray)}
+.total-box b{font-family:var(--font-head);font-size:22px;font-weight:800;color:var(--navy)}
+.trust-badges{display:grid;gap:10px;margin-top:18px;padding-top:18px;border-top:1px solid #EDF2FA}
+.trust-badges li{display:flex;align-items:center;gap:10px;font-size:13px;color:var(--gray)}
+.trust-badges i{color:var(--ok)}
+.book-success{display:none;text-align:center;padding:16px 0}
+.book-success .ico{font-size:46px;color:var(--ok);margin-bottom:12px}
+.book-success h3{margin-bottom:8px}
+.book-success p{font-size:14px;color:var(--gray);margin-bottom:18px}
+
+/* ---------- Lightbox ---------- */
+.lightbox{
+  position:fixed;inset:0;z-index:3000;background:rgba(10,18,45,.94);
+  display:none;align-items:center;justify-content:center;padding:36px;
+}
+.lightbox.open{display:flex}
+.lightbox img{max-width:92vw;max-height:88vh;border-radius:var(--radius);object-fit:contain}
+.lightbox .close{position:absolute;top:22px;right:26px;color:#fff;font-size:30px}
+.lightbox .nav-arrow{
+  position:absolute;top:50%;transform:translateY(-50%);color:#fff;font-size:26px;
+  width:52px;height:52px;border-radius:50%;background:rgba(255,255,255,.13);
+  display:grid;place-items:center;transition:background .2s;
+}
+.lightbox .nav-arrow:hover{background:rgba(255,255,255,.26)}
+.lightbox .prev{left:22px} .lightbox .next{right:22px}
+
+/* ---------- Responsive ---------- */
+@media(max-width:1024px){
+  .detail-grid{grid-template-columns:1fr}
+  .book-box{position:static}
+  .photo-grid{grid-template-columns:repeat(3,1fr)}
+}
+@media(max-width:768px){
+  .gallery{grid-template-columns:1fr;height:auto}
+  .gallery .main{height:240px}
+  .gallery .thumbs{height:180px}
+  .highlights,.inc-grid{grid-template-columns:1fr}
+  .photo-grid{grid-template-columns:repeat(2,1fr)}
+  .rev-summary{grid-template-columns:1fr;gap:18px}
+  .title-row{flex-direction:column}
+}
+</style>
+</head>
+
+<body>
+
+<!-- ══════════════ NAVBAR ══════════════ -->
+<header class="nav solid">
+  <div class="wrap">
+    <a href="index.html" class="brand">
+      <img src="assets/images/logo.png" alt="TRM Holidays" class="brand-logo">
+      <span class="brand-text"><b>TRM Holidays</b><span>Your Memory Maker</span></span>
+    </a>
+    <nav class="nav-links">
+      <a href="index.html">Home</a>
+      <a href="flights.html">Flights</a>
+      <a href="hotels.html">Hotels</a>
+      <a href="tours.html" class="active">Tour Packages</a>
+      <a href="index.html#why">About</a>
+      <a href="contact.html">Contact</a>
+    </nav>
+    <div class="nav-actions">
+      <a href="contact.html" class="btn btn-outline">Login</a>
+      <a href="#" data-trm="wa" class="btn btn-gold" target="_blank" rel="noopener">Book Now</a>
+    </div>
+    <button class="burger" id="burger" aria-label="Open menu" aria-expanded="false"><i class="fa-solid fa-bars"></i></button>
+  </div>
+</header>
+
+<div class="mobile-menu" id="mobileMenu">
+  <a href="index.html">Home</a>
+  <a href="flights.html">Flights</a>
+  <a href="hotels.html">Hotels</a>
+  <a href="tours.html" class="active">Tour Packages</a>
+  <a href="index.html#why">About</a>
+  <a href="contact.html">Contact</a>
+  <a href="#" data-trm="wa" class="btn btn-gold" target="_blank" rel="noopener">Book Now</a>
+</div>
+
+<!-- ══════════════ DETAIL ══════════════ -->
+<main class="detail-top">
+  <div class="wrap">
+
+    <div class="crumb" style="justify-content:flex-start;color:var(--gray);margin-bottom:18px">
+      <a href="index.html" style="color:var(--sky)">Home</a><i class="fa-solid fa-chevron-right"></i>
+      <a href="tours.html" style="color:var(--sky)">Tour Packages</a><i class="fa-solid fa-chevron-right"></i>
+      <span id="crumbName">Details</span>
+    </div>
+
+    <!-- Gallery -->
+    <div class="gallery" id="gallery"></div>
+
+    <!-- Title -->
+    <div class="title-row">
+      <div>
+        <h1 id="tourName">Loading…</h1>
+        <div class="rating-line" id="ratingLine"></div>
+      </div>
+      <div class="act-btns">
+        <button class="icon-btn" id="shareBtn" title="Share"><i class="fa-solid fa-share-nodes"></i></button>
+        <button class="icon-btn" id="wishBtn" title="Add to wishlist"><i class="fa-regular fa-heart"></i></button>
+      </div>
+    </div>
+
+    <div class="info-pills" id="infoPills"></div>
+
+    <!-- Content + sidebar -->
+    <div class="detail-grid">
+
+      <div>
+        <div class="dtabs">
+          <button class="dtab active" data-panel="overview">Overview</button>
+          <button class="dtab" data-panel="itinerary">Itinerary</button>
+          <button class="dtab" data-panel="inclusions">Inclusions</button>
+          <button class="dtab" data-panel="gallery">Gallery</button>
+          <button class="dtab" data-panel="reviews">Reviews</button>
+        </div>
+
+        <!-- Overview -->
+        <div class="dpanel active" id="p-overview">
+          <h3>About This Tour</h3>
+          <p id="tourDesc"></p>
+          <h3 style="margin-top:26px">Tour Highlights</h3>
+          <ul class="highlights" id="highlights"></ul>
+          <div class="map-holder">
+            <i class="fa-solid fa-map-location-dot"></i>
+            <b>Route map</b>
+            <small>Paste your Google Maps embed iframe here</small>
+          </div>
+        </div>
+
+        <!-- Itinerary -->
+        <div class="dpanel" id="p-itinerary">
+          <h3>Day-by-Day Itinerary</h3>
+          <div id="itinerary"></div>
+        </div>
+
+        <!-- Inclusions -->
+        <div class="dpanel" id="p-inclusions">
+          <h3>What's Included</h3>
+          <div class="inc-grid">
+            <div class="inc-col inc-yes">
+              <h4><i class="fa-solid fa-circle-check"></i> Included</h4>
+              <ul>
+                <li><i class="fa-solid fa-check"></i> Accommodation for the full trip</li>
+                <li><i class="fa-solid fa-check"></i> Daily breakfast (lunch/dinner as per plan)</li>
+                <li><i class="fa-solid fa-check"></i> All transfers in air-conditioned vehicles</li>
+                <li><i class="fa-solid fa-check"></i> Sightseeing and entry tickets listed above</li>
+                <li><i class="fa-solid fa-check"></i> Experienced Bangla-speaking tour guide</li>
+                <li><i class="fa-solid fa-check"></i> All applicable taxes and service charges</li>
+                <li><i class="fa-solid fa-check"></i> 24/7 on-trip support line</li>
+              </ul>
+            </div>
+            <div class="inc-col inc-no">
+              <h4><i class="fa-solid fa-circle-xmark"></i> Not Included</h4>
+              <ul>
+                <li><i class="fa-solid fa-xmark"></i> International airfare (unless stated)</li>
+                <li><i class="fa-solid fa-xmark"></i> Visa fees and processing charges</li>
+                <li><i class="fa-solid fa-xmark"></i> Travel insurance</li>
+                <li><i class="fa-solid fa-xmark"></i> Personal expenses, laundry, tips</li>
+                <li><i class="fa-solid fa-xmark"></i> Optional activities not in the itinerary</li>
+                <li><i class="fa-solid fa-xmark"></i> Anything not listed under "Included"</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <!-- Gallery tab -->
+        <div class="dpanel" id="p-gallery">
+          <h3>Photo Gallery</h3>
+          <div class="photo-grid" id="photoGrid"></div>
+        </div>
+
+        <!-- Reviews -->
+        <div class="dpanel" id="p-reviews">
+          <h3>Traveller Reviews</h3>
+          <div class="rev-summary">
+            <div class="rev-score">
+              <b id="revScore">4.8</b>
+              <div class="stars" id="revStars"></div>
+              <small id="revCount">Based on 0 reviews</small>
+            </div>
+            <div>
+              <div class="bar-row"><span>5 star</span><div class="bar"><i style="width:78%"></i></div><span>78%</span></div>
+              <div class="bar-row"><span>4 star</span><div class="bar"><i style="width:16%"></i></div><span>16%</span></div>
+              <div class="bar-row"><span>3 star</span><div class="bar"><i style="width:4%"></i></div><span>4%</span></div>
+              <div class="bar-row"><span>2 star</span><div class="bar"><i style="width:1%"></i></div><span>1%</span></div>
+              <div class="bar-row"><span>1 star</span><div class="bar"><i style="width:1%"></i></div><span>1%</span></div>
+            </div>
+          </div>
+
+          <div class="rev-card">
+            <div class="who"><div class="avatar">R</div><div><b>Rafiqul Islam</b><small>Travelled with family · Verified booking</small></div></div>
+            <p>Everything ran on time and the hotel was exactly what was shown to us. The guide was patient with my parents and never rushed anyone. Would book again.</p>
+          </div>
+          <div class="rev-card">
+            <div class="who"><div class="avatar">S</div><div><b>Sadia Rahman</b><small>Travelled as a couple · Verified booking</small></div></div>
+            <p>Good value for the price. Transport was comfortable and the food arrangements were better than we expected. Only small issue was one early morning start.</p>
+          </div>
+          <div class="rev-card">
+            <div class="who"><div class="avatar">K</div><div><b>Kamrul Hasan</b><small>Travelled in a group · Verified booking</small></div></div>
+            <p>Booked for eleven of us from the office. TRM handled the whole group without any confusion and the WhatsApp updates during the trip were genuinely useful.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- ─────── BOOKING SIDEBAR ─────── -->
+      <aside>
+        <div class="book-box">
+          <div class="book-head">
+            <small>Per person from</small>
+            <div class="amt">
+              <b id="sidePrice">৳0</b>
+              <del id="sideOld">৳0</del>
+            </div>
+            <span class="save-tag" id="saveTag">Save 10%</span>
+          </div>
+
+          <div class="book-body">
+            <form id="bookForm" novalidate>
+              <div class="field">
+                <label for="bDate">Travel Date <span class="req">*</span></label>
+                <input type="date" id="bDate" data-rule="required" required>
+              </div>
+              <div class="field">
+                <label for="bPersons">Persons <span class="req">*</span></label>
+                <select id="bPersons">
+                  <option value="1">1 Person</option>
+                  <option value="2" selected>2 Persons</option>
+                  <option value="3">3 Persons</option>
+                  <option value="4">4 Persons</option>
+                  <option value="5">5 Persons</option>
+                  <option value="6">6 Persons</option>
+                  <option value="8">8 Persons</option>
+                  <option value="10">10 Persons</option>
+                </select>
+              </div>
+              <div class="field">
+                <label for="bName">Full Name <span class="req">*</span></label>
+                <input type="text" id="bName" data-rule="name" placeholder="Your full name" required>
+              </div>
+              <div class="field">
+                <label for="bPhone">Phone <span class="req">*</span></label>
+                <input type="tel" id="bPhone" data-rule="phone" placeholder="01XXXXXXXXX" required>
+              </div>
+              <div class="field">
+                <label for="bEmail">Email <span class="req">*</span></label>
+                <input type="email" id="bEmail" data-rule="email" placeholder="you@example.com" required>
+              </div>
+
+              <div class="total-box">
+                <span>Total price</span>
+                <b id="totalPrice">৳0</b>
+              </div>
+
+              <button type="submit" class="btn btn-gold btn-block" id="bookBtn">
+                <i class="fa-solid fa-paper-plane"></i> Book Now
+              </button>
+              <a href="#" data-trm="wa" id="waBook" class="btn btn-wa btn-block" style="margin-top:10px" target="_blank" rel="noopener">
+                <i class="fa-brands fa-whatsapp"></i> Inquire on WhatsApp
+              </a>
+            </form>
+
+            <div class="book-success" id="bookSuccess">
+              <div class="ico"><i class="fa-solid fa-circle-check"></i></div>
+              <h3>Request Received</h3>
+              <p id="bookRef">We'll call you within 2 hours to confirm the details.</p>
+              <a href="#" data-trm="wa" class="btn btn-wa btn-block" target="_blank" rel="noopener">
+                <i class="fa-brands fa-whatsapp"></i> Continue on WhatsApp
+              </a>
+            </div>
+
+            <ul class="trust-badges">
+              <li><i class="fa-solid fa-lock"></i> Secure booking — no advance payment online</li>
+              <li><i class="fa-solid fa-rotate-left"></i> Free cancellation up to 7 days before</li>
+              <li><i class="fa-solid fa-headset"></i> 24/7 support on <span data-trm="phone"></span></li>
+            </ul>
+          </div>
+        </div>
+      </aside>
+    </div>
+
+    <!-- Related -->
+    <section class="section section--tight" style="border-top:1px solid #E8EEF8">
+      <div class="sec-head" style="margin-bottom:32px">
+        <span class="eyebrow">You might also like</span>
+        <h2>Related Tours</h2>
+      </div>
+      <div class="grid g-3" id="related"></div>
+    </section>
+
+  </div>
+</main>
+
+<!-- ══════════════ FOOTER ══════════════ -->
+<footer class="footer">
+  <div class="wrap">
+    <div class="footer-grid">
+      <div>
+        <img src="assets/images/logo.png" alt="TRM Holidays" class="footer-logo">
+        <p>TRM Holidays — your memory maker. Flights, hotels and tour packages for travellers across Bangladesh, at home and abroad.</p>
+        <div class="socials">
+          <a href="#" data-trm="facebook" target="_blank" rel="noopener" aria-label="Facebook"><i class="fa-brands fa-facebook-f"></i></a>
+          <a href="#" data-trm="instagram" target="_blank" rel="noopener" aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a>
+          <a href="#" data-trm="youtube" target="_blank" rel="noopener" aria-label="YouTube"><i class="fa-brands fa-youtube"></i></a>
+          <a href="#" data-trm="tiktok" target="_blank" rel="noopener" aria-label="TikTok"><i class="fa-brands fa-tiktok"></i></a>
+          <a href="#" data-trm="wa" target="_blank" rel="noopener" aria-label="WhatsApp"><i class="fa-brands fa-whatsapp"></i></a>
+        </div>
+      </div>
+      <div>
+        <h4>Quick Links</h4>
+        <ul class="footer-links">
+          <li><a href="index.html"><i class="fa-solid fa-chevron-right"></i> Home</a></li>
+          <li><a href="flights.html"><i class="fa-solid fa-chevron-right"></i> Flights</a></li>
+          <li><a href="hotels.html"><i class="fa-solid fa-chevron-right"></i> Hotels</a></li>
+          <li><a href="tours.html"><i class="fa-solid fa-chevron-right"></i> Tour Packages</a></li>
+          <li><a href="index.html#why"><i class="fa-solid fa-chevron-right"></i> About Us</a></li>
+          <li><a href="contact.html"><i class="fa-solid fa-chevron-right"></i> Contact</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Popular Tours</h4>
+        <ul class="footer-links">
+          <li><a href="tour-detail.html?id=TR-001"><i class="fa-solid fa-chevron-right"></i> Cox's Bazar Escape</a></li>
+          <li><a href="tour-detail.html?id=TR-003"><i class="fa-solid fa-chevron-right"></i> Dubai Luxury Explorer</a></li>
+          <li><a href="tour-detail.html?id=TR-002"><i class="fa-solid fa-chevron-right"></i> Bangkok City &amp; Beach</a></li>
+          <li><a href="tour-detail.html?id=TR-006"><i class="fa-solid fa-chevron-right"></i> Maldives Honeymoon</a></li>
+          <li><a href="tour-detail.html?id=TR-005"><i class="fa-solid fa-chevron-right"></i> Turkey &amp; Cappadocia</a></li>
+          <li><a href="tour-detail.html?id=TR-004"><i class="fa-solid fa-chevron-right"></i> Sajek Valley Trek</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Get In Touch</h4>
+        <ul class="contact-list">
+          <li><i class="fa-solid fa-location-dot"></i><span data-trm="address"></span></li>
+          <li><i class="fa-solid fa-phone"></i><a href="#" data-trm="phone-tel"></a></li>
+          <li><i class="fa-brands fa-whatsapp"></i><a href="#" data-trm="wa" target="_blank" rel="noopener">WhatsApp us</a></li>
+          <li><i class="fa-solid fa-envelope"></i><a href="#" data-trm="email"></a></li>
+          <li><i class="fa-regular fa-clock"></i><span data-trm="hours"></span></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>&copy; <span id="year"></span> TRM Holidays. All rights reserved.</span>
+      <nav><a href="#">Privacy Policy</a><a href="#">Terms &amp; Conditions</a><a href="#">Cancellation Policy</a></nav>
+    </div>
+  </div>
+</footer>
+
+<!-- Lightbox -->
+<div class="lightbox" id="lightbox">
+  <button class="close" id="lbClose" aria-label="Close"><i class="fa-solid fa-xmark"></i></button>
+  <button class="nav-arrow prev" id="lbPrev" aria-label="Previous"><i class="fa-solid fa-chevron-left"></i></button>
+  <img id="lbImg" src="" alt="">
+  <button class="nav-arrow next" id="lbNext" aria-label="Next"><i class="fa-solid fa-chevron-right"></i></button>
+</div>
+
+<a href="#" data-trm="wa" class="wa-float" target="_blank" rel="noopener" aria-label="Chat on WhatsApp"><i class="fa-brands fa-whatsapp"></i></a>
+<button class="top-btn" id="topBtn" aria-label="Back to top"><i class="fa-solid fa-arrow-up"></i></button>
+
+<script src="assets/js/trm.js"></script>
+<script src="assets/js/tours-data.js"></script>
+
+<script>
+document.getElementById('year').textContent = new Date().getFullYear();
+
+/* ---------- Which tour? ---------- */
+const tourId = new URLSearchParams(location.search).get('id') || 'TR-001';
+const tour = TOURS.find(t => t.id === tourId) || TOURS[0];
+
+/* Extra gallery photos (reuse other tours' imagery as the photo set) */
+const PHOTOS = [tour.img].concat(
+  TOURS.filter(t => t.id !== tour.id).slice(0, 7).map(t => t.img)
+);
+
+/* ---------- Head / title ---------- */
+document.title = tour.name + ' | TRM Holidays';
+document.getElementById('crumbName').textContent = tour.name;
+document.getElementById('tourName').textContent = tour.name;
+document.getElementById('tourDesc').textContent = tour.desc;
+
+function starsHtml(rating){
+  let html = '';
+  for (let i = 1; i <= 5; i++){
+    html += '<i class="' + (i <= Math.round(rating) ? 'fa-solid' : 'fa-regular') + ' fa-star"></i>';
+  }
+  return html;
+}
+
+document.getElementById('ratingLine').innerHTML =
+  '<span class="stars">' + starsHtml(tour.rating) + '</span>' +
+  '<b>' + tour.rating + '</b>' +
+  '<span>(' + tour.reviews + ' reviews)</span>' +
+  '<span>·</span>' +
+  '<span><i class="fa-solid fa-location-dot"></i> ' + tour.destination + '</span>';
+
+document.getElementById('infoPills').innerHTML =
+  '<span class="info-pill"><i class="fa-regular fa-clock"></i> Duration <b>' + tour.days + ' Days / ' + tour.nights + ' Nights</b></span>' +
+  '<span class="info-pill"><i class="fa-solid fa-user-group"></i> Group size <b>' + tour.people + '</b></span>' +
+  '<span class="info-pill"><i class="fa-solid fa-language"></i> Language <b>Bangla / English</b></span>' +
+  '<span class="info-pill"><i class="fa-solid fa-hotel"></i> Stay <b>' + tour.hotel + '</b></span>';
+
+/* ---------- Gallery ---------- */
+document.getElementById('gallery').innerHTML =
+  '<div class="main" data-i="0"><img src="' + PHOTOS[0] + '" alt="' + tour.name + '"></div>' +
+  '<div class="thumbs">' +
+    PHOTOS.slice(1, 5).map((src, i) =>
+      '<div data-i="' + (i + 1) + '"><img src="' + src + '" alt="' + tour.name + ' photo ' + (i + 2) + '">' +
+      (i === 3 ? '<span class="more-badge">+' + (PHOTOS.length - 5) + ' more</span>' : '') +
+      '</div>'
+    ).join('') +
+  '</div>';
+
+document.getElementById('photoGrid').innerHTML =
+  PHOTOS.map((src, i) => '<div data-i="' + i + '"><img src="' + src + '" alt="Gallery photo ' + (i + 1) + '" loading="lazy"></div>').join('');
+
+/* ---------- Highlights ---------- */
+const HIGHLIGHTS = [
+  'Return transfers and all internal transport included',
+  'Handpicked ' + tour.hotel.toLowerCase() + ' accommodation',
+  'Daily breakfast plus selected meals',
+  'Bangla-speaking guide throughout the trip',
+  'All sightseeing entry tickets covered',
+  'Small groups — ' + tour.people + ' travellers',
+  'Free cancellation up to 7 days before departure',
+  '24/7 support line while you travel'
+];
+document.getElementById('highlights').innerHTML =
+  HIGHLIGHTS.map(h => '<li><i class="fa-solid fa-circle-check"></i>' + h + '</li>').join('');
+
+/* ---------- Itinerary ---------- */
+const DAY_PLANS = [
+  ['Arrival & Welcome', 'Pick-up from the airport or bus terminal, transfer to your hotel and check in. Evening free to settle in, with a welcome dinner and a full briefing on the days ahead.'],
+  ['City Highlights Tour', 'After breakfast, a full day covering the main landmarks with your guide. Lunch at a local restaurant, then time to explore and shop at your own pace before returning to the hotel.'],
+  ['Signature Experience', 'The day the trip is built around — the headline attraction, with plenty of time for photos. Breakfast and lunch included; the evening is yours.'],
+  ['Nature & Scenic Day', 'Out of the town centre to the scenic side of the destination. Expect viewpoints, a short walk or boat ride, and a packed lunch along the way.'],
+  ['Leisure & Optional Add-ons', 'A slower day. Optional activities can be arranged through your guide at extra cost, or simply enjoy the hotel facilities and the local food.'],
+  ['Culture & Local Life', 'Markets, local crafts and the neighbourhoods most visitors miss. Good day for souvenirs — your guide will help you get a fair price.'],
+  ['Free Day', 'Entirely unscheduled. Your guide stays reachable for suggestions, bookings or transport if you want to head somewhere on your own.'],
+  ['Extended Excursion', 'A longer day trip to a nearby destination, returning to the hotel by evening. Breakfast and lunch included.'],
+  ['Final Explorations', 'Last chance to see anything you missed, plus time to pack. Farewell dinner in the evening with the group.'],
+  ['Departure', 'Breakfast, hotel check-out and transfer to the airport or terminal in time for your journey home.']
+];
+
+document.getElementById('itinerary').innerHTML = Array.from({ length: tour.days }, (_, i) => {
+  // Day 1 is always arrival, the last day is always departure
+  const plan = i === 0 ? DAY_PLANS[0]
+             : i === tour.days - 1 ? DAY_PLANS[DAY_PLANS.length - 1]
+             : DAY_PLANS[((i - 1) % (DAY_PLANS.length - 2)) + 1];
+
+  return '<div class="acc' + (i === 0 ? ' open' : '') + '">' +
+    '<button class="acc-head" type="button" onclick="toggleAcc(this)">' +
+      '<span class="day-no">DAY<br>' + (i + 1) + '</span>' +
+      '<b>' + plan[0] + '</b>' +
+      '<i class="fa-solid fa-chevron-down chev"></i>' +
+    '</button>' +
+    '<div class="acc-body"><p>' + plan[1] + '</p></div>' +
+  '</div>';
+}).join('');
+
+function toggleAcc(btn){
+  const acc = btn.parentElement;
+  const body = acc.querySelector('.acc-body');
+  const open = acc.classList.toggle('open');
+  body.style.maxHeight = open ? body.scrollHeight + 'px' : '0';
+}
+
+/* Recalculate heights for every open day.
+   Must run while the Itinerary panel is visible — scrollHeight is 0 inside
+   a display:none container, which would collapse the open day to nothing. */
+function syncAccordions(){
+  document.querySelectorAll('#itinerary .acc').forEach(acc => {
+    const body = acc.querySelector('.acc-body');
+    body.style.maxHeight = acc.classList.contains('open') ? body.scrollHeight + 'px' : '0';
+  });
+}
+
+/* ---------- Reviews summary ---------- */
+document.getElementById('revScore').textContent = tour.rating;
+document.getElementById('revStars').innerHTML = starsHtml(tour.rating);
+document.getElementById('revCount').textContent = 'Based on ' + tour.reviews + ' reviews';
+
+/* ---------- Tabs ---------- */
+document.querySelectorAll('.dtab').forEach(tab => {
+  tab.addEventListener('click', () => {
+    document.querySelectorAll('.dtab').forEach(t => t.classList.remove('active'));
+    document.querySelectorAll('.dpanel').forEach(p => p.classList.remove('active'));
+    tab.classList.add('active');
+    document.getElementById('p-' + tab.dataset.panel).classList.add('active');
+
+    // The panel is visible now, so open days can finally be measured
+    if (tab.dataset.panel === 'itinerary') syncAccordions();
+  });
+});
+
+/* Keep open days correct when the window is resized (text re-wraps) */
+window.addEventListener('resize', () => {
+  if (document.getElementById('p-itinerary').classList.contains('active')) syncAccordions();
+});
+
+/* ---------- Lightbox ---------- */
+const lb = document.getElementById('lightbox');
+const lbImg = document.getElementById('lbImg');
+let lbIndex = 0;
+
+function openLb(i){
+  lbIndex = (i + PHOTOS.length) % PHOTOS.length;
+  lbImg.src = PHOTOS[lbIndex];
+  lb.classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+function closeLb(){
+  lb.classList.remove('open');
+  document.body.style.overflow = '';
+}
+
+document.addEventListener('click', e => {
+  const holder = e.target.closest('#gallery [data-i], #photoGrid [data-i]');
+  if (holder) openLb(+holder.dataset.i);
+});
+document.getElementById('lbClose').addEventListener('click', closeLb);
+document.getElementById('lbPrev').addEventListener('click', e => { e.stopPropagation(); openLb(lbIndex - 1); });
+document.getElementById('lbNext').addEventListener('click', e => { e.stopPropagation(); openLb(lbIndex + 1); });
+lb.addEventListener('click', e => { if (e.target === lb) closeLb(); });
+document.addEventListener('keydown', e => {
+  if (!lb.classList.contains('open')) return;
+  if (e.key === 'Escape') closeLb();
+  if (e.key === 'ArrowLeft') openLb(lbIndex - 1);
+  if (e.key === 'ArrowRight') openLb(lbIndex + 1);
+});
+
+/* ---------- Pricing ---------- */
+const OLD_PRICE = Math.round(tour.price * 1.12 / 500) * 500;   // ~12% "was" price
+document.getElementById('sidePrice').textContent = '৳' + TRM.money(tour.price);
+document.getElementById('sideOld').textContent = '৳' + TRM.money(OLD_PRICE);
+document.getElementById('saveTag').textContent =
+  'Save ৳' + TRM.money(OLD_PRICE - tour.price);
+
+function updateTotal(){
+  const persons = +document.getElementById('bPersons').value;
+  document.getElementById('totalPrice').textContent = '৳' + TRM.money(tour.price * persons);
+}
+document.getElementById('bPersons').addEventListener('change', updateTotal);
+updateTotal();
+
+/* WhatsApp inquiry with the tour pre-filled */
+document.getElementById('waBook').href = TRM.waLink(
+  "Hi TRM Holidays! I'm interested in the \"" + tour.name + "\" package (" + tour.days + "D" + tour.nights + "N, ৳" + TRM.money(tour.price) + " per person). Please share the details."
+);
+
+/* ---------- Share / wishlist ---------- */
+document.getElementById('shareBtn').addEventListener('click', async () => {
+  const data = { title: tour.name, text: 'Check out this tour from TRM Holidays', url: location.href };
+  if (navigator.share){
+    try { await navigator.share(data); } catch (e) { /* user cancelled */ }
+  } else {
+    navigator.clipboard.writeText(location.href);
+    toast('Link copied to clipboard', 'ok');
+  }
+});
+
+document.getElementById('wishBtn').addEventListener('click', function(){
+  const on = this.classList.toggle('on');
+  this.querySelector('i').className = on ? 'fa-solid fa-heart' : 'fa-regular fa-heart';
+  toast(on ? 'Saved to your wishlist' : 'Removed from wishlist', on ? 'ok' : '');
+});
+
+/* ---------- Booking form ---------- */
+document.getElementById('bookForm').addEventListener('submit', async e => {
+  e.preventDefault();
+  const form = e.target;
+  if (!validateForm(form)){
+    toast('Please correct the highlighted fields.', 'err');
+    return;
+  }
+
+  const btn = document.getElementById('bookBtn');
+  const original = btn.innerHTML;
+  btn.disabled = true;
+  btn.innerHTML = '<span class="spin"></span> Sending…';
+
+  const payload = {
+    type: 'inquiry',
+    tour_name: tour.name,
+    tour_id: tour.id,
+    travel_date: document.getElementById('bDate').value,
+    persons: document.getElementById('bPersons').value,
+    name: document.getElementById('bName').value.trim(),
+    phone: document.getElementById('bPhone').value.trim(),
+    email: document.getElementById('bEmail').value.trim(),
+    message: 'Booking request from the tour detail page. Total: BDT ' +
+             (tour.price * +document.getElementById('bPersons').value)
+  };
+
+  try {
+    if (!TRM.isApiConfigured()) throw new Error('API_URL not configured');
+    const res = await TRM.apiPost(payload);
+    if (!res.success) throw new Error(res.error || 'failed');
+
+    form.style.display = 'none';
+    document.getElementById('bookSuccess').style.display = 'block';
+    document.getElementById('bookRef').textContent =
+      'Reference ' + res.id + ' — we\'ll call you within 2 hours to confirm.';
+  } catch (err) {
+    btn.disabled = false;
+    btn.innerHTML = original;
+    toast('Could not send right now. Please use WhatsApp or call us.', 'err');
+  }
+});
+
+/* ---------- Related tours ---------- */
+const related = TOURS.filter(t => t.id !== tour.id && t.category === tour.category).slice(0, 3);
+while (related.length < 3){
+  const filler = TOURS.find(t => t.id !== tour.id && !related.includes(t));
+  if (!filler) break;
+  related.push(filler);
+}
+document.getElementById('related').innerHTML = related.map(t => tourCard(t)).join('');
+</script>
+
+</body>
+</html>

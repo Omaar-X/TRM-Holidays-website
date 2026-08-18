@@ -1,0 +1,679 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
+<meta name="theme-color" content="#1A2B6B">
+<title>Admin Dashboard | TRM Holidays</title>
+
+<link rel="icon" href="assets/images/logo.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<link rel="stylesheet" href="assets/css/trm.css">
+
+<style>
+body{background:var(--off)}
+
+/* ---------- Login ---------- */
+.login-screen{
+  min-height:100vh;display:grid;place-items:center;padding:24px;
+  background:linear-gradient(135deg,var(--navy-dark),var(--navy) 55%,var(--royal));
+}
+.login-card{
+  background:#fff;border-radius:var(--radius-lg);box-shadow:0 24px 60px rgba(0,0,0,.3);
+  padding:38px 32px;width:100%;max-width:390px;text-align:center;
+}
+.login-card img{width:78px;height:78px;border-radius:50%;margin:0 auto 18px}
+.login-card h1{font-size:21px;margin-bottom:4px}
+.login-card > p{color:var(--gray);font-size:13.5px;margin-bottom:26px}
+.login-card .field{text-align:left}
+.pw-wrap{position:relative}
+.pw-wrap button{
+  position:absolute;right:12px;top:50%;transform:translateY(-50%);
+  color:var(--gray);font-size:14px;
+}
+.pw-wrap button:hover{color:var(--navy)}
+.login-note{
+  margin-top:20px;font-size:11.5px;color:var(--gray);line-height:1.6;
+  background:var(--off);border-radius:var(--radius-sm);padding:11px 13px;text-align:left;
+}
+.login-note i{color:var(--gold)}
+
+/* ---------- Dashboard shell ---------- */
+.dash{display:none}
+.dash.on{display:block}
+.dash-bar{
+  background:var(--navy);color:#fff;padding:14px 0;position:sticky;top:0;z-index:100;
+  box-shadow:0 3px 16px rgba(17,29,79,.28);
+}
+.dash-bar .wrap{display:flex;align-items:center;justify-content:space-between;gap:16px}
+.dash-brand{display:flex;align-items:center;gap:12px}
+.dash-brand img{width:40px;height:40px;border-radius:50%;background:#fff}
+.dash-brand b{display:block;font-family:var(--font-head);font-size:16px;line-height:1.2}
+.dash-brand small{font-size:11px;color:var(--sky-light);letter-spacing:1px;text-transform:uppercase}
+
+/* ---------- Stat strip ---------- */
+.stat-strip{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;padding:26px 0 6px}
+.stat-card{
+  background:#fff;border:1px solid #E4EBF6;border-radius:var(--radius);
+  padding:18px;display:flex;align-items:center;gap:14px;
+}
+.stat-card .ico{
+  width:44px;height:44px;flex:0 0 44px;border-radius:12px;display:grid;place-items:center;
+  font-size:17px;color:#fff;
+}
+.stat-card b{display:block;font-family:var(--font-head);font-size:23px;font-weight:800;color:var(--navy);line-height:1.1}
+.stat-card small{font-size:12.5px;color:var(--gray)}
+.bg-navy{background:linear-gradient(135deg,var(--navy),var(--royal))}
+.bg-gold{background:linear-gradient(135deg,var(--gold),var(--gold-dark))}
+.bg-green{background:linear-gradient(135deg,#2BA84A,#1e7d37)}
+.bg-sky{background:linear-gradient(135deg,var(--sky),var(--sky-light))}
+
+/* ---------- Tabs ---------- */
+.dash-tabs{display:flex;gap:6px;margin:26px 0 18px;flex-wrap:wrap}
+.dash-tab{
+  padding:11px 22px;border-radius:var(--radius-sm);font-family:var(--font-head);
+  font-size:14px;font-weight:600;color:var(--gray);background:#fff;
+  border:1px solid #E4EBF6;transition:all .2s var(--ease);
+  display:flex;align-items:center;gap:9px;
+}
+.dash-tab:hover{color:var(--navy);border-color:var(--sky)}
+.dash-tab.active{background:var(--navy);color:#fff;border-color:var(--navy)}
+.dash-tab .pillcount{
+  background:rgba(255,255,255,.22);border-radius:20px;padding:1px 8px;font-size:11.5px;
+}
+.dash-tab:not(.active) .pillcount{background:var(--off);color:var(--navy)}
+.dpane{display:none}
+.dpane.active{display:block}
+
+/* ---------- Panel ---------- */
+.panel{background:#fff;border:1px solid #E4EBF6;border-radius:var(--radius);overflow:hidden;margin-bottom:60px}
+.panel-head{
+  padding:16px 20px;border-bottom:1px solid #EDF2FA;display:flex;
+  flex-wrap:wrap;gap:12px;align-items:center;justify-content:space-between;
+}
+.panel-head h3{font-size:16px}
+.panel-tools{display:flex;gap:10px;flex-wrap:wrap}
+.search-inp{position:relative}
+.search-inp i{position:absolute;left:13px;top:50%;transform:translateY(-50%);color:var(--gray);font-size:13px}
+.search-inp input{
+  padding:9px 14px 9px 34px;border:1.5px solid #DCE5F3;border-radius:var(--radius-sm);
+  font-size:13.5px;min-width:230px;
+}
+.search-inp input:focus{outline:none;border-color:var(--sky)}
+
+/* ---------- Table ---------- */
+.tbl-scroll{overflow-x:auto}
+table{width:100%;border-collapse:collapse;font-size:13.5px;min-width:860px}
+thead th{
+  text-align:left;padding:13px 16px;background:var(--off);
+  font-family:var(--font-head);font-size:12px;font-weight:700;color:var(--navy);
+  letter-spacing:.4px;text-transform:uppercase;white-space:nowrap;
+  border-bottom:1px solid #E4EBF6;
+}
+tbody td{padding:13px 16px;border-bottom:1px solid #F0F4FA;vertical-align:middle}
+tbody tr:nth-child(even){background:#FBFCFE}
+tbody tr:hover{background:#F4F8FD}
+tbody tr:last-child td{border-bottom:none}
+td .id{font-family:ui-monospace,monospace;font-size:12px;color:var(--sky);font-weight:600}
+td b{font-family:var(--font-head);color:var(--navy);font-weight:600}
+td .sub{display:block;font-size:12px;color:var(--gray)}
+
+.status-sel{
+  padding:6px 10px;border-radius:20px;border:1.5px solid #DCE5F3;
+  font-size:12px;font-weight:600;font-family:var(--font-head);cursor:pointer;background:#fff;
+}
+.status-sel:focus{outline:none;border-color:var(--sky)}
+.st-pending{color:var(--gold-dark);border-color:#F6DCAE;background:#FFF9EF}
+.st-contacted{color:var(--sky);border-color:#C8DFF6;background:#F1F7FD}
+.st-confirmed{color:var(--ok);border-color:#B6E3C2;background:#F1FAF3}
+.st-closed{color:var(--gray);border-color:#DFE6F0;background:#F7F9FC}
+
+.row-btns{display:flex;gap:7px}
+.mini{
+  width:32px;height:32px;border-radius:9px;display:grid;place-items:center;
+  font-size:13px;color:#fff;transition:transform .2s var(--ease);
+}
+.mini:hover{transform:translateY(-2px)}
+.m-call{background:var(--navy)}
+.m-wa{background:var(--green)}
+.m-mail{background:var(--sky)}
+.m-del{background:var(--red)}
+
+.badge-tag{
+  display:inline-block;padding:3px 10px;border-radius:20px;font-size:11px;
+  font-weight:700;font-family:var(--font-head);text-transform:uppercase;letter-spacing:.4px;
+}
+.tag-inquiry{background:#EAF1FD;color:var(--royal)}
+.tag-contact{background:#FFF4E3;color:var(--gold-dark)}
+.tag-active{background:#EBF9EF;color:var(--ok)}
+.tag-off{background:#F2F4F8;color:var(--gray)}
+
+.loading{padding:56px 20px;text-align:center;color:var(--gray)}
+.loading .spin{
+  width:30px;height:30px;border-width:3px;border-color:#DCE5F3;
+  border-top-color:var(--navy);margin:0 auto 14px;display:block;
+}
+
+/* ---------- Modal ---------- */
+.modal{
+  position:fixed;inset:0;z-index:3000;background:rgba(10,18,45,.6);
+  display:none;align-items:center;justify-content:center;padding:24px;
+}
+.modal.open{display:flex}
+.modal-card{
+  background:#fff;border-radius:var(--radius-lg);width:100%;max-width:520px;
+  max-height:88vh;overflow-y:auto;box-shadow:var(--shadow-lg);
+}
+.modal-head{
+  padding:18px 22px;border-bottom:1px solid #EDF2FA;
+  display:flex;align-items:center;justify-content:space-between;
+}
+.modal-head h3{font-size:17px}
+.modal-head button{color:var(--gray);font-size:19px}
+.modal-head button:hover{color:var(--red)}
+.modal-body{padding:22px}
+.msg-meta{background:var(--off);border-radius:var(--radius-sm);padding:14px;margin-bottom:16px;font-size:13.5px}
+.msg-meta div{display:flex;justify-content:space-between;gap:14px;padding:4px 0}
+.msg-meta span:first-child{color:var(--gray)}
+.msg-meta span:last-child{font-weight:600;color:var(--navy);text-align:right}
+.msg-body{font-size:14.5px;color:#42506E;line-height:1.75;white-space:pre-wrap}
+
+/* ---------- Banner for demo mode ---------- */
+.demo-banner{
+  background:#FFF6E5;border:1px solid #F6DCAE;border-radius:var(--radius-sm);
+  padding:12px 16px;margin-top:20px;font-size:13px;color:#8A6A20;
+  display:flex;gap:11px;align-items:flex-start;
+}
+.demo-banner i{color:var(--gold-dark);margin-top:2px}
+
+@media(max-width:900px){.stat-strip{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:560px){
+  .stat-strip{grid-template-columns:1fr}
+  .panel-head{flex-direction:column;align-items:stretch}
+  .search-inp input{width:100%;min-width:0}
+  .dash-brand small{display:none}
+}
+</style>
+</head>
+
+<body>
+
+<!-- ══════════════ LOGIN ══════════════ -->
+<div class="login-screen" id="loginScreen">
+  <div class="login-card">
+    <img src="assets/images/logo.png" alt="TRM Holidays">
+    <h1>Admin Dashboard</h1>
+    <p>TRM Holidays — staff access only</p>
+
+    <form id="loginForm">
+      <div class="field">
+        <label for="pw">Password</label>
+        <div class="pw-wrap">
+          <input type="password" id="pw" placeholder="Enter admin password" autocomplete="current-password">
+          <button type="button" id="pwToggle" aria-label="Show password"><i class="fa-regular fa-eye"></i></button>
+        </div>
+        <small class="err-msg" id="pwErr">Incorrect password. Please try again.</small>
+      </div>
+      <button type="submit" class="btn btn-gold btn-block"><i class="fa-solid fa-right-to-bracket"></i> Login</button>
+    </form>
+
+    <div class="login-note">
+      <i class="fa-solid fa-triangle-exclamation"></i>
+      <b>Note:</b> this gate only hides the screen — anyone who views the page source can read the
+      password. Keep this URL private, and put the real permission check inside your Apps Script
+      (see <code>ADMIN_TOKEN</code> in Code.gs).
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════ DASHBOARD ══════════════ -->
+<div class="dash" id="dash">
+
+  <div class="dash-bar">
+    <div class="wrap">
+      <div class="dash-brand">
+        <img src="assets/images/logo.png" alt="TRM Holidays">
+        <div><b>TRM Holidays</b><small>Admin Panel</small></div>
+      </div>
+      <div style="display:flex;gap:10px">
+        <button class="btn btn-outline btn-sm" onclick="loadAll()"><i class="fa-solid fa-rotate"></i> Refresh</button>
+        <button class="btn btn-gold btn-sm" id="logoutBtn"><i class="fa-solid fa-right-from-bracket"></i> Logout</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="wrap">
+
+    <!-- Stats -->
+    <div class="stat-strip">
+      <div class="stat-card"><div class="ico bg-navy"><i class="fa-solid fa-inbox"></i></div>
+        <div><b id="sTotal">0</b><small>Total inquiries</small></div></div>
+      <div class="stat-card"><div class="ico bg-gold"><i class="fa-solid fa-hourglass-half"></i></div>
+        <div><b id="sPending">0</b><small>Pending follow-up</small></div></div>
+      <div class="stat-card"><div class="ico bg-green"><i class="fa-solid fa-circle-check"></i></div>
+        <div><b id="sConfirmed">0</b><small>Confirmed bookings</small></div></div>
+      <div class="stat-card"><div class="ico bg-sky"><i class="fa-solid fa-envelope"></i></div>
+        <div><b id="sMessages">0</b><small>Contact messages</small></div></div>
+    </div>
+
+    <div class="demo-banner" id="demoBanner" style="display:none">
+      <i class="fa-solid fa-circle-info"></i>
+      <div><b>Demo data.</b> <code>API_URL</code> hasn't been set in <code>assets/js/trm.js</code> yet,
+      so these rows are samples. Deploy your Apps Script Web App and paste the URL there to see real submissions.</div>
+    </div>
+
+    <!-- Tabs -->
+    <div class="dash-tabs">
+      <button class="dash-tab active" data-pane="inquiries"><i class="fa-solid fa-suitcase-rolling"></i> Inquiries <span class="pillcount" id="tabInq">0</span></button>
+      <button class="dash-tab" data-pane="messages"><i class="fa-solid fa-envelope"></i> Messages <span class="pillcount" id="tabMsg">0</span></button>
+      <button class="dash-tab" data-pane="packages"><i class="fa-solid fa-map"></i> Tour Packages <span class="pillcount" id="tabPkg">0</span></button>
+    </div>
+
+    <!-- ─────── INQUIRIES ─────── -->
+    <div class="dpane active" id="pane-inquiries">
+      <div class="panel">
+        <div class="panel-head">
+          <h3>Tour Inquiries</h3>
+          <div class="panel-tools">
+            <div class="search-inp"><i class="fa-solid fa-magnifying-glass"></i>
+              <input type="text" id="inqSearch" placeholder="Search name, phone or tour…"></div>
+          </div>
+        </div>
+        <div class="tbl-scroll">
+          <table>
+            <thead><tr>
+              <th>ID</th><th>Date</th><th>Type</th><th>Customer</th>
+              <th>Phone</th><th>Tour</th><th>Status</th><th>Action</th>
+            </tr></thead>
+            <tbody id="inqBody"></tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- ─────── MESSAGES ─────── -->
+    <div class="dpane" id="pane-messages">
+      <div class="panel">
+        <div class="panel-head">
+          <h3>Contact Messages</h3>
+          <div class="panel-tools">
+            <div class="search-inp"><i class="fa-solid fa-magnifying-glass"></i>
+              <input type="text" id="msgSearch" placeholder="Search name, email or subject…"></div>
+          </div>
+        </div>
+        <div class="tbl-scroll">
+          <table>
+            <thead><tr>
+              <th>ID</th><th>Date</th><th>Name</th><th>Email</th>
+              <th>Subject</th><th>Status</th><th>Action</th>
+            </tr></thead>
+            <tbody id="msgBody"></tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- ─────── PACKAGES ─────── -->
+    <div class="dpane" id="pane-packages">
+      <div class="panel">
+        <div class="panel-head">
+          <h3>Tour Packages</h3>
+          <div class="panel-tools">
+            <div class="search-inp"><i class="fa-solid fa-magnifying-glass"></i>
+              <input type="text" id="pkgSearch" placeholder="Search package…"></div>
+            <button class="btn btn-navy btn-sm" onclick="alert('Add new packages in the Tour_Packages sheet, then press Refresh.')">
+              <i class="fa-solid fa-plus"></i> Add New</button>
+          </div>
+        </div>
+        <div class="tbl-scroll">
+          <table>
+            <thead><tr>
+              <th>ID</th><th>Package Name</th><th>Category</th>
+              <th>Duration</th><th>Price</th><th>Status</th><th>Action</th>
+            </tr></thead>
+            <tbody id="pkgBody"></tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ══════════════ MESSAGE MODAL ══════════════ -->
+<div class="modal" id="msgModal">
+  <div class="modal-card">
+    <div class="modal-head">
+      <h3 id="modalTitle">Message</h3>
+      <button onclick="closeModal()" aria-label="Close"><i class="fa-solid fa-xmark"></i></button>
+    </div>
+    <div class="modal-body">
+      <div class="msg-meta" id="modalMeta"></div>
+      <p class="msg-body" id="modalBody"></p>
+      <div style="display:flex;gap:10px;margin-top:20px" id="modalActions"></div>
+    </div>
+  </div>
+</div>
+
+<script src="assets/js/trm.js"></script>
+<script src="assets/js/tours-data.js"></script>
+
+<script>
+/* ══════════════════════════════════════════════════════════
+   LOGIN
+   NOTE: this is a convenience gate, not real security. The
+   password sits in the page source. Real protection belongs
+   in Code.gs (ADMIN_TOKEN) — see the note on the login card.
+   ══════════════════════════════════════════════════════════ */
+const ADMIN_PASSWORD = 'TRM@admin2025';
+const SESSION_KEY = 'trm_admin_ok';
+
+function showDashboard(){
+  document.getElementById('loginScreen').style.display = 'none';
+  document.getElementById('dash').classList.add('on');
+  loadAll();
+}
+
+document.getElementById('loginForm').addEventListener('submit', e => {
+  e.preventDefault();
+  const input = document.getElementById('pw');
+  const field = input.closest('.field');
+
+  if (input.value === ADMIN_PASSWORD){
+    sessionStorage.setItem(SESSION_KEY, '1');
+    field.classList.remove('err');
+    showDashboard();
+  } else {
+    field.classList.add('err');
+    input.value = '';
+    input.focus();
+  }
+});
+
+document.getElementById('pwToggle').addEventListener('click', function(){
+  const input = document.getElementById('pw');
+  const show = input.type === 'password';
+  input.type = show ? 'text' : 'password';
+  this.querySelector('i').className = show ? 'fa-regular fa-eye-slash' : 'fa-regular fa-eye';
+});
+
+document.getElementById('logoutBtn').addEventListener('click', () => {
+  sessionStorage.removeItem(SESSION_KEY);
+  location.reload();
+});
+
+if (sessionStorage.getItem(SESSION_KEY) === '1') showDashboard();
+
+/* ══════════════ TABS ══════════════ */
+document.querySelectorAll('.dash-tab').forEach(tab => {
+  tab.addEventListener('click', () => {
+    document.querySelectorAll('.dash-tab').forEach(t => t.classList.remove('active'));
+    document.querySelectorAll('.dpane').forEach(p => p.classList.remove('active'));
+    tab.classList.add('active');
+    document.getElementById('pane-' + tab.dataset.pane).classList.add('active');
+  });
+});
+
+/* ══════════════ DATA ══════════════ */
+let INQUIRIES = [];
+let MESSAGES  = [];
+let PACKAGES  = [];
+
+/* Sample rows so the dashboard is usable before the backend is wired up */
+const DEMO_INQUIRIES = [
+  { id:'INQ-480213', date:'2026-08-16 10:24', type:'inquiry', name:'Rafiqul Islam',  phone:'01712345678', email:'rafiq@example.com',  tour:"Cox's Bazar Beachside Escape", persons:4, travel_date:'2026-09-12', status:'Pending',   message:'Need 2 rooms, travelling with two children aged 8 and 11. Is airport pickup included?' },
+  { id:'INQ-480198', date:'2026-08-16 09:02', type:'inquiry', name:'Tasnim Akter',   phone:'01898765432', email:'tasnim@example.com', tour:'Maldives Honeymoon Paradise',  persons:2, travel_date:'2026-10-04', status:'Contacted', message:'Honeymoon trip. Want a water villa with a private pool if possible. What is the total for 6 days?' },
+  { id:'INQ-480176', date:'2026-08-15 17:41', type:'inquiry', name:'Mehedi Hasan',   phone:'01911223344', email:'mehedi@example.com', tour:'Dubai Luxury Explorer',        persons:3, travel_date:'2026-11-20', status:'Confirmed', message:'Confirmed for 3 people. Please send the visa document checklist.' },
+  { id:'INQ-480155', date:'2026-08-15 14:18', type:'inquiry', name:'Nasrin Khatun',  phone:'01677889900', email:'nasrin@example.com', tour:'Sajek Valley Adventure Trek',  persons:6, travel_date:'2026-09-28', status:'Pending',   message:'Family group of 6. Are the jeeps safe for elderly passengers?' },
+  { id:'INQ-480132', date:'2026-08-14 11:55', type:'inquiry', name:'Sabbir Ahmed',   phone:'01555667788', email:'sabbir@example.com', tour:'Turkey Istanbul & Cappadocia', persons:2, travel_date:'2026-12-05', status:'Closed',    message:'Postponed to next year, will contact again in January.' }
+];
+
+const DEMO_MESSAGES = [
+  { id:'MSG-771204', date:'2026-08-16 11:10', name:'Farida Mumu',   email:'farida@example.com',  phone:'01733445566', subject:'Group / Corporate Tour',  status:'New',     message:'We are 22 colleagues planning a two-day corporate retreat in December. Can you send a quote for Sylhet and Sreemangal?' },
+  { id:'MSG-771188', date:'2026-08-15 19:33', name:'Kamrul Hasan',  email:'kamrul@example.com',  phone:'01844556677', subject:'Visa Assistance',        status:'Replied', message:'Do you handle Thailand tourist visa processing separately, without booking a package?' },
+  { id:'MSG-771169', date:'2026-08-15 08:47', name:'Sadia Rahman',  email:'sadia@example.com',   phone:'01966778899', subject:'Complaint or Feedback',  status:'New',     message:'Just returned from the Bandarban trip. The guide was excellent but the return bus was two hours late. Wanted to let you know.' }
+];
+
+/* ---------- Loading ---------- */
+function showLoading(tbodyId, cols){
+  document.getElementById(tbodyId).innerHTML =
+    '<tr><td colspan="' + cols + '"><div class="loading"><span class="spin"></span>Loading…</div></td></tr>';
+}
+
+function showEmpty(tbodyId, cols, msg){
+  document.getElementById(tbodyId).innerHTML =
+    '<tr><td colspan="' + cols + '"><div class="loading">' +
+      '<div style="font-size:34px;opacity:.4;margin-bottom:10px"><i class="fa-regular fa-folder-open"></i></div>' +
+      (msg || 'No data found') +
+    '</div></td></tr>';
+}
+
+async function loadAll(){
+  showLoading('inqBody', 8);
+  showLoading('msgBody', 7);
+  showLoading('pkgBody', 7);
+
+  if (!TRM.isApiConfigured()){
+    document.getElementById('demoBanner').style.display = 'flex';
+    INQUIRIES = DEMO_INQUIRIES.slice();
+    MESSAGES  = DEMO_MESSAGES.slice();
+    PACKAGES  = TOURS.map(t => ({
+      id: t.id, name: t.name, category: t.category,
+      duration: t.days + 'D' + t.nights + 'N', price: t.price, status: 'Active'
+    }));
+    renderAll();
+    return;
+  }
+
+  document.getElementById('demoBanner').style.display = 'none';
+
+  try {
+    const [inq, msg, pkg] = await Promise.all([
+      TRM.apiGet('admin_inquiries', { token: TRM.ADMIN_TOKEN }),
+      TRM.apiGet('admin_contacts', { token: TRM.ADMIN_TOKEN }),
+      TRM.apiGet('get_tours')
+    ]);
+    INQUIRIES = (inq.success && inq.data) ? inq.data : [];
+    MESSAGES  = (msg.success && msg.data) ? msg.data : [];
+    PACKAGES  = (pkg.success && pkg.data) ? pkg.data : [];
+    renderAll();
+  } catch (err) {
+    showEmpty('inqBody', 8, 'Could not reach the API. Check your API_URL and deployment.');
+    showEmpty('msgBody', 7, 'Could not reach the API.');
+    showEmpty('pkgBody', 7, 'Could not reach the API.');
+    toast('Failed to load data from Apps Script.', 'err');
+  }
+}
+
+function renderAll(){
+  renderInquiries();
+  renderMessages();
+  renderPackages();
+  renderStats();
+}
+
+function renderStats(){
+  document.getElementById('sTotal').textContent = INQUIRIES.length;
+  document.getElementById('sPending').textContent = INQUIRIES.filter(i => i.status === 'Pending').length;
+  document.getElementById('sConfirmed').textContent = INQUIRIES.filter(i => i.status === 'Confirmed').length;
+  document.getElementById('sMessages').textContent = MESSAGES.length;
+
+  document.getElementById('tabInq').textContent = INQUIRIES.length;
+  document.getElementById('tabMsg').textContent = MESSAGES.length;
+  document.getElementById('tabPkg').textContent = PACKAGES.length;
+}
+
+/* ---------- Inquiries ---------- */
+function renderInquiries(){
+  const q = document.getElementById('inqSearch').value.toLowerCase();
+  const list = INQUIRIES.filter(i =>
+    !q || (i.name + ' ' + i.phone + ' ' + (i.tour || '')).toLowerCase().includes(q)
+  );
+
+  if (!list.length){ showEmpty('inqBody', 8); return; }
+
+  document.getElementById('inqBody').innerHTML = list.map(i =>
+    '<tr>' +
+      '<td><span class="id">' + i.id + '</span></td>' +
+      '<td>' + i.date + '</td>' +
+      '<td><span class="badge-tag tag-inquiry">Inquiry</span></td>' +
+      '<td><b>' + i.name + '</b><span class="sub">' + (i.persons || 1) + ' person(s) · ' + (i.travel_date || '—') + '</span></td>' +
+      '<td>' + i.phone + '</td>' +
+      '<td>' + (i.tour || '—') + '</td>' +
+      '<td>' +
+        '<select class="status-sel st-' + (i.status || 'Pending').toLowerCase() + '" onchange="setStatus(\'' + i.id + '\',this)">' +
+          ['Pending','Contacted','Confirmed','Closed'].map(s =>
+            '<option' + (i.status === s ? ' selected' : '') + '>' + s + '</option>').join('') +
+        '</select>' +
+      '</td>' +
+      '<td><div class="row-btns">' +
+        '<a class="mini m-call" href="tel:' + i.phone + '" title="Call"><i class="fa-solid fa-phone"></i></a>' +
+        '<a class="mini m-wa" target="_blank" rel="noopener" title="WhatsApp" href="https://wa.me/88' + i.phone +
+          '?text=' + encodeURIComponent('Hello ' + i.name + ', this is TRM Holidays regarding your inquiry ' + i.id + '.') +
+          '"><i class="fa-brands fa-whatsapp"></i></a>' +
+        '<button class="mini m-mail" title="View details" onclick="viewInquiry(\'' + i.id + '\')"><i class="fa-solid fa-eye"></i></button>' +
+      '</div></td>' +
+    '</tr>'
+  ).join('');
+}
+
+function setStatus(id, sel){
+  const item = INQUIRIES.find(i => i.id === id);
+  if (item) item.status = sel.value;
+  sel.className = 'status-sel st-' + sel.value.toLowerCase();
+  renderStats();
+
+  if (TRM.isApiConfigured()){
+    TRM.apiPost({ type: 'update_status', id: id, status: sel.value })
+      .then(() => toast('Status updated', 'ok'))
+      .catch(() => toast('Could not save status to the sheet.', 'err'));
+  } else {
+    toast('Demo mode — status not saved.', '');
+  }
+}
+
+function viewInquiry(id){
+  const i = INQUIRIES.find(x => x.id === id);
+  if (!i) return;
+  openModal('Inquiry ' + i.id, {
+    'Customer': i.name, 'Phone': i.phone, 'Email': i.email || '—',
+    'Tour': i.tour || '—', 'Travel date': i.travel_date || '—',
+    'Persons': i.persons || 1, 'Status': i.status
+  }, i.message || 'No message provided.', i.phone, i.email);
+}
+
+/* ---------- Messages ---------- */
+function renderMessages(){
+  const q = document.getElementById('msgSearch').value.toLowerCase();
+  const list = MESSAGES.filter(m =>
+    !q || (m.name + ' ' + m.email + ' ' + m.subject).toLowerCase().includes(q)
+  );
+
+  if (!list.length){ showEmpty('msgBody', 7); return; }
+
+  document.getElementById('msgBody').innerHTML = list.map(m =>
+    '<tr>' +
+      '<td><span class="id">' + m.id + '</span></td>' +
+      '<td>' + m.date + '</td>' +
+      '<td><b>' + m.name + '</b><span class="sub">' + (m.phone || '') + '</span></td>' +
+      '<td>' + m.email + '</td>' +
+      '<td><span class="badge-tag tag-contact">' + m.subject + '</span></td>' +
+      '<td>' + (m.status === 'Replied'
+        ? '<span class="badge-tag tag-active">Replied</span>'
+        : '<span class="badge-tag tag-off">New</span>') + '</td>' +
+      '<td><div class="row-btns">' +
+        '<button class="mini m-mail" title="Read message" onclick="viewMessage(\'' + m.id + '\')"><i class="fa-solid fa-eye"></i></button>' +
+        '<button class="mini m-call" title="Mark replied" onclick="markReplied(\'' + m.id + '\')"><i class="fa-solid fa-check"></i></button>' +
+      '</div></td>' +
+    '</tr>'
+  ).join('');
+}
+
+function viewMessage(id){
+  const m = MESSAGES.find(x => x.id === id);
+  if (!m) return;
+  openModal('Message ' + m.id, {
+    'From': m.name, 'Email': m.email, 'Phone': m.phone || '—',
+    'Subject': m.subject, 'Received': m.date, 'Status': m.status
+  }, m.message, m.phone, m.email);
+}
+
+function markReplied(id){
+  const m = MESSAGES.find(x => x.id === id);
+  if (!m) return;
+  m.status = 'Replied';
+  renderMessages();
+
+  if (TRM.isApiConfigured()){
+    TRM.apiPost({ type: 'update_status', id: id, status: 'Replied' })
+      .then(() => toast('Marked as replied', 'ok'))
+      .catch(() => toast('Could not save to the sheet.', 'err'));
+  } else {
+    toast('Demo mode — not saved.', '');
+  }
+}
+
+/* ---------- Packages ---------- */
+function renderPackages(){
+  const q = document.getElementById('pkgSearch').value.toLowerCase();
+  const list = PACKAGES.filter(p => !q || (p.name + ' ' + p.category).toLowerCase().includes(q));
+
+  if (!list.length){ showEmpty('pkgBody', 7); return; }
+
+  document.getElementById('pkgBody').innerHTML = list.map(p =>
+    '<tr>' +
+      '<td><span class="id">' + p.id + '</span></td>' +
+      '<td><b>' + p.name + '</b></td>' +
+      '<td style="text-transform:capitalize">' + p.category + '</td>' +
+      '<td>' + (p.duration || (p.days + 'D' + p.nights + 'N')) + '</td>' +
+      '<td><b>৳' + TRM.money(p.price) + '</b></td>' +
+      '<td><span class="badge-tag ' + (p.status === 'Active' ? 'tag-active' : 'tag-off') + '">' +
+        (p.status || 'Active') + '</span></td>' +
+      '<td><div class="row-btns">' +
+        '<a class="mini m-mail" href="tour-detail.html?id=' + p.id + '" target="_blank" title="View on site"><i class="fa-solid fa-arrow-up-right-from-square"></i></a>' +
+        '<button class="mini m-call" title="Edit" onclick="alert(\'Edit this package in the Tour_Packages sheet, then press Refresh.\')"><i class="fa-solid fa-pen"></i></button>' +
+      '</div></td>' +
+    '</tr>'
+  ).join('');
+}
+
+/* ---------- Modal ---------- */
+function openModal(title, meta, body, phone, email){
+  document.getElementById('modalTitle').textContent = title;
+  document.getElementById('modalMeta').innerHTML =
+    Object.entries(meta).map(([k,v]) =>
+      '<div><span>' + k + '</span><span>' + v + '</span></div>').join('');
+  document.getElementById('modalBody').textContent = body;
+
+  let actions = '';
+  if (phone){
+    actions += '<a class="btn btn-navy btn-sm" href="tel:' + phone + '"><i class="fa-solid fa-phone"></i> Call</a>';
+    actions += '<a class="btn btn-wa btn-sm" target="_blank" rel="noopener" href="https://wa.me/88' + phone +
+               '"><i class="fa-brands fa-whatsapp"></i> WhatsApp</a>';
+  }
+  if (email){
+    actions += '<a class="btn btn-outline-navy btn-sm" href="mailto:' + email + '"><i class="fa-solid fa-envelope"></i> Email</a>';
+  }
+  document.getElementById('modalActions').innerHTML = actions;
+  document.getElementById('msgModal').classList.add('open');
+}
+
+function closeModal(){ document.getElementById('msgModal').classList.remove('open'); }
+
+document.getElementById('msgModal').addEventListener('click', e => {
+  if (e.target.id === 'msgModal') closeModal();
+});
+document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
+
+/* ---------- Search ---------- */
+document.getElementById('inqSearch').addEventListener('input', renderInquiries);
+document.getElementById('msgSearch').addEventListener('input', renderMessages);
+document.getElementById('pkgSearch').addEventListener('input', renderPackages);
+</script>
+
+</body>
+</html>

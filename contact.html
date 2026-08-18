@@ -1,0 +1,408 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Contact TRM Holidays — call, WhatsApp or send us a message. We reply within 2 hours.">
+<meta name="theme-color" content="#1A2B6B">
+<title>Contact Us | TRM Holidays</title>
+
+<link rel="icon" href="assets/images/logo.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<link rel="stylesheet" href="assets/css/trm.css">
+
+<style>
+.contact-grid{display:grid;grid-template-columns:1.5fr 1fr;gap:34px;align-items:start}
+
+.form-card{
+  background:#fff;border:1px solid #E4EBF6;border-radius:var(--radius-lg);
+  padding:30px;box-shadow:var(--shadow-sm);
+}
+.form-card h2{font-size:24px;margin-bottom:6px}
+.form-card > p{color:var(--gray);font-size:14.5px;margin-bottom:24px}
+.two-col{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+
+.form-success{display:none;text-align:center;padding:34px 10px}
+.form-success .ico{font-size:60px;color:var(--ok);margin-bottom:16px}
+.form-success h3{font-size:22px;margin-bottom:10px}
+.form-success p{color:var(--gray);margin-bottom:24px;max-width:400px;margin-inline:auto}
+.form-success .btn{max-width:280px;margin-inline:auto}
+
+/* ---------- Info cards ---------- */
+.info-card{
+  display:flex;gap:16px;background:#fff;border:1px solid #E4EBF6;
+  border-radius:var(--radius);padding:20px;margin-bottom:14px;
+  transition:all .25s var(--ease);
+}
+.info-card:hover{box-shadow:var(--shadow);border-color:#D3E0F2;transform:translateY(-3px)}
+.info-card .ico{
+  width:46px;height:46px;flex:0 0 46px;border-radius:13px;
+  background:linear-gradient(135deg,var(--sky),var(--royal));
+  display:grid;place-items:center;color:#fff;font-size:18px;
+}
+.info-card b{display:block;font-family:var(--font-head);font-size:14.5px;color:var(--navy);margin-bottom:4px}
+.info-card p,.info-card a{font-size:13.5px;color:#42506E;line-height:1.6;word-break:break-word}
+.info-card a:hover{color:var(--sky)}
+
+.map-box{
+  height:250px;border-radius:var(--radius);overflow:hidden;
+  border:1px dashed #C9D8EE;background:var(--off);
+  display:grid;place-items:center;text-align:center;color:var(--gray);padding:20px;margin-top:6px;
+}
+.map-box i{font-size:34px;color:var(--sky);margin-bottom:10px;display:block}
+.map-box code{
+  display:block;margin-top:8px;font-size:11px;background:#fff;
+  border:1px solid #E4EBF6;border-radius:6px;padding:5px 9px;color:var(--navy);
+}
+
+/* ---------- Social row ---------- */
+.social-row{display:grid;grid-template-columns:repeat(5,1fr);gap:14px;margin-top:16px}
+.social-btn{
+  display:flex;flex-direction:column;align-items:center;justify-content:center;gap:9px;
+  padding:22px 10px;border-radius:var(--radius);color:#fff;font-family:var(--font-head);
+  font-size:13px;font-weight:600;transition:transform .25s var(--ease),box-shadow .25s var(--ease);
+}
+.social-btn:hover{transform:translateY(-5px);box-shadow:var(--shadow)}
+.social-btn i{font-size:24px}
+.sb-fb{background:#1877F2}
+.sb-ig{background:linear-gradient(45deg,#F58529,#DD2A7B,#8134AF)}
+.sb-yt{background:#FF0000}
+.sb-tt{background:#010101}
+.sb-wa{background:#25D366}
+
+@media(max-width:900px){
+  .contact-grid{grid-template-columns:1fr}
+  .social-row{grid-template-columns:repeat(3,1fr)}
+}
+@media(max-width:560px){
+  .two-col{grid-template-columns:1fr}
+  .social-row{grid-template-columns:repeat(2,1fr)}
+  .form-card{padding:22px}
+}
+</style>
+</head>
+
+<body>
+
+<!-- ══════════════ NAVBAR ══════════════ -->
+<header class="nav solid">
+  <div class="wrap">
+    <a href="index.html" class="brand">
+      <img src="assets/images/logo.png" alt="TRM Holidays" class="brand-logo">
+      <span class="brand-text"><b>TRM Holidays</b><span>Your Memory Maker</span></span>
+    </a>
+    <nav class="nav-links">
+      <a href="index.html">Home</a>
+      <a href="flights.html">Flights</a>
+      <a href="hotels.html">Hotels</a>
+      <a href="tours.html">Tour Packages</a>
+      <a href="index.html#why">About</a>
+      <a href="contact.html" class="active">Contact</a>
+    </nav>
+    <div class="nav-actions">
+      <a href="#" data-trm="tel" class="btn btn-outline"><i class="fa-solid fa-phone"></i> Call</a>
+      <a href="#" data-trm="wa" class="btn btn-gold" target="_blank" rel="noopener">WhatsApp</a>
+    </div>
+    <button class="burger" id="burger" aria-label="Open menu" aria-expanded="false"><i class="fa-solid fa-bars"></i></button>
+  </div>
+</header>
+
+<div class="mobile-menu" id="mobileMenu">
+  <a href="index.html">Home</a>
+  <a href="flights.html">Flights</a>
+  <a href="hotels.html">Hotels</a>
+  <a href="tours.html">Tour Packages</a>
+  <a href="index.html#why">About</a>
+  <a href="contact.html" class="active">Contact</a>
+  <a href="#" data-trm="wa" class="btn btn-gold" target="_blank" rel="noopener">WhatsApp</a>
+</div>
+
+<!-- ══════════════ BANNER ══════════════ -->
+<section class="page-banner">
+  <div class="wrap">
+    <h1>Get In Touch</h1>
+    <div class="crumb"><a href="index.html">Home</a><i class="fa-solid fa-chevron-right"></i><span>Contact</span></div>
+  </div>
+</section>
+
+<!-- ══════════════ CONTACT ══════════════ -->
+<section class="section">
+  <div class="wrap">
+    <div class="contact-grid">
+
+      <!-- ─────── FORM ─────── -->
+      <div class="form-card">
+        <form id="contactForm" novalidate>
+          <h2>Send Us a Message</h2>
+          <p>Tell us where you want to go and we'll put together a plan. We reply within 2 hours during office hours.</p>
+
+          <div class="two-col">
+            <div class="field">
+              <label for="cName">Full Name <span class="req">*</span></label>
+              <input type="text" id="cName" data-rule="name" placeholder="Your full name" required>
+            </div>
+            <div class="field">
+              <label for="cPhone">Phone <span class="req">*</span></label>
+              <input type="tel" id="cPhone" data-rule="phone" placeholder="01XXXXXXXXX" required>
+            </div>
+          </div>
+
+          <div class="two-col">
+            <div class="field">
+              <label for="cEmail">Email <span class="req">*</span></label>
+              <input type="email" id="cEmail" data-rule="email" placeholder="you@example.com" required>
+            </div>
+            <div class="field">
+              <label for="cSubject">Subject <span class="req">*</span></label>
+              <select id="cSubject">
+                <option value="Tour Package Inquiry">Tour Package Inquiry</option>
+                <option value="Flight Booking">Flight Booking</option>
+                <option value="Hotel Booking">Hotel Booking</option>
+                <option value="Visa Assistance">Visa Assistance</option>
+                <option value="Group / Corporate Tour">Group / Corporate Tour</option>
+                <option value="Complaint or Feedback">Complaint or Feedback</option>
+                <option value="Other">Other</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="field">
+            <label for="cTour">Preferred Tour</label>
+            <select id="cTour">
+              <option value="">Not sure yet — please advise</option>
+            </select>
+          </div>
+
+          <div class="field">
+            <label for="cMessage">Message <span class="req">*</span></label>
+            <textarea id="cMessage" data-rule="message" placeholder="Tell us your travel dates, how many people, and your budget…" required></textarea>
+          </div>
+
+          <button type="submit" class="btn btn-gold btn-block" id="sendBtn">
+            <i class="fa-solid fa-paper-plane"></i> Send Message
+          </button>
+
+          <p style="text-align:center;margin:14px 0 10px;color:var(--gray);font-size:13px">or reach us instantly</p>
+
+          <a href="#" data-trm="wa" data-msg="Hi TRM Holidays! I have a question about your packages." class="btn btn-wa btn-block" target="_blank" rel="noopener">
+            <i class="fa-brands fa-whatsapp"></i> Chat on WhatsApp
+          </a>
+        </form>
+
+        <!-- Success state -->
+        <div class="form-success" id="formSuccess">
+          <div class="ico"><i class="fa-solid fa-circle-check"></i></div>
+          <h3>Message Sent!</h3>
+          <p id="successMsg">We'll reply within 2 hours on WhatsApp or Email.</p>
+          <a href="#" data-trm="wa" class="btn btn-wa btn-block" target="_blank" rel="noopener">
+            <i class="fa-brands fa-whatsapp"></i> Continue on WhatsApp
+          </a>
+          <button class="btn btn-outline-navy btn-block" style="margin-top:10px;max-width:280px;margin-inline:auto" onclick="resetContactForm()">
+            Send Another Message
+          </button>
+        </div>
+      </div>
+
+      <!-- ─────── INFO + MAP ─────── -->
+      <div>
+        <div class="info-card">
+          <div class="ico"><i class="fa-solid fa-location-dot"></i></div>
+          <div>
+            <b>Office Address</b>
+            <p data-trm="address"></p>
+          </div>
+        </div>
+
+        <div class="info-card">
+          <div class="ico"><i class="fa-solid fa-phone"></i></div>
+          <div>
+            <b>Phone &amp; WhatsApp</b>
+            <p><a href="#" data-trm="phone-tel"></a></p>
+            <p style="color:var(--gray);font-size:12.5px">Same number for calls and WhatsApp</p>
+          </div>
+        </div>
+
+        <div class="info-card">
+          <div class="ico"><i class="fa-solid fa-envelope"></i></div>
+          <div>
+            <b>Email</b>
+            <p><a href="#" data-trm="email"></a></p>
+          </div>
+        </div>
+
+        <div class="info-card">
+          <div class="ico"><i class="fa-regular fa-clock"></i></div>
+          <div>
+            <b>Office Hours</b>
+            <p>Saturday – Thursday: 9:00 AM – 8:00 PM</p>
+            <p>Friday: 2:00 PM – 8:00 PM</p>
+          </div>
+        </div>
+
+        <div class="map-box">
+          <div>
+            <i class="fa-solid fa-map-location-dot"></i>
+            <b style="color:var(--navy);font-family:var(--font-head)">Find us on the map</b>
+            <code>&lt;!-- Paste your Google Maps embed iframe here --&gt;</code>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════ SOCIAL ══════════════ -->
+<section class="section section--off section--tight">
+  <div class="wrap">
+    <div class="sec-head" style="margin-bottom:26px">
+      <span class="eyebrow">Stay connected</span>
+      <h2>Follow TRM Holidays</h2>
+      <p>New packages, seat sales and travel tips — posted first on our socials.</p>
+    </div>
+
+    <div class="social-row">
+      <a href="#" data-trm="facebook" class="social-btn sb-fb" target="_blank" rel="noopener"><i class="fa-brands fa-facebook-f"></i> Facebook</a>
+      <a href="#" data-trm="instagram" class="social-btn sb-ig" target="_blank" rel="noopener"><i class="fa-brands fa-instagram"></i> Instagram</a>
+      <a href="#" data-trm="youtube" class="social-btn sb-yt" target="_blank" rel="noopener"><i class="fa-brands fa-youtube"></i> YouTube</a>
+      <a href="#" data-trm="tiktok" class="social-btn sb-tt" target="_blank" rel="noopener"><i class="fa-brands fa-tiktok"></i> TikTok</a>
+      <a href="#" data-trm="wa" class="social-btn sb-wa" target="_blank" rel="noopener"><i class="fa-brands fa-whatsapp"></i> WhatsApp</a>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════ FOOTER ══════════════ -->
+<footer class="footer">
+  <div class="wrap">
+    <div class="footer-grid">
+      <div>
+        <img src="assets/images/logo.png" alt="TRM Holidays" class="footer-logo">
+        <p>TRM Holidays — your memory maker. Flights, hotels and tour packages for travellers across Bangladesh, at home and abroad.</p>
+        <div class="socials">
+          <a href="#" data-trm="facebook" target="_blank" rel="noopener" aria-label="Facebook"><i class="fa-brands fa-facebook-f"></i></a>
+          <a href="#" data-trm="instagram" target="_blank" rel="noopener" aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a>
+          <a href="#" data-trm="youtube" target="_blank" rel="noopener" aria-label="YouTube"><i class="fa-brands fa-youtube"></i></a>
+          <a href="#" data-trm="tiktok" target="_blank" rel="noopener" aria-label="TikTok"><i class="fa-brands fa-tiktok"></i></a>
+          <a href="#" data-trm="wa" target="_blank" rel="noopener" aria-label="WhatsApp"><i class="fa-brands fa-whatsapp"></i></a>
+        </div>
+      </div>
+      <div>
+        <h4>Quick Links</h4>
+        <ul class="footer-links">
+          <li><a href="index.html"><i class="fa-solid fa-chevron-right"></i> Home</a></li>
+          <li><a href="flights.html"><i class="fa-solid fa-chevron-right"></i> Flights</a></li>
+          <li><a href="hotels.html"><i class="fa-solid fa-chevron-right"></i> Hotels</a></li>
+          <li><a href="tours.html"><i class="fa-solid fa-chevron-right"></i> Tour Packages</a></li>
+          <li><a href="index.html#why"><i class="fa-solid fa-chevron-right"></i> About Us</a></li>
+          <li><a href="contact.html"><i class="fa-solid fa-chevron-right"></i> Contact</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Popular Tours</h4>
+        <ul class="footer-links">
+          <li><a href="tour-detail.html?id=TR-001"><i class="fa-solid fa-chevron-right"></i> Cox's Bazar Escape</a></li>
+          <li><a href="tour-detail.html?id=TR-003"><i class="fa-solid fa-chevron-right"></i> Dubai Luxury Explorer</a></li>
+          <li><a href="tour-detail.html?id=TR-002"><i class="fa-solid fa-chevron-right"></i> Bangkok City &amp; Beach</a></li>
+          <li><a href="tour-detail.html?id=TR-006"><i class="fa-solid fa-chevron-right"></i> Maldives Honeymoon</a></li>
+          <li><a href="tour-detail.html?id=TR-005"><i class="fa-solid fa-chevron-right"></i> Turkey &amp; Cappadocia</a></li>
+          <li><a href="tour-detail.html?id=TR-004"><i class="fa-solid fa-chevron-right"></i> Sajek Valley Trek</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Get In Touch</h4>
+        <ul class="contact-list">
+          <li><i class="fa-solid fa-location-dot"></i><span data-trm="address"></span></li>
+          <li><i class="fa-solid fa-phone"></i><a href="#" data-trm="phone-tel"></a></li>
+          <li><i class="fa-brands fa-whatsapp"></i><a href="#" data-trm="wa" target="_blank" rel="noopener">WhatsApp us</a></li>
+          <li><i class="fa-solid fa-envelope"></i><a href="#" data-trm="email"></a></li>
+          <li><i class="fa-regular fa-clock"></i><span data-trm="hours"></span></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>&copy; <span id="year"></span> TRM Holidays. All rights reserved.</span>
+      <nav><a href="#">Privacy Policy</a><a href="#">Terms &amp; Conditions</a><a href="#">Cancellation Policy</a></nav>
+    </div>
+  </div>
+</footer>
+
+<a href="#" data-trm="wa" class="wa-float" target="_blank" rel="noopener" aria-label="Chat on WhatsApp"><i class="fa-brands fa-whatsapp"></i></a>
+<button class="top-btn" id="topBtn" aria-label="Back to top"><i class="fa-solid fa-arrow-up"></i></button>
+
+<script src="assets/js/trm.js"></script>
+<script src="assets/js/tours-data.js"></script>
+
+<script>
+document.getElementById('year').textContent = new Date().getFullYear();
+
+/* Fill the "Preferred Tour" dropdown from the catalogue */
+document.getElementById('cTour').insertAdjacentHTML('beforeend',
+  TOURS.map(t => '<option value="' + t.name + '">' + t.name + ' — ৳' + TRM.money(t.price) + '</option>').join('')
+);
+
+/* Pre-select a tour if we arrived from a package page: contact.html?tour=TR-003 */
+(function preselectTour(){
+  const id = new URLSearchParams(location.search).get('tour');
+  if (!id) return;
+  const t = TOURS.find(x => x.id === id);
+  if (t){
+    document.getElementById('cTour').value = t.name;
+    document.getElementById('cSubject').value = 'Tour Package Inquiry';
+  }
+})();
+
+/* ---------- Submit ---------- */
+document.getElementById('contactForm').addEventListener('submit', async e => {
+  e.preventDefault();
+  const form = e.target;
+
+  if (!validateForm(form)){
+    toast('Please correct the highlighted fields.', 'err');
+    return;
+  }
+
+  const btn = document.getElementById('sendBtn');
+  const original = btn.innerHTML;
+  btn.disabled = true;
+  btn.innerHTML = '<span class="spin"></span> Sending…';
+
+  const payload = {
+    type: 'contact',
+    name: document.getElementById('cName').value.trim(),
+    phone: document.getElementById('cPhone').value.trim(),
+    email: document.getElementById('cEmail').value.trim(),
+    subject: document.getElementById('cSubject').value,
+    tour: document.getElementById('cTour').value,
+    message: document.getElementById('cMessage').value.trim()
+  };
+
+  try {
+    if (!TRM.isApiConfigured()) throw new Error('API_URL not configured');
+    const res = await TRM.apiPost(payload);
+    if (!res.success) throw new Error(res.error || 'failed');
+
+    form.style.display = 'none';
+    document.getElementById('formSuccess').style.display = 'block';
+    document.getElementById('successMsg').textContent =
+      'Reference ' + res.id + " — we'll reply within 2 hours on WhatsApp or Email.";
+  } catch (err) {
+    btn.disabled = false;
+    btn.innerHTML = original;
+    toast('Failed to send. Please try WhatsApp or call us.', 'err');
+  }
+});
+
+function resetContactForm(){
+  const form = document.getElementById('contactForm');
+  form.reset();
+  form.querySelectorAll('.field').forEach(f => f.classList.remove('ok','err'));
+  form.style.display = 'block';
+  document.getElementById('formSuccess').style.display = 'none';
+}
+</script>
+
+</body>
+</html>

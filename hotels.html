@@ -1,0 +1,482 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Book hotels in Cox's Bazar and across Bangladesh with TRM Holidays — verified properties, best price guarantee.">
+<meta name="theme-color" content="#1A2B6B">
+<title>Hotel Search | TRM Holidays</title>
+
+<link rel="icon" href="assets/images/logo.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<link rel="stylesheet" href="assets/css/trm.css">
+
+<style>
+/* ---------- Search bar ---------- */
+.hsearch{background:var(--navy);padding:calc(var(--nav-h) + 26px) 0 26px}
+.hsearch .search-row{display:flex;flex-wrap:wrap;gap:12px;align-items:flex-end}
+.hsearch .sf{flex:1 1 150px;min-width:0}
+.hsearch .sf label{display:block;font-family:var(--font-head);font-size:11px;font-weight:600;
+  letter-spacing:.6px;text-transform:uppercase;color:rgba(255,255,255,.72);margin-bottom:6px}
+.hsearch .sf input,.hsearch .sf select{
+  width:100%;padding:11px 13px;border:1.5px solid rgba(255,255,255,.2);border-radius:var(--radius-sm);
+  background:rgba(255,255,255,.1);color:#fff;font-size:14px;
+}
+.hsearch .sf input:focus,.hsearch .sf select:focus{outline:none;border-color:var(--sky-light);background:rgba(255,255,255,.18)}
+.hsearch .sf select option{color:var(--dark)}
+
+.res-layout{display:grid;grid-template-columns:280px 1fr;gap:28px;align-items:start;padding:34px 0 80px}
+
+/* ---------- Filter sidebar ---------- */
+.fbox{
+  background:#fff;border:1px solid #E4EBF6;border-radius:var(--radius);
+  padding:20px;position:sticky;top:calc(var(--nav-h-scrolled) + 18px);
+}
+.fbox h4{font-size:15px;margin-bottom:4px;display:flex;justify-content:space-between;align-items:center}
+.fbox h4 button{font-family:var(--font-body);font-size:12px;font-weight:500;color:var(--sky)}
+.fgroup{padding:16px 0;border-bottom:1px solid #EDF2FA}
+.fgroup:last-child{border-bottom:none;padding-bottom:0}
+.fgroup b{display:block;font-family:var(--font-head);font-size:13px;color:var(--navy);margin-bottom:12px}
+.check{display:flex;align-items:center;gap:10px;margin-bottom:10px;font-size:13.5px;color:#42506E;cursor:pointer}
+.check input{accent-color:var(--navy);width:15px;height:15px;cursor:pointer;flex:0 0 auto}
+.check .stars{color:var(--gold);font-size:12px}
+.check span:last-child{margin-left:auto;color:var(--gray);font-size:12px}
+.fgroup input[type=range]{width:100%;accent-color:var(--navy);cursor:pointer}
+.range-out{display:flex;justify-content:space-between;font-size:12.5px;color:var(--gray);margin-top:6px}
+
+/* ---------- Header + view toggle ---------- */
+.res-head{display:flex;flex-wrap:wrap;gap:14px;justify-content:space-between;align-items:center;margin-bottom:18px}
+.res-head p{font-size:14px;color:var(--gray)}
+.res-head p b{color:var(--navy);font-family:var(--font-head)}
+.view-toggle{display:flex;background:#fff;border:1px solid #E4EBF6;border-radius:var(--radius-sm);overflow:hidden}
+.view-toggle button{
+  padding:10px 16px;font-family:var(--font-head);font-size:13px;font-weight:600;color:var(--gray);
+  display:flex;align-items:center;gap:7px;border-right:1px solid #E4EBF6;transition:all .2s var(--ease);
+}
+.view-toggle button:last-child{border-right:none}
+.view-toggle button.active{background:var(--navy);color:#fff}
+
+/* ---------- Hotel card — LIST view ---------- */
+#hotelList.list-view{display:flex;flex-direction:column;gap:16px}
+.hotel{
+  background:#fff;border:1px solid #E4EBF6;border-radius:var(--radius);overflow:hidden;
+  transition:box-shadow .25s var(--ease),transform .25s var(--ease),border-color .25s;
+}
+.hotel:hover{box-shadow:var(--shadow);border-color:#D3E0F2;transform:translateY(-3px)}
+.list-view .hotel{display:grid;grid-template-columns:260px 1fr 200px;gap:0}
+.hotel-img{position:relative;overflow:hidden;background:var(--off);min-height:190px}
+.hotel-img img{width:100%;height:100%;object-fit:cover;transition:transform .5s var(--ease)}
+.hotel:hover .hotel-img img{transform:scale(1.07)}
+.area-tag{
+  position:absolute;top:12px;left:12px;background:rgba(255,255,255,.95);
+  border-radius:20px;padding:4px 12px;font-size:11.5px;font-weight:600;color:var(--navy);
+}
+.hotel-body{padding:20px}
+.hotel-body h3{font-size:17px;margin-bottom:6px}
+.hstars{color:var(--gold);font-size:12.5px;margin-bottom:8px}
+.hloc{font-size:13px;color:var(--gray);display:flex;align-items:center;gap:7px;margin-bottom:12px}
+.hloc i{color:var(--sky)}
+.amenities{display:flex;flex-wrap:wrap;gap:7px}
+.amenity{
+  font-size:11.5px;color:#42506E;background:var(--off);border:1px solid #E4EBF6;
+  border-radius:20px;padding:4px 11px;display:inline-flex;align-items:center;gap:6px;
+}
+.amenity i{color:var(--sky);font-size:10.5px}
+.hotel-side{
+  padding:20px;border-left:1px solid #EDF2FA;display:flex;flex-direction:column;
+  justify-content:center;align-items:flex-end;text-align:right;gap:9px;
+}
+.score{display:flex;align-items:center;gap:9px}
+.score b{
+  background:var(--navy);color:#fff;font-family:var(--font-head);font-weight:700;
+  font-size:14px;padding:5px 10px;border-radius:8px 8px 8px 0;
+}
+.score small{font-size:12px;color:var(--gray);text-align:right;line-height:1.3}
+.hprice b{display:block;font-family:var(--font-head);font-size:23px;font-weight:800;color:var(--navy);line-height:1.2}
+.hprice small{font-size:11.5px;color:var(--gray)}
+.hotel-side .btn{width:100%;justify-content:center}
+
+/* ---------- GRID view ---------- */
+#hotelList.grid-view{display:grid;grid-template-columns:repeat(3,1fr);gap:22px}
+.grid-view .hotel{display:flex;flex-direction:column}
+.grid-view .hotel-img{height:190px;min-height:0}
+.grid-view .hotel-body{flex:1}
+.grid-view .hotel-side{
+  border-left:none;border-top:1px solid #EDF2FA;flex-direction:row;
+  align-items:center;justify-content:space-between;text-align:left;
+}
+.grid-view .hotel-side .score{display:none}
+.grid-view .hotel-side .btn{width:auto}
+
+@media(max-width:1024px){
+  .res-layout{grid-template-columns:1fr}
+  .fbox{position:static}
+  #hotelList.grid-view{grid-template-columns:repeat(2,1fr)}
+}
+@media(max-width:768px){
+  .hsearch .search-row{flex-direction:column;align-items:stretch}
+  .list-view .hotel{grid-template-columns:1fr}
+  .hotel-side{border-left:none;border-top:1px solid #EDF2FA;flex-direction:row;
+    align-items:center;justify-content:space-between;text-align:left}
+  .hotel-side .btn{width:auto}
+  .list-view .hotel-side .score{display:none}
+  #hotelList.grid-view{grid-template-columns:1fr}
+  .view-toggle{width:100%}
+  .view-toggle button{flex:1;justify-content:center}
+}
+</style>
+</head>
+
+<body>
+
+<!-- ══════════════ NAVBAR ══════════════ -->
+<header class="nav solid">
+  <div class="wrap">
+    <a href="index.html" class="brand">
+      <img src="assets/images/logo.png" alt="TRM Holidays" class="brand-logo">
+      <span class="brand-text"><b>TRM Holidays</b><span>Your Memory Maker</span></span>
+    </a>
+    <nav class="nav-links">
+      <a href="index.html">Home</a>
+      <a href="flights.html">Flights</a>
+      <a href="hotels.html" class="active">Hotels</a>
+      <a href="tours.html">Tour Packages</a>
+      <a href="index.html#why">About</a>
+      <a href="contact.html">Contact</a>
+    </nav>
+    <div class="nav-actions">
+      <a href="contact.html" class="btn btn-outline">Login</a>
+      <a href="#" data-trm="wa" class="btn btn-gold" target="_blank" rel="noopener">Book Now</a>
+    </div>
+    <button class="burger" id="burger" aria-label="Open menu" aria-expanded="false"><i class="fa-solid fa-bars"></i></button>
+  </div>
+</header>
+
+<div class="mobile-menu" id="mobileMenu">
+  <a href="index.html">Home</a>
+  <a href="flights.html">Flights</a>
+  <a href="hotels.html" class="active">Hotels</a>
+  <a href="tours.html">Tour Packages</a>
+  <a href="index.html#why">About</a>
+  <a href="contact.html">Contact</a>
+  <a href="#" data-trm="wa" class="btn btn-gold" target="_blank" rel="noopener">Book Now</a>
+</div>
+
+<!-- ══════════════ SEARCH BAR ══════════════ -->
+<section class="hsearch">
+  <div class="wrap">
+    <form class="search-row" onsubmit="event.preventDefault();applyFilters();toast('Search updated','ok')">
+      <div class="sf"><label>Destination</label><input type="text" id="cityInput" value="Cox's Bazar"></div>
+      <div class="sf"><label>Check-in</label><input type="date" id="checkIn"></div>
+      <div class="sf"><label>Check-out</label><input type="date" id="checkOut"></div>
+      <div class="sf">
+        <label>Rooms</label>
+        <select><option>1 Room</option><option>2 Rooms</option><option>3 Rooms</option><option>4+ Rooms</option></select>
+      </div>
+      <div class="sf">
+        <label>Guests</label>
+        <select><option>2 Guests</option><option>1 Guest</option><option>3 Guests</option><option>4 Guests</option><option>5+ Guests</option></select>
+      </div>
+      <button type="submit" class="btn btn-gold"><i class="fa-solid fa-magnifying-glass"></i> Search Hotels</button>
+    </form>
+  </div>
+</section>
+
+<!-- ══════════════ RESULTS ══════════════ -->
+<div class="wrap">
+  <div class="res-layout">
+
+    <!-- FILTERS -->
+    <aside class="fbox">
+      <h4>Filters <button onclick="resetFilters()">Reset all</button></h4>
+
+      <div class="fgroup">
+        <b>Star rating</b>
+        <label class="check"><input type="checkbox" class="star-f" value="5"><span class="stars">★★★★★</span><span id="c5">0</span></label>
+        <label class="check"><input type="checkbox" class="star-f" value="4"><span class="stars">★★★★</span><span id="c4">0</span></label>
+        <label class="check"><input type="checkbox" class="star-f" value="3"><span class="stars">★★★</span><span id="c3">0</span></label>
+      </div>
+
+      <div class="fgroup">
+        <b>Price per night</b>
+        <input type="range" id="priceRange" min="2800" max="18000" step="200" value="18000">
+        <div class="range-out"><span>৳2,800</span><span id="priceOut">৳18,000</span></div>
+      </div>
+
+      <div class="fgroup">
+        <b>Amenities</b>
+        <div id="amenityFilters"></div>
+      </div>
+
+      <div class="fgroup">
+        <b>Area</b>
+        <div id="areaFilters"></div>
+      </div>
+    </aside>
+
+    <!-- RESULTS -->
+    <div>
+      <div class="res-head">
+        <p><b id="resCount">0</b> properties in <span id="cityLabel">Cox's Bazar</span></p>
+        <div class="view-toggle">
+          <button class="active" data-view="list"><i class="fa-solid fa-list"></i> List</button>
+          <button data-view="grid"><i class="fa-solid fa-grip"></i> Grid</button>
+        </div>
+      </div>
+
+      <div id="hotelList" class="list-view"></div>
+
+      <p style="margin-top:24px;font-size:13px;color:var(--gray);text-align:center">
+        Rates are per night for two guests and change with the season. Confirm on
+        <a href="#" data-trm="wa" target="_blank" rel="noopener" style="color:var(--sky);font-weight:600">WhatsApp</a>
+        or call <a href="#" data-trm="phone-tel" style="color:var(--sky);font-weight:600"></a>.
+      </p>
+    </div>
+
+  </div>
+</div>
+
+<!-- ══════════════ FOOTER ══════════════ -->
+<footer class="footer">
+  <div class="wrap">
+    <div class="footer-grid">
+      <div>
+        <img src="assets/images/logo.png" alt="TRM Holidays" class="footer-logo">
+        <p>TRM Holidays — your memory maker. Flights, hotels and tour packages for travellers across Bangladesh, at home and abroad.</p>
+        <div class="socials">
+          <a href="#" data-trm="facebook" target="_blank" rel="noopener" aria-label="Facebook"><i class="fa-brands fa-facebook-f"></i></a>
+          <a href="#" data-trm="instagram" target="_blank" rel="noopener" aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a>
+          <a href="#" data-trm="youtube" target="_blank" rel="noopener" aria-label="YouTube"><i class="fa-brands fa-youtube"></i></a>
+          <a href="#" data-trm="tiktok" target="_blank" rel="noopener" aria-label="TikTok"><i class="fa-brands fa-tiktok"></i></a>
+          <a href="#" data-trm="wa" target="_blank" rel="noopener" aria-label="WhatsApp"><i class="fa-brands fa-whatsapp"></i></a>
+        </div>
+      </div>
+      <div>
+        <h4>Quick Links</h4>
+        <ul class="footer-links">
+          <li><a href="index.html"><i class="fa-solid fa-chevron-right"></i> Home</a></li>
+          <li><a href="flights.html"><i class="fa-solid fa-chevron-right"></i> Flights</a></li>
+          <li><a href="hotels.html"><i class="fa-solid fa-chevron-right"></i> Hotels</a></li>
+          <li><a href="tours.html"><i class="fa-solid fa-chevron-right"></i> Tour Packages</a></li>
+          <li><a href="index.html#why"><i class="fa-solid fa-chevron-right"></i> About Us</a></li>
+          <li><a href="contact.html"><i class="fa-solid fa-chevron-right"></i> Contact</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Popular Tours</h4>
+        <ul class="footer-links">
+          <li><a href="tour-detail.html?id=TR-001"><i class="fa-solid fa-chevron-right"></i> Cox's Bazar Escape</a></li>
+          <li><a href="tour-detail.html?id=TR-003"><i class="fa-solid fa-chevron-right"></i> Dubai Luxury Explorer</a></li>
+          <li><a href="tour-detail.html?id=TR-002"><i class="fa-solid fa-chevron-right"></i> Bangkok City &amp; Beach</a></li>
+          <li><a href="tour-detail.html?id=TR-006"><i class="fa-solid fa-chevron-right"></i> Maldives Honeymoon</a></li>
+          <li><a href="tour-detail.html?id=TR-005"><i class="fa-solid fa-chevron-right"></i> Turkey &amp; Cappadocia</a></li>
+          <li><a href="tour-detail.html?id=TR-004"><i class="fa-solid fa-chevron-right"></i> Sajek Valley Trek</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Get In Touch</h4>
+        <ul class="contact-list">
+          <li><i class="fa-solid fa-location-dot"></i><span data-trm="address"></span></li>
+          <li><i class="fa-solid fa-phone"></i><a href="#" data-trm="phone-tel"></a></li>
+          <li><i class="fa-brands fa-whatsapp"></i><a href="#" data-trm="wa" target="_blank" rel="noopener">WhatsApp us</a></li>
+          <li><i class="fa-solid fa-envelope"></i><a href="#" data-trm="email"></a></li>
+          <li><i class="fa-regular fa-clock"></i><span data-trm="hours"></span></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>&copy; <span id="year"></span> TRM Holidays. All rights reserved.</span>
+      <nav><a href="#">Privacy Policy</a><a href="#">Terms &amp; Conditions</a><a href="#">Cancellation Policy</a></nav>
+    </div>
+  </div>
+</footer>
+
+<a href="#" data-trm="wa" data-msg="Hi TRM Holidays! I need help booking a hotel." class="wa-float" target="_blank" rel="noopener" aria-label="Chat on WhatsApp"><i class="fa-brands fa-whatsapp"></i></a>
+<button class="top-btn" id="topBtn" aria-label="Back to top"><i class="fa-solid fa-arrow-up"></i></button>
+
+<script src="assets/js/trm.js"></script>
+
+<script>
+document.getElementById('year').textContent = new Date().getFullYear();
+
+/* ---------- Mock hotel inventory (Cox's Bazar) ---------- */
+const HOTELS = [
+  { id:'H1', name:'Sea Palace Hotel',      stars:3, area:'Kolatoli',   price:3500,  score:8.2, reviews:412,
+    amenities:['WiFi','Restaurant','AC','Parking'],
+    img:'https://images.unsplash.com/photo-1566073771259-6a8506099945?w=700&q=80' },
+  { id:'H2', name:'Long Beach Hotel',      stars:4, area:'Kolatoli',   price:6500,  score:8.7, reviews:938,
+    amenities:['WiFi','Pool','Restaurant','AC','Gym','Beach Access'],
+    img:'https://images.unsplash.com/photo-1571003123894-1f0594d2b5d9?w=700&q=80' },
+  { id:'H3', name:'Ocean Paradise Hotel',  stars:5, area:'Hotel Zone', price:12000, score:9.1, reviews:1206,
+    amenities:['WiFi','Pool','Restaurant','AC','Gym','Parking','Beach Access'],
+    img:'https://images.unsplash.com/photo-1520250497591-112f2f40a3f4?w=700&q=80' },
+  { id:'H4', name:'Sayeman Beach Resort',  stars:4, area:'Laboni',     price:7500,  score:8.9, reviews:764,
+    amenities:['WiFi','Pool','Restaurant','AC','Beach Access'],
+    img:'https://images.unsplash.com/photo-1582719508461-905c673771fd?w=700&q=80' },
+  { id:'H5', name:'Hotel Mermaid',         stars:3, area:'Sugandha',   price:4000,  score:8.0, reviews:329,
+    amenities:['WiFi','Restaurant','AC'],
+    img:'https://images.unsplash.com/photo-1611892440504-42a792e24d32?w=700&q=80' },
+  { id:'H6', name:'Royal Tulip Sea Pearl', stars:5, area:'Hotel Zone', price:18000, score:9.4, reviews:1583,
+    amenities:['WiFi','Pool','Restaurant','AC','Gym','Parking','Beach Access'],
+    img:'https://images.unsplash.com/photo-1542314831-068cd1dbfeeb?w=700&q=80' },
+  { id:'H7', name:"Cox's Today Hotel",     stars:3, area:'Laboni',     price:3200,  score:7.8, reviews:255,
+    amenities:['WiFi','Restaurant','AC','Parking'],
+    img:'https://images.unsplash.com/photo-1445019980597-93fa8acb246c?w=700&q=80' },
+  { id:'H8', name:'Seagull Hotel',         stars:3, area:'Sugandha',   price:2800,  score:7.6, reviews:198,
+    amenities:['WiFi','Restaurant','AC'],
+    img:'https://images.unsplash.com/photo-1551882547-ff40c63fe5fa?w=700&q=80' }
+];
+
+const AMENITY_ICONS = {
+  'WiFi':'fa-wifi', 'Pool':'fa-person-swimming', 'Parking':'fa-square-parking',
+  'Restaurant':'fa-utensils', 'AC':'fa-snowflake', 'Gym':'fa-dumbbell',
+  'Beach Access':'fa-umbrella-beach'
+};
+
+const ALL_AMENITIES = Object.keys(AMENITY_ICONS);
+const ALL_AREAS = [...new Set(HOTELS.map(h => h.area))];
+
+/* Build amenity + area filters */
+document.getElementById('amenityFilters').innerHTML = ALL_AMENITIES.map(a =>
+  '<label class="check"><input type="checkbox" class="amen-f" value="' + a + '">' +
+  '<span><i class="fa-solid ' + AMENITY_ICONS[a] + '" style="color:var(--sky);width:16px"></i> ' + a + '</span></label>'
+).join('');
+
+document.getElementById('areaFilters').innerHTML = ALL_AREAS.map(a =>
+  '<label class="check"><input type="checkbox" class="area-f" value="' + a + '">' +
+  '<span>' + a + '</span><span>' + HOTELS.filter(h => h.area === a).length + '</span></label>'
+).join('');
+
+/* Star counts */
+[3,4,5].forEach(s => {
+  document.getElementById('c' + s).textContent = HOTELS.filter(h => h.stars === s).length;
+});
+
+/* ---------- State ---------- */
+let view = 'list';
+
+function checkedValues(cls){
+  return [...document.querySelectorAll('.' + cls + ':checked')].map(i => i.value);
+}
+
+function scoreLabel(score){
+  if (score >= 9) return 'Exceptional';
+  if (score >= 8.5) return 'Excellent';
+  if (score >= 8) return 'Very good';
+  return 'Good';
+}
+
+function applyFilters(){
+  const stars = checkedValues('star-f').map(Number);
+  const amens = checkedValues('amen-f');
+  const areas = checkedValues('area-f');
+  const maxPrice = +document.getElementById('priceRange').value;
+
+  const list = HOTELS.filter(h => {
+    if (stars.length && !stars.includes(h.stars)) return false;
+    if (areas.length && !areas.includes(h.area)) return false;
+    if (amens.length && !amens.every(a => h.amenities.includes(a))) return false;
+    return h.price <= maxPrice;
+  }).sort((a,b) => a.price - b.price);
+
+  render(list);
+}
+
+function render(list){
+  const box = document.getElementById('hotelList');
+  document.getElementById('resCount').textContent = list.length;
+  document.getElementById('cityLabel').textContent =
+    document.getElementById('cityInput').value || "Cox's Bazar";
+
+  if (!list.length){
+    box.className = '';
+    box.innerHTML =
+      '<div class="empty">' +
+        '<div class="ico"><i class="fa-solid fa-bed"></i></div>' +
+        '<h3>No properties match these filters</h3>' +
+        '<p>Try removing an amenity or raising your price limit.</p>' +
+        '<button class="btn btn-navy" style="margin-top:18px" onclick="resetFilters()">Clear Filters</button>' +
+      '</div>';
+    return;
+  }
+
+  box.className = view + '-view';
+  box.innerHTML = list.map(h =>
+    '<article class="hotel">' +
+
+      '<div class="hotel-img">' +
+        '<span class="area-tag">' + h.area + '</span>' +
+        '<img src="' + h.img + '" alt="' + h.name + '" loading="lazy">' +
+      '</div>' +
+
+      '<div class="hotel-body">' +
+        '<h3>' + h.name + '</h3>' +
+        '<div class="hstars">' + '★'.repeat(h.stars) + '<span style="color:var(--gray);font-size:11.5px"> ' + h.stars + '-star</span></div>' +
+        '<div class="hloc"><i class="fa-solid fa-location-dot"></i>' + h.area + ", Cox's Bazar</div>" +
+        '<div class="amenities">' +
+          h.amenities.map(a =>
+            '<span class="amenity"><i class="fa-solid ' + (AMENITY_ICONS[a] || 'fa-check') + '"></i>' + a + '</span>'
+          ).join('') +
+        '</div>' +
+      '</div>' +
+
+      '<div class="hotel-side">' +
+        '<div class="score">' +
+          '<small>' + scoreLabel(h.score) + '<br>' + h.reviews + ' reviews</small>' +
+          '<b>' + h.score.toFixed(1) + '</b>' +
+        '</div>' +
+        '<div class="hprice"><b>৳' + TRM.money(h.price) + '</b><small>per night</small></div>' +
+        '<a class="btn btn-gold btn-sm" target="_blank" rel="noopener" href="' +
+          TRM.waLink('Hi TRM Holidays! I want to book ' + h.name + " (" + h.stars + '-star, ' + h.area +
+                     ") at ৳" + TRM.money(h.price) + ' per night.') +
+        '">View Deal</a>' +
+      '</div>' +
+
+    '</article>'
+  ).join('');
+}
+
+function resetFilters(){
+  document.querySelectorAll('.star-f, .amen-f, .area-f').forEach(c => c.checked = false);
+  const pr = document.getElementById('priceRange');
+  pr.value = pr.max;
+  document.getElementById('priceOut').textContent = '৳' + TRM.money(+pr.max);
+  applyFilters();
+}
+
+/* ---------- Events ---------- */
+document.addEventListener('change', e => {
+  if (e.target.matches('.star-f, .amen-f, .area-f')) applyFilters();
+});
+
+document.getElementById('priceRange').addEventListener('input', e => {
+  document.getElementById('priceOut').textContent = '৳' + TRM.money(+e.target.value);
+  applyFilters();
+});
+
+document.querySelectorAll('.view-toggle button').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('.view-toggle button').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    view = btn.dataset.view;
+    applyFilters();
+  });
+});
+
+/* Pre-fill stay dates: tomorrow → two nights */
+(function presetDates(){
+  const d = new Date();
+  d.setDate(d.getDate() + 1);
+  document.getElementById('checkIn').value = d.toISOString().split('T')[0];
+  d.setDate(d.getDate() + 2);
+  document.getElementById('checkOut').value = d.toISOString().split('T')[0];
+})();
+
+applyFilters();
+</script>
+
+</body>
+</html>
