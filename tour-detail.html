@@ -7,7 +7,7 @@
 <meta name="theme-color" content="#1A2B6B">
 <title>Tour Details | TRM Holidays</title>
 
-<link rel="icon" href="assets/images/logo.png">
+<link rel="icon" href="assets/images/logo.jpeg">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
@@ -26,6 +26,7 @@
 .gallery .thumbs div{border-radius:var(--radius);overflow:hidden;cursor:zoom-in;position:relative}
 .gallery .thumbs img{width:100%;height:100%;object-fit:cover;transition:transform .5s var(--ease)}
 .gallery .thumbs div:hover img{transform:scale(1.07)}
+.gallery.single{grid-template-columns:1fr}
 .more-badge{
   position:absolute;inset:0;background:rgba(17,29,79,.62);color:#fff;
   display:grid;place-items:center;font-family:var(--font-head);font-weight:700;font-size:18px;
@@ -58,7 +59,12 @@
 .detail-grid{display:grid;grid-template-columns:1fr 350px;gap:32px;align-items:start;padding-bottom:80px}
 
 /* ---------- Tabs ---------- */
-.dtabs{display:flex;gap:4px;border-bottom:2px solid #E8EEF8;margin-bottom:26px;overflow-x:auto}
+/* Grid items default to min-width:auto, which lets the tab row stretch the
+   whole column (and the page) wider than a phone screen. */
+.detail-grid > *{min-width:0}
+.dtabs{display:flex;gap:4px;border-bottom:2px solid #E8EEF8;margin-bottom:26px;overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:none}
+.dtabs::-webkit-scrollbar{display:none}
+.dtab{flex:0 0 auto}
 .dtab{
   padding:13px 20px;font-family:var(--font-head);font-size:14px;font-weight:600;
   color:var(--gray);border-bottom:3px solid transparent;margin-bottom:-2px;
@@ -75,11 +81,6 @@
 .highlights{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:8px}
 .highlights li{display:flex;gap:11px;align-items:flex-start;font-size:14.5px;color:#42506E}
 .highlights i{color:var(--ok);margin-top:5px;flex:0 0 auto}
-.map-holder{
-  height:260px;border-radius:var(--radius);background:var(--off);border:1px dashed #C9D8EE;
-  display:grid;place-items:center;color:var(--gray);text-align:center;margin-top:24px;padding:20px;
-}
-.map-holder i{font-size:34px;color:var(--sky);margin-bottom:10px;display:block}
 
 /* ---------- Accordion ---------- */
 .acc{border:1px solid #E4EBF6;border-radius:var(--radius);overflow:hidden;margin-bottom:10px}
@@ -144,12 +145,6 @@
 .book-head small{font-size:12.5px;color:rgba(255,255,255,.8);display:block}
 .book-head .amt{display:flex;align-items:baseline;gap:10px;margin-top:4px}
 .book-head b{font-family:var(--font-head);font-size:30px;font-weight:800}
-.book-head del{font-size:15px;color:rgba(255,255,255,.6)}
-.save-tag{
-  display:inline-block;margin-top:8px;background:var(--gold);color:#fff;
-  font-family:var(--font-head);font-size:11px;font-weight:700;letter-spacing:.5px;
-  padding:4px 12px;border-radius:20px;text-transform:uppercase;
-}
 .book-body{padding:22px}
 .total-box{
   background:var(--off);border-radius:var(--radius-sm);padding:15px 16px;margin:6px 0 18px;
@@ -181,8 +176,26 @@
 .lightbox .nav-arrow:hover{background:rgba(255,255,255,.26)}
 .lightbox .prev{left:22px} .lightbox .next{right:22px}
 
+/* ---------- Mobile booking bar ---------- */
+.mobile-book{display:none}
+
 /* ---------- Responsive ---------- */
 @media(max-width:1024px){
+  #booking{scroll-margin-top:calc(var(--nav-h-scrolled) + 12px)}
+  .mobile-book{
+    position:fixed;left:0;right:0;bottom:0;z-index:950;
+    display:flex;align-items:center;justify-content:space-between;gap:14px;
+    padding:10px 16px calc(10px + env(safe-area-inset-bottom));
+    background:#fff;border-top:1px solid #E4EBF6;box-shadow:0 -6px 22px rgba(26,43,107,.12);
+    transition:transform .25s var(--ease);
+  }
+  .mobile-book.hide{transform:translateY(110%)}
+  .mobile-book small{display:block;font-size:11px;color:var(--gray)}
+  .mobile-book b{font-family:var(--font-head);font-size:19px;font-weight:800;color:var(--navy)}
+  .mobile-book .btn{padding:11px 20px}
+  body{padding-bottom:72px}
+  .wa-float{bottom:84px}
+  .top-btn{bottom:148px}
   .detail-grid{grid-template-columns:1fr}
   .book-box{position:static}
   .photo-grid{grid-template-columns:repeat(3,1fr)}
@@ -191,6 +204,7 @@
   .gallery{grid-template-columns:1fr;height:auto}
   .gallery .main{height:240px}
   .gallery .thumbs{height:180px}
+  .gallery.single .main{height:260px}
   .highlights,.inc-grid{grid-template-columns:1fr}
   .photo-grid{grid-template-columns:repeat(2,1fr)}
   .rev-summary{grid-template-columns:1fr;gap:18px}
@@ -205,15 +219,15 @@
 <header class="nav solid">
   <div class="wrap">
     <a href="index.html" class="brand">
-      <img src="assets/images/logo.png" alt="TRM Holidays" class="brand-logo">
+      <img src="assets/images/logo.jpeg" alt="TRM Holidays" class="brand-logo">
       <span class="brand-text"><b>TRM Holidays</b><span>Your Memory Maker</span></span>
     </a>
     <nav class="nav-links">
       <a href="index.html">Home</a>
+      <a href="about.html">About</a>
       <a href="flights.html">Flights</a>
       <a href="hotels.html">Hotels</a>
       <a href="tours.html" class="active">Tour Packages</a>
-      <a href="index.html#why">About</a>
       <a href="contact.html">Contact</a>
     </nav>
     <div class="nav-actions">
@@ -226,10 +240,10 @@
 
 <div class="mobile-menu" id="mobileMenu">
   <a href="index.html">Home</a>
+  <a href="about.html">About</a>
   <a href="flights.html">Flights</a>
   <a href="hotels.html">Hotels</a>
   <a href="tours.html" class="active">Tour Packages</a>
-  <a href="index.html#why">About</a>
   <a href="contact.html">Contact</a>
   <a href="#" data-trm="wa" class="btn btn-gold" target="_blank" rel="noopener">Book Now</a>
 </div>
@@ -279,11 +293,6 @@
           <p id="tourDesc"></p>
           <h3 style="margin-top:26px">Tour Highlights</h3>
           <ul class="highlights" id="highlights"></ul>
-          <div class="map-holder">
-            <i class="fa-solid fa-map-location-dot"></i>
-            <b>Route map</b>
-            <small>Paste your Google Maps embed iframe here</small>
-          </div>
         </div>
 
         <!-- Itinerary -->
@@ -362,15 +371,13 @@
       </div>
 
       <!-- ─────── BOOKING SIDEBAR ─────── -->
-      <aside>
+      <aside id="booking">
         <div class="book-box">
           <div class="book-head">
             <small>Per person from</small>
             <div class="amt">
               <b id="sidePrice">৳0</b>
-              <del id="sideOld">৳0</del>
             </div>
-            <span class="save-tag" id="saveTag">Save 10%</span>
           </div>
 
           <div class="book-body">
@@ -454,7 +461,7 @@
   <div class="wrap">
     <div class="footer-grid">
       <div>
-        <img src="assets/images/logo.png" alt="TRM Holidays" class="footer-logo">
+        <img src="assets/images/logo.jpeg" alt="TRM Holidays" class="footer-logo">
         <p>TRM Holidays — your memory maker. Flights, hotels and tour packages for travellers across Bangladesh, at home and abroad.</p>
         <div class="socials">
           <a href="#" data-trm="facebook" target="_blank" rel="noopener" aria-label="Facebook"><i class="fa-brands fa-facebook-f"></i></a>
@@ -471,7 +478,7 @@
           <li><a href="flights.html"><i class="fa-solid fa-chevron-right"></i> Flights</a></li>
           <li><a href="hotels.html"><i class="fa-solid fa-chevron-right"></i> Hotels</a></li>
           <li><a href="tours.html"><i class="fa-solid fa-chevron-right"></i> Tour Packages</a></li>
-          <li><a href="index.html#why"><i class="fa-solid fa-chevron-right"></i> About Us</a></li>
+          <li><a href="about.html"><i class="fa-solid fa-chevron-right"></i> About Us</a></li>
           <li><a href="contact.html"><i class="fa-solid fa-chevron-right"></i> Contact</a></li>
         </ul>
       </div>
@@ -493,6 +500,7 @@
           <li><i class="fa-solid fa-phone"></i><a href="#" data-trm="phone-tel"></a></li>
           <li><i class="fa-brands fa-whatsapp"></i><a href="#" data-trm="wa" target="_blank" rel="noopener">WhatsApp us</a></li>
           <li><i class="fa-solid fa-envelope"></i><a href="#" data-trm="email"></a></li>
+          <li><i class="fa-solid fa-envelope"></i><a href="#" data-trm="email2"></a></li>
           <li><i class="fa-regular fa-clock"></i><span data-trm="hours"></span></li>
         </ul>
       </div>
@@ -512,6 +520,12 @@
   <button class="nav-arrow next" id="lbNext" aria-label="Next"><i class="fa-solid fa-chevron-right"></i></button>
 </div>
 
+<!-- Phones: the booking form sits below all the tabs, so keep a way to it on screen -->
+<div class="mobile-book" id="mobileBook">
+  <div><small>Per person from</small><b id="mbPrice">৳0</b></div>
+  <a href="#booking" class="btn btn-gold"><i class="fa-solid fa-paper-plane"></i> Book Now</a>
+</div>
+
 <a href="#" data-trm="wa" class="wa-float" target="_blank" rel="noopener" aria-label="Chat on WhatsApp"><i class="fa-brands fa-whatsapp"></i></a>
 <button class="top-btn" id="topBtn" aria-label="Back to top"><i class="fa-solid fa-arrow-up"></i></button>
 
@@ -525,10 +539,8 @@ document.getElementById('year').textContent = new Date().getFullYear();
 const tourId = new URLSearchParams(location.search).get('id') || 'TR-001';
 const tour = TOURS.find(t => t.id === tourId) || TOURS[0];
 
-/* Extra gallery photos (reuse other tours' imagery as the photo set) */
-const PHOTOS = [tour.img].concat(
-  TOURS.filter(t => t.id !== tour.id).slice(0, 7).map(t => t.img)
-);
+/* Only this tour's own photos — add more with a `photos: [...]` list in tours-data.js */
+const PHOTOS = [tour.img].concat(tour.photos || []);
 
 /* ---------- Head / title ---------- */
 document.title = tour.name + ' | TRM Holidays';
@@ -560,13 +572,19 @@ document.getElementById('infoPills').innerHTML =
 /* ---------- Gallery ---------- */
 document.getElementById('gallery').innerHTML =
   '<div class="main" data-i="0"><img src="' + PHOTOS[0] + '" alt="' + tour.name + '"></div>' +
-  '<div class="thumbs">' +
-    PHOTOS.slice(1, 5).map((src, i) =>
-      '<div data-i="' + (i + 1) + '"><img src="' + src + '" alt="' + tour.name + ' photo ' + (i + 2) + '">' +
-      (i === 3 ? '<span class="more-badge">+' + (PHOTOS.length - 5) + ' more</span>' : '') +
+  (PHOTOS.length >= 5
+    ? '<div class="thumbs">' +
+        PHOTOS.slice(1, 5).map((src, i) =>
+          '<div data-i="' + (i + 1) + '"><img src="' + src + '" alt="' + tour.name + ' photo ' + (i + 2) + '">' +
+          (i === 3 && PHOTOS.length > 5 ? '<span class="more-badge">+' + (PHOTOS.length - 5) + ' more</span>' : '') +
+          '</div>'
+        ).join('') +
       '</div>'
-    ).join('') +
-  '</div>';
+    : '');
+document.getElementById('gallery').classList.toggle('single', PHOTOS.length < 5);
+
+/* No point in a Gallery tab with a single photo */
+if (PHOTOS.length < 2) document.querySelector('.dtab[data-panel="gallery"]').style.display = 'none';
 
 document.getElementById('photoGrid').innerHTML =
   PHOTOS.map((src, i) => '<div data-i="' + i + '"><img src="' + src + '" alt="Gallery photo ' + (i + 1) + '" loading="lazy"></div>').join('');
@@ -578,7 +596,7 @@ const HIGHLIGHTS = [
   'Daily breakfast plus selected meals',
   'Bangla-speaking guide throughout the trip',
   'All sightseeing entry tickets covered',
-  'Small groups — ' + tour.people + ' travellers',
+  'Group size: ' + tour.people + ' travellers',
   'Free cancellation up to 7 days before departure',
   '24/7 support line while you travel'
 ];
@@ -687,11 +705,8 @@ document.addEventListener('keydown', e => {
 });
 
 /* ---------- Pricing ---------- */
-const OLD_PRICE = Math.round(tour.price * 1.12 / 500) * 500;   // ~12% "was" price
 document.getElementById('sidePrice').textContent = '৳' + TRM.money(tour.price);
-document.getElementById('sideOld').textContent = '৳' + TRM.money(OLD_PRICE);
-document.getElementById('saveTag').textContent =
-  'Save ৳' + TRM.money(OLD_PRICE - tour.price);
+document.getElementById('mbPrice').textContent = '৳' + TRM.money(tour.price);
 
 function updateTotal(){
   const persons = +document.getElementById('bPersons').value;
@@ -765,10 +780,20 @@ document.getElementById('bookForm').addEventListener('submit', async e => {
   }
 });
 
+/* ---------- Mobile booking bar: step aside while the form is visible ---------- */
+if ('IntersectionObserver' in window){
+  new IntersectionObserver(entries => {
+    document.getElementById('mobileBook').classList.toggle('hide', entries[0].isIntersecting);
+  }).observe(document.querySelector('#booking .book-box'));
+}
+
 /* ---------- Related tours ---------- */
 const related = TOURS.filter(t => t.id !== tour.id && t.category === tour.category).slice(0, 3);
 while (related.length < 3){
-  const filler = TOURS.find(t => t.id !== tour.id && !related.includes(t));
+  // Top up from the same side first — domestic with domestic, international with international
+  const filler =
+    TOURS.find(t => t.id !== tour.id && !related.includes(t) && TRM.regionOf(t) === TRM.regionOf(tour)) ||
+    TOURS.find(t => t.id !== tour.id && !related.includes(t));
   if (!filler) break;
   related.push(filler);
 }

@@ -7,7 +7,7 @@
 <meta name="theme-color" content="#1A2B6B">
 <title>TRM Holidays | Flights, Hotels & Tour Packages in Bangladesh</title>
 
-<link rel="icon" href="assets/images/logo.png">
+<link rel="icon" href="assets/images/logo.jpeg">
 
 <!-- Fonts -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -234,7 +234,7 @@
 <header class="nav">
   <div class="wrap">
     <a href="index.html" class="brand">
-      <img src="assets/images/logo.png" alt="TRM Holidays" class="brand-logo">
+      <img src="assets/images/logo.jpeg" alt="TRM Holidays" class="brand-logo">
       <span class="brand-text">
         <b>TRM Holidays</b>
         <span>Your Memory Maker</span>
@@ -243,10 +243,10 @@
 
     <nav class="nav-links">
       <a href="index.html" class="active">Home</a>
+      <a href="about.html">About</a>
       <a href="flights.html">Flights</a>
       <a href="hotels.html">Hotels</a>
       <a href="tours.html">Tour Packages</a>
-      <a href="#why">About</a>
       <a href="contact.html">Contact</a>
     </nav>
 
@@ -264,10 +264,10 @@
 <!-- ══════════════ MOBILE MENU ══════════════ -->
 <div class="mobile-menu" id="mobileMenu">
   <a href="index.html" class="active">Home</a>
+  <a href="about.html">About</a>
   <a href="flights.html">Flights</a>
   <a href="hotels.html">Hotels</a>
   <a href="tours.html">Tour Packages</a>
-  <a href="#why">About</a>
   <a href="contact.html">Contact</a>
   <a href="tours.html" class="btn btn-gold">Book Now</a>
 </div>
@@ -304,36 +304,40 @@
       <!-- FLIGHTS -->
       <div class="tab-panel active" id="tab-flights">
         <div class="trip-types">
-          <label><input type="radio" name="trip" value="round" checked onchange="toggleReturnDate(this)"> Round Trip</label>
-          <label><input type="radio" name="trip" value="oneway" onchange="toggleReturnDate(this)"> One Way</label>
-          <label><input type="radio" name="trip" value="multi" onchange="toggleReturnDate(this)"> Multi City</label>
+          <label><input type="radio" name="trip" value="round" checked> Round Trip</label>
+          <label><input type="radio" name="trip" value="oneway"> One Way</label>
+          <label><input type="radio" name="trip" value="multi"> Multi City</label>
         </div>
 
-        <form class="search-row" onsubmit="goFlights(event)">
-          <div class="sf">
+        <form class="search-row" id="flightForm" onsubmit="goFlights(event)">
+          <div class="sf single-only">
             <label>From</label>
             <input type="text" id="fromCity" value="Dhaka (DAC)" placeholder="Dhaka (DAC)">
           </div>
 
-          <button type="button" class="swap" onclick="swapCities()" aria-label="Swap cities">
+          <button type="button" class="swap single-only" onclick="swapCities()" aria-label="Swap cities">
             <i class="fa-solid fa-right-left"></i>
           </button>
 
-          <div class="sf">
+          <div class="sf single-only">
             <label>To</label>
             <input type="text" id="toCity" value="Dubai (DXB)" placeholder="Dubai (DXB)">
           </div>
-          <div class="sf">
+          <div class="sf single-only">
             <label>Departure</label>
             <input type="date" id="departDate">
           </div>
-          <div class="sf" id="returnDateField">
+          <div class="sf single-only" id="returnDateField">
             <label>Return</label>
             <input type="date" id="returnDate">
           </div>
+
+          <!-- Multi City: legs are rendered here by initFlightSearch() -->
+          <div class="multi-legs"></div>
+
           <div class="sf">
             <label>Passengers</label>
-            <select>
+            <select id="paxSel">
               <option>1 Adult</option><option>2 Adults</option><option>3 Adults</option>
               <option>4 Adults</option><option>2 Adults, 1 Child</option><option>Family (5+)</option>
             </select>
@@ -401,33 +405,60 @@
   </div>
 </section>
 
-<!-- ══════════════ POPULAR TOUR PACKAGES ══════════════ -->
-<section class="section" id="tours">
+<!-- ══════════════ ABOUT US ══════════════ -->
+<section class="section section--tight" id="about">
+  <div class="wrap">
+    <div class="about-short" data-aos="fade-up">
+      <span class="eyebrow">About TRM Holidays</span>
+      <h2>Your Memory Maker, Since 2023</h2>
+      <p>
+        A Banani, Dhaka based travel agency handling air tickets, hotels, visas and complete
+        tour packages — at home and abroad, with one team you can reach anytime on WhatsApp.
+      </p>
+      <a href="about.html" class="btn btn-navy">About Us <i class="fa-solid fa-arrow-right"></i></a>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════ TOUR PACKAGES: DOMESTIC / INTERNATIONAL ══════════════ -->
+<section class="section section--off" id="tours">
   <div class="wrap">
     <div class="sec-head" data-aos="fade-up">
       <span class="eyebrow">Handpicked for you</span>
-      <h2>Popular Tour Packages</h2>
-      <p>Curated trips our travellers keep coming back for — from a weekend in the hills to a fortnight abroad.</p>
+      <h2>Tour Packages</h2>
+      <p>Explore Bangladesh or head abroad — pick a side and we'll handle the rest.</p>
     </div>
 
-    <div class="pills" data-aos="fade-up">
-      <button class="pill active" onclick="filterTours('all',this)">All</button>
-      <button class="pill" onclick="filterTours('domestic',this)">Domestic</button>
-      <button class="pill" onclick="filterTours('international',this)">International</button>
-      <button class="pill" onclick="filterTours('honeymoon',this)">Honeymoon</button>
-      <button class="pill" onclick="filterTours('adventure',this)">Adventure</button>
+    <!-- Domestic -->
+    <div class="region-block" id="domestic">
+      <div class="region-head" data-aos="fade-up">
+        <div>
+          <span class="eyebrow"><i class="fa-solid fa-location-dot"></i> Inside Bangladesh</span>
+          <h2>Domestic Tours</h2>
+          <p>Beaches, hills, tea gardens and the Sundarbans.</p>
+        </div>
+        <a href="tours.html?region=domestic" class="btn btn-outline-navy btn-sm">All Domestic <i class="fa-solid fa-arrow-right"></i></a>
+      </div>
+      <div class="grid g-3" id="domesticGrid"></div>
     </div>
 
-    <div class="grid g-3" id="tourGrid"></div>
-
-    <div class="center" style="margin-top:40px" data-aos="fade-up">
-      <a href="tours.html" class="btn btn-outline-navy">View All Packages <i class="fa-solid fa-arrow-right"></i></a>
+    <!-- International -->
+    <div class="region-block" id="international">
+      <div class="region-head" data-aos="fade-up">
+        <div>
+          <span class="eyebrow"><i class="fa-solid fa-plane"></i> Abroad</span>
+          <h2>International Tours</h2>
+          <p>Dubai, Thailand, Türkiye, Maldives, Bali and more.</p>
+        </div>
+        <a href="tours.html?region=international" class="btn btn-outline-navy btn-sm">All International <i class="fa-solid fa-arrow-right"></i></a>
+      </div>
+      <div class="grid g-3" id="internationalGrid"></div>
     </div>
   </div>
 </section>
 
 <!-- ══════════════ TOP DESTINATIONS MOSAIC ══════════════ -->
-<section class="section section--off">
+<section class="section">
   <div class="wrap">
     <div class="sec-head" data-aos="fade-up">
       <span class="eyebrow">Where to next</span>
@@ -439,43 +470,43 @@
       <div class="tile big">
         <img src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=1200&q=80" alt="Cox's Bazar" loading="lazy">
         <div class="tile-body">
-          <h3>Cox's Bazar</h3><small>12 packages · from ৳12,500</small>
-          <a href="tours.html?cat=domestic" class="btn btn-gold btn-sm">Explore</a>
+          <h3>Cox's Bazar</h3><small>from ৳12,500</small>
+          <a href="tours.html?region=domestic&amp;q=Cox" class="btn btn-gold btn-sm">Explore</a>
         </div>
       </div>
       <div class="tile tall">
         <img src="https://images.unsplash.com/photo-1563492065599-3520f775eeed?w=800&q=80" alt="Bangkok" loading="lazy">
         <div class="tile-body">
-          <h3>Bangkok</h3><small>8 packages · from ৳55,000</small>
-          <a href="tours.html?cat=international" class="btn btn-gold btn-sm">Explore</a>
+          <h3>Bangkok</h3><small>from ৳55,000</small>
+          <a href="tours.html?region=international&amp;q=Bangkok" class="btn btn-gold btn-sm">Explore</a>
         </div>
       </div>
       <div class="tile">
         <img src="https://images.unsplash.com/photo-1512453979798-5ea266f8880c?w=800&q=80" alt="Dubai" loading="lazy">
         <div class="tile-body">
           <h3>Dubai</h3><small>from ৳78,000</small>
-          <a href="tours.html?cat=international" class="btn btn-gold btn-sm">Explore</a>
+          <a href="tours.html?region=international&amp;q=Dubai" class="btn btn-gold btn-sm">Explore</a>
         </div>
       </div>
       <div class="tile">
         <img src="https://images.unsplash.com/photo-1570939274717-7eda259b50ed?w=800&q=80" alt="Istanbul" loading="lazy">
         <div class="tile-body">
           <h3>Istanbul</h3><small>from ৳1,20,000</small>
-          <a href="tours.html?cat=international" class="btn btn-gold btn-sm">Explore</a>
+          <a href="tours.html?region=international&amp;q=Istanbul" class="btn btn-gold btn-sm">Explore</a>
         </div>
       </div>
       <div class="tile">
         <img src="https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=800&q=80" alt="Sajek Valley" loading="lazy">
         <div class="tile-body">
           <h3>Sajek Valley</h3><small>from ৳8,500</small>
-          <a href="tours.html?cat=adventure" class="btn btn-gold btn-sm">Explore</a>
+          <a href="tours.html?region=domestic&amp;q=Sajek" class="btn btn-gold btn-sm">Explore</a>
         </div>
       </div>
       <div class="tile">
         <img src="https://images.unsplash.com/photo-1514282401047-d79a71a590e8?w=800&q=80" alt="Maldives" loading="lazy">
         <div class="tile-body">
           <h3>Maldives</h3><small>from ৳1,50,000</small>
-          <a href="tours.html?cat=honeymoon" class="btn btn-gold btn-sm">Explore</a>
+          <a href="tours.html?region=international&amp;q=Maldives" class="btn btn-gold btn-sm">Explore</a>
         </div>
       </div>
     </div>
@@ -488,7 +519,7 @@
     <div class="sec-head" data-aos="fade-up">
       <span class="eyebrow">Why TRM Holidays</span>
       <h2>Travel Planned Properly</h2>
-      <p>Fifteen years of moving Bangladeshi travellers around the world — and back home again.</p>
+      <p>Moving Bangladeshi travellers around the world since 2023 — and back home again.</p>
     </div>
 
     <div class="grid g-4">
@@ -522,7 +553,7 @@
     <div class="grid g-4 stats-grid">
       <div class="stat"><div class="ico"><i class="fa-solid fa-user-group"></i></div><b><span class="count" data-target="10000">0</span>+</b><span>Happy Travelers</span></div>
       <div class="stat"><div class="ico"><i class="fa-solid fa-suitcase-rolling"></i></div><b><span class="count" data-target="500">0</span>+</b><span>Tour Packages</span></div>
-      <div class="stat"><div class="ico"><i class="fa-solid fa-award"></i></div><b><span class="count" data-target="15">0</span>+</b><span>Years Experience</span></div>
+      <div class="stat"><div class="ico"><i class="fa-solid fa-award"></i></div><b>2023</b><span>Established</span></div>
       <div class="stat"><div class="ico"><i class="fa-solid fa-earth-asia"></i></div><b><span class="count" data-target="50">0</span>+</b><span>Destinations</span></div>
     </div>
   </div>
@@ -602,7 +633,7 @@
     <div class="footer-grid">
 
       <div>
-        <img src="assets/images/logo.png" alt="TRM Holidays" class="footer-logo">
+        <img src="assets/images/logo.jpeg" alt="TRM Holidays" class="footer-logo">
         <p>TRM Holidays — your memory maker. Flights, hotels and tour packages for travellers across Bangladesh, at home and abroad.</p>
         <div class="socials">
           <a href="#" data-trm="facebook" target="_blank" rel="noopener" aria-label="Facebook"><i class="fa-brands fa-facebook-f"></i></a>
@@ -620,7 +651,7 @@
           <li><a href="flights.html"><i class="fa-solid fa-chevron-right"></i> Flights</a></li>
           <li><a href="hotels.html"><i class="fa-solid fa-chevron-right"></i> Hotels</a></li>
           <li><a href="tours.html"><i class="fa-solid fa-chevron-right"></i> Tour Packages</a></li>
-          <li><a href="#why"><i class="fa-solid fa-chevron-right"></i> About Us</a></li>
+          <li><a href="about.html"><i class="fa-solid fa-chevron-right"></i> About Us</a></li>
           <li><a href="contact.html"><i class="fa-solid fa-chevron-right"></i> Contact</a></li>
         </ul>
       </div>
@@ -644,6 +675,7 @@
           <li><i class="fa-solid fa-phone"></i><a href="#" data-trm="phone-tel"></a></li>
           <li><i class="fa-brands fa-whatsapp"></i><a href="#" data-trm="wa" target="_blank" rel="noopener">WhatsApp us</a></li>
           <li><i class="fa-solid fa-envelope"></i><a href="#" data-trm="email"></a></li>
+          <li><i class="fa-solid fa-envelope"></i><a href="#" data-trm="email2"></a></li>
           <li><i class="fa-regular fa-clock"></i><span data-trm="hours"></span></li>
         </ul>
       </div>
@@ -682,11 +714,9 @@ function switchTab(name, btn){
   document.getElementById('tab-' + name).classList.add('active');
 }
 
-/* One Way hides the Return Date field */
-function toggleReturnDate(radio){
-  document.getElementById('returnDateField').style.display =
-    radio.value === 'round' ? '' : 'none';
-}
+/* Round Trip / One Way / Multi City */
+const flightSearch = initFlightSearch(document.getElementById('flightForm'),
+                                      document.getElementById('tab-flights'));
 
 function swapCities(){
   const a = document.getElementById('fromCity');
@@ -694,63 +724,66 @@ function swapCities(){
   const tmp = a.value; a.value = b.value; b.value = tmp;
 }
 
-function goFlights(e){ e.preventDefault(); location.href = 'flights.html'; }
+function goFlights(e){
+  e.preventDefault();
+  const problem = flightSearch.validate();
+  if (problem){ toast(problem, 'err'); return; }
+  location.href = 'flights.html?' + flightSearch.toQuery().toString();
+}
 function goHotels(e){ e.preventDefault(); location.href = 'hotels.html'; }
 function goTours(e){
   e.preventDefault();
   const type = document.getElementById('tourType').value;
   const dest = document.getElementById('tourDest').value.trim();
   const qs = new URLSearchParams();
-  if (type && type !== 'all') qs.set('cat', type);
+  if (type === 'domestic' || type === 'international') qs.set('region', type);
+  else if (type && type !== 'all') qs.set('cat', type);
   if (dest) qs.set('q', dest);
   location.href = 'tours.html' + (qs.toString() ? '?' + qs : '');
 }
 
 /* ══════════════ TOUR CARDS ══════════════ */
-const HOME_TOURS = TOURS.slice(0, 9);   // homepage shows the first nine
-let currentFilter = 'all';
+const HOME_PER_REGION = 6;   // cards shown in each of the two sections
 
-function renderTours(list){
-  const grid = document.getElementById('tourGrid');
+function renderRegion(region, all){
+  const grid = document.getElementById(region + 'Grid');
+  const list = all.filter(t => TRM.regionOf(t) === region).slice(0, HOME_PER_REGION);
   if (!list.length){
     grid.innerHTML =
       '<div class="empty" style="grid-column:1/-1">' +
         '<div class="ico"><i class="fa-solid fa-suitcase-rolling"></i></div>' +
-        '<h3>No packages in this category yet</h3>' +
-        '<p>Try another filter, or tell us where you want to go.</p>' +
+        '<h3>New packages coming soon</h3>' +
+        '<p>Tell us where you want to go and we will build the trip for you.</p>' +
       '</div>';
     return;
   }
   grid.innerHTML = list.map((t, i) => tourCard(t, (i % 3) * 80)).join('');
-  if (window.AOS) AOS.refreshHard();
 }
 
-function filterTours(cat, btn){
-  currentFilter = cat;
-  document.querySelectorAll('.pills .pill').forEach(p => p.classList.remove('active'));
-  if (btn) btn.classList.add('active');
-  renderTours(cat === 'all' ? HOME_TOURS : HOME_TOURS.filter(t => t.category === cat));
+function renderTours(all){
+  renderRegion('domestic', all);
+  renderRegion('international', all);
+  if (window.AOS) AOS.refreshHard();
 }
 
 /* Load from the Apps Script API, fall back to the local catalogue */
 async function loadToursFromAPI(){
-  const grid = document.getElementById('tourGrid');
-
   if (!TRM.isApiConfigured()){
-    renderTours(HOME_TOURS);          // API_URL not set yet — use local data silently
+    renderTours(TOURS);               // API_URL not set yet — use local data silently
     return;
   }
 
-  grid.innerHTML = '<div class="skel skel-card"></div>'.repeat(3);
+  const skel = '<div class="skel skel-card"></div>'.repeat(3);
+  document.getElementById('domesticGrid').innerHTML = skel;
+  document.getElementById('internationalGrid').innerHTML = skel;
 
   try {
     const res = await TRM.apiGet('get_tours');
-    if (!res.success || !res.data || !res.data.length) throw new Error('empty');
-    HOME_TOURS.length = 0;
-    HOME_TOURS.push(...res.data.slice(0, 9));
-    renderTours(HOME_TOURS);
+    if (!res.success) throw new Error(res.error || 'failed');
+    // An empty sheet isn't an error — just show the local catalogue
+    renderTours(res.data && res.data.length ? res.data : TOURS);
   } catch (err) {
-    renderTours(HOME_TOURS);
+    renderTours(TOURS);
     toast('Showing saved packages — live prices unavailable right now.', 'err');
   }
 }

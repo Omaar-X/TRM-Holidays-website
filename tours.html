@@ -3,11 +3,11 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="description" content="All TRM Holidays tour packages — domestic, international, honeymoon, adventure and group tours from Bangladesh.">
+<meta name="description" content="TRM Holidays tour packages — domestic tours inside Bangladesh and international tours abroad, including honeymoon, adventure and group trips.">
 <meta name="theme-color" content="#1A2B6B">
 <title>Tour Packages | TRM Holidays</title>
 
-<link rel="icon" href="assets/images/logo.png">
+<link rel="icon" href="assets/images/logo.jpeg">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
@@ -63,15 +63,15 @@
 <header class="nav solid">
   <div class="wrap">
     <a href="index.html" class="brand">
-      <img src="assets/images/logo.png" alt="TRM Holidays" class="brand-logo">
+      <img src="assets/images/logo.jpeg" alt="TRM Holidays" class="brand-logo">
       <span class="brand-text"><b>TRM Holidays</b><span>Your Memory Maker</span></span>
     </a>
     <nav class="nav-links">
       <a href="index.html">Home</a>
+      <a href="about.html">About</a>
       <a href="flights.html">Flights</a>
       <a href="hotels.html">Hotels</a>
       <a href="tours.html" class="active">Tour Packages</a>
-      <a href="index.html#why">About</a>
       <a href="contact.html">Contact</a>
     </nav>
     <div class="nav-actions">
@@ -84,10 +84,10 @@
 
 <div class="mobile-menu" id="mobileMenu">
   <a href="index.html">Home</a>
+  <a href="about.html">About</a>
   <a href="flights.html">Flights</a>
   <a href="hotels.html">Hotels</a>
   <a href="tours.html" class="active">Tour Packages</a>
-  <a href="index.html#why">About</a>
   <a href="contact.html">Contact</a>
   <a href="#" data-trm="wa" class="btn btn-gold" target="_blank" rel="noopener">Book Now</a>
 </div>
@@ -105,11 +105,15 @@
 <!-- ══════════════ FILTER BAR ══════════════ -->
 <div class="filter-bar">
   <div class="wrap">
+    <div class="region-tabs" id="regionTabs">
+      <button class="region-tab active" data-region="all"><i class="fa-solid fa-earth-asia"></i> All <small id="cnt-all"></small></button>
+      <button class="region-tab" data-region="domestic"><i class="fa-solid fa-location-dot"></i> Domestic <small id="cnt-domestic"></small></button>
+      <button class="region-tab" data-region="international"><i class="fa-solid fa-plane"></i> International <small id="cnt-international"></small></button>
+    </div>
+
     <div class="filter-top">
       <div class="pills" id="catPills">
-        <button class="pill active" data-cat="all">All</button>
-        <button class="pill" data-cat="domestic">Domestic</button>
-        <button class="pill" data-cat="international">International</button>
+        <button class="pill active" data-cat="all">All Types</button>
         <button class="pill" data-cat="honeymoon">Honeymoon</button>
         <button class="pill" data-cat="adventure">Adventure</button>
         <button class="pill" data-cat="group">Group</button>
@@ -138,7 +142,7 @@
 <!-- ══════════════ TOUR GRID ══════════════ -->
 <section class="section">
   <div class="wrap">
-    <div class="grid g-3" id="tourGrid"></div>
+    <div id="tourGrid"></div>
     <div class="pager" id="pager"></div>
   </div>
 </section>
@@ -148,7 +152,7 @@
   <div class="wrap">
     <div class="footer-grid">
       <div>
-        <img src="assets/images/logo.png" alt="TRM Holidays" class="footer-logo">
+        <img src="assets/images/logo.jpeg" alt="TRM Holidays" class="footer-logo">
         <p>TRM Holidays — your memory maker. Flights, hotels and tour packages for travellers across Bangladesh, at home and abroad.</p>
         <div class="socials">
           <a href="#" data-trm="facebook" target="_blank" rel="noopener" aria-label="Facebook"><i class="fa-brands fa-facebook-f"></i></a>
@@ -165,7 +169,7 @@
           <li><a href="flights.html"><i class="fa-solid fa-chevron-right"></i> Flights</a></li>
           <li><a href="hotels.html"><i class="fa-solid fa-chevron-right"></i> Hotels</a></li>
           <li><a href="tours.html"><i class="fa-solid fa-chevron-right"></i> Tour Packages</a></li>
-          <li><a href="index.html#why"><i class="fa-solid fa-chevron-right"></i> About Us</a></li>
+          <li><a href="about.html"><i class="fa-solid fa-chevron-right"></i> About Us</a></li>
           <li><a href="contact.html"><i class="fa-solid fa-chevron-right"></i> Contact</a></li>
         </ul>
       </div>
@@ -187,6 +191,7 @@
           <li><i class="fa-solid fa-phone"></i><a href="#" data-trm="phone-tel"></a></li>
           <li><i class="fa-brands fa-whatsapp"></i><a href="#" data-trm="wa" target="_blank" rel="noopener">WhatsApp us</a></li>
           <li><i class="fa-solid fa-envelope"></i><a href="#" data-trm="email"></a></li>
+          <li><i class="fa-solid fa-envelope"></i><a href="#" data-trm="email2"></a></li>
           <li><i class="fa-regular fa-clock"></i><span data-trm="hours"></span></li>
         </ul>
       </div>
@@ -207,8 +212,13 @@
 
 <script>
 const PER_PAGE = 6;
+const REGIONS = [
+  { key: 'domestic',      title: 'Domestic Tours',      sub: 'Inside Bangladesh', icon: 'fa-location-dot' },
+  { key: 'international', title: 'International Tours', sub: 'Abroad',            icon: 'fa-plane' }
+];
 
 const state = {
+  region: 'all',
   cat: 'all',
   sort: 'popular',
   maxPrice: 150000,
@@ -217,83 +227,162 @@ const state = {
   all: TOURS.slice()
 };
 
-/* ---------- Read filters from the URL (set by the homepage search) ---------- */
+/* ---------- Read filters from the URL (set by the homepage) ---------- */
 (function readQueryString(){
   const qs = new URLSearchParams(location.search);
-  const cat = qs.get('cat');
+  let region = qs.get('region');
+  let cat = qs.get('cat');
   const q = qs.get('q');
 
-  if (cat){
-    state.cat = cat;
-    document.querySelectorAll('#catPills .pill').forEach(p => {
-      p.classList.toggle('active', p.dataset.cat === cat);
-    });
-  }
+  // Old links used ?cat=domestic / ?cat=international
+  if (cat === 'domestic' || cat === 'international'){ region = cat; cat = null; }
+
+  if (region === 'domestic' || region === 'international') state.region = region;
+  if (cat) state.cat = cat;
   if (q) state.query = q.toLowerCase();
+  syncButtons();
 })();
 
+function syncButtons(){
+  document.querySelectorAll('#regionTabs .region-tab').forEach(b => {
+    b.classList.toggle('active', b.dataset.region === state.region);
+  });
+  document.querySelectorAll('#catPills .pill').forEach(p => {
+    p.classList.toggle('active', p.dataset.cat === state.cat);
+  });
+}
+
 /* ---------- Filter + sort ---------- */
-function getFiltered(){
-  let list = state.all.filter(t =>
-    (state.cat === 'all' || t.category === state.cat) &&
+function matchesFilters(t){
+  return (state.cat === 'all' || t.category === state.cat) &&
     t.price <= state.maxPrice &&
     (!state.query ||
       t.name.toLowerCase().includes(state.query) ||
-      t.destination.toLowerCase().includes(state.query))
-  );
+      t.destination.toLowerCase().includes(state.query));
+}
 
+function sortList(list){
   switch (state.sort){
     case 'low':  list.sort((a,b) => a.price - b.price); break;
     case 'high': list.sort((a,b) => b.price - a.price); break;
-    case 'new':  list = list.slice().reverse(); break;
+    case 'new':  list.reverse(); break;
     default:     list.sort((a,b) => b.rating - a.rating);
   }
   return list;
 }
 
+function getFiltered(region){
+  return sortList(state.all.filter(t =>
+    (region === 'all' || TRM.regionOf(t) === region) && matchesFilters(t)
+  ));
+}
+
+/* Tab counts + hide type pills that have nothing in the current region */
+function updateCounts(){
+  ['all', 'domestic', 'international'].forEach(r => {
+    const n = state.all.filter(t => r === 'all' || TRM.regionOf(t) === r).length;
+    document.getElementById('cnt-' + r).textContent = '(' + n + ')';
+  });
+  document.querySelectorAll('#catPills .pill').forEach(p => {
+    if (p.dataset.cat === 'all') return;
+    const has = state.all.some(t =>
+      t.category === p.dataset.cat && (state.region === 'all' || TRM.regionOf(t) === state.region));
+    p.style.display = has ? '' : 'none';
+  });
+}
+
 /* ---------- Render ---------- */
+function emptyHtml(){
+  return '<div class="empty">' +
+      '<div class="ico"><i class="fa-solid fa-magnifying-glass"></i></div>' +
+      '<h3>No packages match your filters</h3>' +
+      '<p>Try widening your budget or picking another category.</p>' +
+      '<button class="btn btn-navy" style="margin-top:18px" onclick="clearFilters()">Clear Filters</button>' +
+    '</div>';
+}
+
+function regionBlock(r, list){
+  return '<div class="region-block">' +
+      '<div class="region-head">' +
+        '<div><span class="eyebrow"><i class="fa-solid ' + r.icon + '"></i> ' + r.sub + '</span>' +
+        '<h2>' + r.title + '</h2></div>' +
+        '<button class="btn btn-outline-navy btn-sm" onclick="setRegion(\'' + r.key + '\')">Only ' +
+          r.title.split(' ')[0] + ' <i class="fa-solid fa-arrow-right"></i></button>' +
+      '</div>' +
+      '<div class="grid g-3">' + list.map((t,i) => tourCard(t, (i % 3) * 70)).join('') + '</div>' +
+    '</div>';
+}
+
 function render(){
-  const list = getFiltered();
+  updateCounts();
   const grid = document.getElementById('tourGrid');
   const pager = document.getElementById('pager');
-  const pages = Math.ceil(list.length / PER_PAGE);
 
+  /* "All" keeps domestic and international in two separate sections */
+  if (state.region === 'all'){
+    let total = 0;
+    grid.innerHTML = REGIONS.map(r => {
+      const list = getFiltered(r.key);
+      total += list.length;
+      return list.length ? regionBlock(r, list) : '';
+    }).join('') || emptyHtml();
+    pager.innerHTML = '';
+    document.getElementById('resultCount').textContent =
+      total + (total === 1 ? ' package found' : ' packages found');
+    if (window.AOS) AOS.refreshHard();
+    return;
+  }
+
+  const list = getFiltered(state.region);
+  const pages = Math.ceil(list.length / PER_PAGE);
   if (state.page > pages) state.page = 1;
 
   document.getElementById('resultCount').textContent =
     list.length + (list.length === 1 ? ' package found' : ' packages found');
 
   if (!list.length){
-    grid.innerHTML =
-      '<div class="empty" style="grid-column:1/-1">' +
-        '<div class="ico"><i class="fa-solid fa-magnifying-glass"></i></div>' +
-        '<h3>No packages match your filters</h3>' +
-        '<p>Try widening your budget or picking another category.</p>' +
-        '<button class="btn btn-navy" style="margin-top:18px" onclick="clearFilters()">Clear Filters</button>' +
-      '</div>';
+    grid.innerHTML = emptyHtml();
     pager.innerHTML = '';
     return;
   }
 
   const start = (state.page - 1) * PER_PAGE;
-  grid.innerHTML = list.slice(start, start + PER_PAGE)
-                       .map((t,i) => tourCard(t, (i % 3) * 70)).join('');
+  grid.innerHTML = '<div class="grid g-3">' +
+    list.slice(start, start + PER_PAGE).map((t,i) => tourCard(t, (i % 3) * 70)).join('') +
+    '</div>';
   if (window.AOS) AOS.refreshHard();
 
   /* Pagination */
   if (pages <= 1){ pager.innerHTML = ''; return; }
   let html = '<button onclick="goPage(' + (state.page - 1) + ')"' +
-             (state.page === 1 ? ' disabled' : '') + '><i class="fa-solid fa-chevron-left"></i></button>';
+             (state.page === 1 ? ' disabled' : '') + ' aria-label="Previous page"><i class="fa-solid fa-chevron-left"></i></button>';
   for (let p = 1; p <= pages; p++){
     html += '<button class="' + (p === state.page ? 'active' : '') + '" onclick="goPage(' + p + ')">' + p + '</button>';
   }
   html += '<button onclick="goPage(' + (state.page + 1) + ')"' +
-          (state.page === pages ? ' disabled' : '') + '><i class="fa-solid fa-chevron-right"></i></button>';
+          (state.page === pages ? ' disabled' : '') + ' aria-label="Next page"><i class="fa-solid fa-chevron-right"></i></button>';
   pager.innerHTML = html;
 }
 
 function goPage(p){
   state.page = p;
+  render();
+  document.querySelector('.filter-bar').scrollIntoView({ behavior: 'smooth', block: 'start' });
+}
+
+function setRegion(region){
+  state.region = region;
+  state.page = 1;
+  // A type pill that doesn't exist in the new region would show nothing
+  if (state.cat !== 'all' && !state.all.some(t =>
+        t.category === state.cat && (region === 'all' || TRM.regionOf(t) === region))){
+    state.cat = 'all';
+  }
+  syncButtons();
+  const qs = new URLSearchParams(location.search);
+  if (region === 'all') qs.delete('region'); else qs.set('region', region);
+  qs.delete('cat');
+  history.replaceState(null, '', location.pathname + (qs.toString() ? '?' + qs : ''));
   render();
   document.querySelector('.filter-bar').scrollIntoView({ behavior: 'smooth', block: 'start' });
 }
@@ -305,20 +394,22 @@ function clearFilters(){
   state.page = 1;
   document.getElementById('priceRange').value = 150000;
   document.getElementById('priceOut').textContent = '৳1,50,000';
-  document.querySelectorAll('#catPills .pill').forEach(p => {
-    p.classList.toggle('active', p.dataset.cat === 'all');
-  });
-  history.replaceState(null, '', location.pathname);
+  syncButtons();
+  history.replaceState(null, '', location.pathname +
+    (state.region === 'all' ? '' : '?region=' + state.region));
   render();
 }
 
 /* ---------- Events ---------- */
+document.querySelectorAll('#regionTabs .region-tab').forEach(b => {
+  b.addEventListener('click', () => setRegion(b.dataset.region));
+});
+
 document.querySelectorAll('#catPills .pill').forEach(pill => {
   pill.addEventListener('click', () => {
-    document.querySelectorAll('#catPills .pill').forEach(p => p.classList.remove('active'));
-    pill.classList.add('active');
     state.cat = pill.dataset.cat;
     state.page = 1;
+    syncButtons();
     render();
   });
 });
@@ -341,7 +432,8 @@ document.getElementById('priceRange').addEventListener('input', e => {
   document.getElementById('year').textContent = new Date().getFullYear();
 
   if (TRM.isApiConfigured()){
-    document.getElementById('tourGrid').innerHTML = '<div class="skel skel-card"></div>'.repeat(6);
+    document.getElementById('tourGrid').innerHTML =
+      '<div class="grid g-3">' + '<div class="skel skel-card"></div>'.repeat(6) + '</div>';
     try {
       const res = await TRM.apiGet('get_tours');
       if (res.success && res.data && res.data.length) state.all = res.data;

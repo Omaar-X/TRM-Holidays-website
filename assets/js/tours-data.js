@@ -3,6 +3,11 @@
    Used as the fallback whenever the Apps Script API is unreachable or the
    API_URL has not been filled in yet. Once the backend is live, the same
    shape comes back from ?action=get_tours.
+
+   region   — 'domestic' (inside Bangladesh) or 'international'. This is what
+              splits the site into its two package lists.
+   category — trip style used by the filter pills: domestic, international,
+              honeymoon, adventure, group.
    ========================================================================== */
 
 const TOURS = [
@@ -10,6 +15,7 @@ const TOURS = [
     id: 'TR-001',
     name: "Cox's Bazar Beachside Escape",
     category: 'domestic',
+    region: 'domestic',
     destination: "Cox's Bazar, Bangladesh",
     days: 5, nights: 4,
     price: 12500,
@@ -24,6 +30,7 @@ const TOURS = [
     id: 'TR-002',
     name: 'Bangkok City & Beach Combo',
     category: 'international',
+    region: 'international',
     destination: 'Bangkok & Pattaya, Thailand',
     days: 7, nights: 6,
     price: 55000,
@@ -32,12 +39,13 @@ const TOURS = [
     people: '2-20',
     hotel: '4★ City + Beach',
     img: 'https://images.unsplash.com/photo-1563492065599-3520f775eeed?w=900&q=80',
-    desc: 'Temples and street food in Bangkok, then down to Pattaya for Coral Island, the floating market and an evening cruise on the Chao Phraya.'
+    desc: 'Temples, street food and an evening cruise on the Chao Phraya in Bangkok, then down to Pattaya for Coral Island and the floating market.'
   },
   {
     id: 'TR-003',
     name: 'Dubai Luxury Explorer',
     category: 'international',
+    region: 'international',
     destination: 'Dubai, UAE',
     days: 6, nights: 5,
     price: 78000,
@@ -52,6 +60,7 @@ const TOURS = [
     id: 'TR-004',
     name: 'Sajek Valley Adventure Trek',
     category: 'adventure',
+    region: 'domestic',
     destination: 'Sajek, Rangamati',
     days: 3, nights: 2,
     price: 8500,
@@ -66,6 +75,7 @@ const TOURS = [
     id: 'TR-005',
     name: 'Turkey Istanbul & Cappadocia',
     category: 'international',
+    region: 'international',
     destination: 'Istanbul & Cappadocia, Türkiye',
     days: 10, nights: 9,
     price: 120000,
@@ -80,6 +90,7 @@ const TOURS = [
     id: 'TR-006',
     name: 'Maldives Honeymoon Paradise',
     category: 'honeymoon',
+    region: 'international',
     destination: 'Malé Atoll, Maldives',
     days: 6, nights: 5,
     price: 150000,
@@ -94,6 +105,7 @@ const TOURS = [
     id: 'TR-007',
     name: 'Sundarbans Wildlife Safari',
     category: 'adventure',
+    region: 'domestic',
     destination: 'Sundarbans, Khulna',
     days: 3, nights: 2,
     price: 9500,
@@ -108,6 +120,7 @@ const TOURS = [
     id: 'TR-008',
     name: 'Bali Romantic Honeymoon',
     category: 'honeymoon',
+    region: 'international',
     destination: 'Bali, Indonesia',
     days: 8, nights: 7,
     price: 95000,
@@ -120,8 +133,9 @@ const TOURS = [
   },
   {
     id: 'TR-009',
-    name: 'Bandarban Hill Tracks Tour',
+    name: 'Bandarban Hill Tracts Tour',
     category: 'domestic',
+    region: 'domestic',
     destination: 'Bandarban, Chattogram',
     days: 4, nights: 3,
     price: 10000,
@@ -136,6 +150,7 @@ const TOURS = [
     id: 'TR-010',
     name: 'Sylhet Tea Garden Retreat',
     category: 'domestic',
+    region: 'domestic',
     destination: 'Sylhet & Sreemangal',
     days: 3, nights: 2,
     price: 9000,
@@ -150,6 +165,7 @@ const TOURS = [
     id: 'TR-011',
     name: 'Singapore City Tour',
     category: 'international',
+    region: 'international',
     destination: 'Singapore',
     days: 5, nights: 4,
     price: 68000,
@@ -164,6 +180,7 @@ const TOURS = [
     id: 'TR-012',
     name: "Cox's Bazar + Bandarban Combo",
     category: 'group',
+    region: 'domestic',
     destination: "Cox's Bazar & Bandarban",
     days: 7, nights: 6,
     price: 18500,
@@ -183,12 +200,16 @@ function tourCard(t, aosDelay) {
   const badge = t.badge
     ? '<span class="badge badge-' + t.badge + '">' + t.badge + '</span>'
     : '';
+  const region = TRM.regionOf(t);
+  const regionTag = region === 'domestic'
+    ? '<span class="region-tag region-dom"><i class="fa-solid fa-location-dot"></i>Domestic</span>'
+    : '<span class="region-tag region-intl"><i class="fa-solid fa-plane"></i>International</span>';
 
   return (
-    '<article class="card" data-cat="' + t.category + '" data-price="' + t.price + '"' +
+    '<article class="card" data-cat="' + t.category + '" data-region="' + region + '" data-price="' + t.price + '"' +
       (aosDelay != null ? ' data-aos="fade-up" data-aos-delay="' + aosDelay + '"' : '') + '>' +
       '<div class="card-img">' +
-        badge +
+        badge + regionTag +
         '<img src="' + t.img + '" alt="' + t.name + '" loading="lazy">' +
         '<span class="card-rating"><i class="fa-solid fa-star"></i>' + t.rating + '</span>' +
       '</div>' +

@@ -30,8 +30,9 @@ styling, phone number or brand colours only has to be made once.
 ## Your details are already in
 
 - **Phone / WhatsApp:** `01805041111` (WhatsApp links use `8801805041111`)
+- **Office:** House 32, Road 17/A, Block E, Banani, Dhaka 1213 (also drives the map on `contact.html`)
 - **Facebook:** https://www.facebook.com/trmholidaysbd
-- **Logo:** `assets/images/logo.png`, used in every navbar and footer
+- **Logo:** `assets/images/logo.jpeg`, used in every navbar and footer
 
 All of it comes from the `TRM` object at the top of **`assets/js/trm.js`** —
 that is the one place to edit contact details. Pages pull them in through
@@ -39,18 +40,18 @@ that is the one place to edit contact details. Pages pull them in through
 
 ### Still to fill in
 
-Open `assets/js/trm.js` and replace these:
+Open `assets/js/trm.js` and fill these in when the pages exist. While a value
+is empty its icon is hidden everywhere:
 
 ```js
-EMAIL:     'info@trmholidays.com',   // ← your real inbox
-ADDRESS:   'Dhaka, Bangladesh',      // ← full office address
-INSTAGRAM: 'https://www.instagram.com/',   // ← or delete the icon
-YOUTUBE:   'https://www.youtube.com/',     // ← or delete the icon
-TIKTOK:    'https://www.tiktok.com/',      // ← or delete the icon
+INSTAGRAM: '',
+YOUTUBE:   '',
+TIKTOK:    '',
+EMAIL2:    '',   // optional second inbox
 ```
 
-Also worth doing: paste a Google Maps embed into `contact.html` (search for
-`map-box`) and into `tour-detail.html` (`map-holder`).
+The contact-page map is generated from `MAP_QUERY` in `trm.js` — no embed
+code needed.
 
 ---
 
@@ -79,6 +80,11 @@ WhatsApp instead. Wire up Apps Script to make the forms actually submit.
 3. Delete the default `myFunction()` and paste in all of `apps_script/Code.gs`
 4. Save (Ctrl+S)
 
+A standalone project (created at script.google.com) works: `setupSheets`
+creates a spreadsheet called **TRM Holidays Database** in your Drive and prints
+its link in the execution log. If you'd rather use a Sheet you already have,
+open it and go to **Extensions → Apps Script** instead.
+
 ### 2. Build the sheets
 
 1. **Run** → choose `setupSheets` → **Run**
@@ -86,7 +92,9 @@ WhatsApp instead. Wire up Apps Script to make the forms actually submit.
    (that warning is normal for your own scripts)
 3. You should see: *"TRM Holidays sheets created successfully!"*
 
-Four sheets appear: `Tour_Packages`, `Inquiries`, `Contacts`, `Settings`.
+Four sheets appear: `Tour_Packages` (pre-filled with the same 12 packages as
+the site), `Inquiries`, `Contacts`, `Settings`. Running `setupSheets` again is
+safe — it never deletes rows, and adds any missing columns to older sheets.
 
 ### 3. Fill in Settings
 
@@ -107,7 +115,9 @@ In `assets/js/trm.js`:
 API_URL: 'https://script.google.com/macros/s/AKfy..../exec',
 ```
 
-Change `ADMIN_TOKEN` in **both** `trm.js` and `Code.gs` to the same new value.
+Set `ADMIN_TOKEN` in `Code.gs` (inside the Apps Script editor) to a long secret
+of your own and redeploy. That value **is** the admin.html login password — it
+is never stored in the website files.
 
 ### 6. Test
 
@@ -129,8 +139,20 @@ Skipping this is the single most common reason a change appears to do nothing.
 
 ## Adding and editing packages
 
-Add a row to the `Tour_Packages` sheet. `Status` must be exactly `Active` for
-it to appear on the site. `Highlights` is a single cell, items separated by `|`:
+Add a row to the `Tour_Packages` sheet. `Status` must be `Active` for it to
+appear on the site.
+
+**`Region` decides which list a package goes in** — `domestic` (inside
+Bangladesh) or `international`. The homepage shows the two in separate
+sections, and the Tour Packages page has Domestic / International tabs. If
+`Region` is left blank, `domestic`, `adventure` and `group` categories count as
+domestic and everything else as international.
+
+`Category` is the trip style used by the filter pills: `domestic`,
+`international`, `honeymoon`, `adventure` or `group`. `Badge` can be `hot`,
+`new` or `limited`.
+
+`Highlights` is a single cell, items separated by `|`:
 
 ```
 Beachfront hotel|Daily breakfast|AC transport|Guide included
@@ -165,42 +187,28 @@ and set it under Pages → Custom domain. DNS takes up to 48 hours.
 
 ## ⚠️ About the admin password
 
-`admin.html` checks the password in JavaScript. **Anyone who views the page
-source can read it.** It keeps casual visitors out of the screen; it is not
-real security.
+`admin.html` does not contain the password. Whatever is typed at login is sent
+to Apps Script as the admin token, and `Code.gs` compares it with its own
+`ADMIN_TOKEN` — a wrong value gets `Unauthorized` and no data.
 
-What actually protects your data is `ADMIN_TOKEN` in `Code.gs` — without it,
-the `admin_inquiries` and `admin_contacts` endpoints return `Unauthorized`.
-But that token also ships in `trm.js`, so treat it as *raising the bar*, not
-locking the door.
-
-If the inquiry data is sensitive, the real fixes are:
-
-- Don't publish `admin.html` at all — read the Google Sheet directly, it's
-  already access-controlled by your Google account
-- Or set the Web App to *"Who has access: Anyone with a Google account"* and
-  deploy the admin page behind a real login
-
-At minimum: change `ADMIN_TOKEN` and the password from their defaults, and
-keep the admin URL private.
+So the only secret is `ADMIN_TOKEN` in `Code.gs`. Keep it out of this public
+repo: change it in the Apps Script editor, not in the committed file. The old
+default (`trm-change-this-token-2026`) was published and must be replaced.
 
 ---
 
 ## Pre-launch checklist
 
 **Content**
-- [ ] Real email and office address in `trm.js`
-- [ ] Instagram / YouTube / TikTok links set, or icons removed
+- [ ] Instagram / YouTube / TikTok links set in `trm.js` (empty = icon hidden)
 - [ ] Replace the Unsplash stock photos with your own trip photos
 - [ ] Real prices and durations in `Tour_Packages`
-- [ ] Google Maps embed added to `contact.html`
 - [ ] Testimonials swapped for real customer reviews (or removed)
 - [ ] Write the Privacy / Terms / Cancellation pages — footer links go to `#`
 
 **Backend**
 - [ ] `API_URL` filled in
-- [ ] `ADMIN_TOKEN` changed in both files, values matching
-- [ ] Admin password changed from `TRM@admin2025`
+- [ ] `ADMIN_TOKEN` in Code.gs replaced with your own secret (this is the admin login)
 - [ ] `admin_email` set in the Settings sheet
 - [ ] Test submission lands in the sheet *and* sends both emails
 

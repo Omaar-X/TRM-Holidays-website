@@ -7,7 +7,7 @@
 <meta name="theme-color" content="#1A2B6B">
 <title>Flight Search | TRM Holidays</title>
 
-<link rel="icon" href="assets/images/logo.png">
+<link rel="icon" href="assets/images/logo.jpeg">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
@@ -32,6 +32,38 @@
 .fsearch .trip-types input{accent-color:var(--gold);width:16px;height:16px;cursor:pointer}
 
 /* ---------- Layout ---------- */
+/* ---------- Multi-city itinerary ---------- */
+.ms-wrap{padding-top:34px;padding-bottom:80px}
+.ms-card{background:#fff;border:1px solid #E4EBF6;border-radius:var(--radius-lg);box-shadow:var(--shadow);overflow:hidden;max-width:860px;margin:0 auto}
+.ms-head{padding:26px 28px 8px}
+.ms-eyebrow{font-family:var(--font-head);font-size:12px;font-weight:700;letter-spacing:1.6px;text-transform:uppercase;color:var(--sky)}
+.ms-head h2{margin:6px 0 4px}
+.ms-head p{color:var(--gray);font-size:14px}
+.ms-legs{list-style:none;padding:12px 28px;display:grid;gap:10px}
+.ms-legs li{
+  display:flex;align-items:center;gap:16px;flex-wrap:wrap;
+  padding:14px 16px;border:1px solid #EDF2FA;border-radius:var(--radius-sm);background:var(--off);
+}
+.ms-no{
+  width:32px;height:32px;flex:0 0 32px;border-radius:50%;background:var(--navy);color:#fff;
+  display:grid;place-items:center;font-family:var(--font-head);font-weight:700;font-size:14px;
+}
+.ms-route{display:flex;align-items:center;gap:12px;flex:1;min-width:0;flex-wrap:wrap}
+.ms-route b{font-family:var(--font-head);color:var(--navy);font-size:15px}
+.ms-route i{color:var(--sky);font-size:13px}
+.ms-date{font-size:13.5px;color:#42506E;font-weight:500;white-space:nowrap}
+.ms-date i{color:var(--sky);margin-right:4px}
+.ms-foot{padding:18px 28px 26px;border-top:1px solid #EDF2FA;margin-top:8px}
+.ms-foot p{font-size:14px;color:#42506E;margin-bottom:16px}
+.ms-btns{display:flex;flex-wrap:wrap;gap:12px}
+
+/* Multi-city legs sit on the navy search bar here */
+.fsearch .leg-no{color:#fff}
+.fsearch .leg-remove{background:rgba(255,255,255,.1);border-color:rgba(255,255,255,.3);color:#fff}
+.fsearch .leg-add{border-color:var(--sky-light);color:var(--sky-light)}
+.fsearch .leg-add:hover{background:var(--sky-light);color:var(--navy)}
+.fsearch .leg-note{color:rgba(255,255,255,.7)}
+
 .res-layout{display:grid;grid-template-columns:280px 1fr;gap:28px;align-items:start;padding:34px 0 80px}
 
 /* ---------- Filter sidebar ---------- */
@@ -96,7 +128,8 @@
 
 .fare{text-align:right}
 .fare b{display:block;font-family:var(--font-head);font-size:22px;font-weight:800;color:var(--navy);line-height:1.2}
-.fare small{font-size:11.5px;color:var(--gray);display:block;margin-bottom:9px}
+.fare small{font-size:11.5px;color:var(--gray);display:block}
+.fare b.ask{font-size:15px;font-weight:700;color:var(--sky);margin-bottom:9px}
 
 .flight-more{
   display:none;padding:0 20px 20px;border-top:1px solid #EDF2FA;margin-top:-4px;
@@ -120,6 +153,10 @@
   .fbox{position:static}
 }
 @media(max-width:768px){
+  .fsearch .leg-row{background:rgba(255,255,255,.06);border-color:rgba(255,255,255,.18)}
+  .ms-head,.ms-legs,.ms-foot{padding-left:18px;padding-right:18px}
+  .ms-date{width:100%;padding-left:48px}
+  .ms-btns .btn{flex:1}
   .fsearch .search-row{flex-direction:column;align-items:stretch}
   .flight-main{grid-template-columns:1fr;gap:16px}
   .fare{text-align:left;display:flex;align-items:center;justify-content:space-between;gap:14px}
@@ -137,15 +174,15 @@
 <header class="nav solid">
   <div class="wrap">
     <a href="index.html" class="brand">
-      <img src="assets/images/logo.png" alt="TRM Holidays" class="brand-logo">
+      <img src="assets/images/logo.jpeg" alt="TRM Holidays" class="brand-logo">
       <span class="brand-text"><b>TRM Holidays</b><span>Your Memory Maker</span></span>
     </a>
     <nav class="nav-links">
       <a href="index.html">Home</a>
+      <a href="about.html">About</a>
       <a href="flights.html" class="active">Flights</a>
       <a href="hotels.html">Hotels</a>
       <a href="tours.html">Tour Packages</a>
-      <a href="index.html#why">About</a>
       <a href="contact.html">Contact</a>
     </nav>
     <div class="nav-actions">
@@ -158,10 +195,10 @@
 
 <div class="mobile-menu" id="mobileMenu">
   <a href="index.html">Home</a>
+  <a href="about.html">About</a>
   <a href="flights.html" class="active">Flights</a>
   <a href="hotels.html">Hotels</a>
   <a href="tours.html">Tour Packages</a>
-  <a href="index.html#why">About</a>
   <a href="contact.html">Contact</a>
   <a href="#" data-trm="wa" class="btn btn-gold" target="_blank" rel="noopener">Book Now</a>
 </div>
@@ -169,27 +206,57 @@
 <!-- ══════════════ SEARCH BAR ══════════════ -->
 <section class="fsearch">
   <div class="wrap">
-    <div class="trip-types">
-      <label><input type="radio" name="trip" value="round" checked onchange="toggleReturnDate(this)"> Round Trip</label>
-      <label><input type="radio" name="trip" value="oneway" onchange="toggleReturnDate(this)"> One Way</label>
+    <div class="trip-types" id="tripTypes">
+      <label><input type="radio" name="trip" value="round" checked> Round Trip</label>
+      <label><input type="radio" name="trip" value="oneway"> One Way</label>
+      <label><input type="radio" name="trip" value="multi"> Multi City</label>
     </div>
 
-    <form class="search-row" onsubmit="event.preventDefault();applyFilters();toast('Search updated','ok')">
-      <div class="sf"><label>From</label><input type="text" id="fromCity" value="Dhaka (DAC)"></div>
-      <div class="sf"><label>To</label><input type="text" id="toCity" value="Dubai (DXB)"></div>
-      <div class="sf"><label>Departure</label><input type="date" id="departDate"></div>
-      <div class="sf" id="returnDateField"><label>Return</label><input type="date" id="returnDate"></div>
+    <form class="search-row" id="flightForm">
+      <div class="sf single-only"><label>From</label><input type="text" id="fromCity" value="Dhaka (DAC)"></div>
+      <div class="sf single-only"><label>To</label><input type="text" id="toCity" value="Dubai (DXB)"></div>
+      <div class="sf single-only"><label>Departure</label><input type="date" id="departDate"></div>
+      <div class="sf single-only" id="returnDateField"><label>Return</label><input type="date" id="returnDate"></div>
+
+      <!-- Multi City: legs are rendered here by initFlightSearch() -->
+      <div class="multi-legs"></div>
+
       <div class="sf">
         <label>Passengers</label>
-        <select><option>1 Adult</option><option>2 Adults</option><option>3 Adults</option><option>4 Adults</option></select>
+        <select id="paxSel">
+          <option>1 Adult</option><option>2 Adults</option><option>3 Adults</option>
+          <option>4 Adults</option><option>2 Adults, 1 Child</option><option>Family (5+)</option>
+        </select>
       </div>
       <button type="submit" class="btn btn-gold"><i class="fa-solid fa-magnifying-glass"></i> Modify Search</button>
     </form>
   </div>
 </section>
 
+<!-- ══════════════ MULTI-CITY ITINERARY ══════════════ -->
+<section class="wrap ms-wrap" id="multiSummary" hidden>
+  <div class="ms-card">
+    <div class="ms-head">
+      <span class="ms-eyebrow"><i class="fa-solid fa-route"></i> Multi-city trip</span>
+      <h2>Your Itinerary</h2>
+      <p id="msMeta"></p>
+    </div>
+    <ol class="ms-legs" id="msLegs"></ol>
+    <div class="ms-foot">
+      <p>
+        Multi-city fares are put together by hand — we compare airlines for every leg
+        and send you the best combination, usually within the hour.
+      </p>
+      <div class="ms-btns">
+        <a href="#" id="msWa" class="btn btn-wa" target="_blank" rel="noopener"><i class="fa-brands fa-whatsapp"></i> Get Price on WhatsApp</a>
+        <a href="#" data-trm="tel" class="btn btn-outline-navy"><i class="fa-solid fa-phone"></i> Call Us</a>
+      </div>
+    </div>
+  </div>
+</section>
+
 <!-- ══════════════ RESULTS ══════════════ -->
-<div class="wrap">
+<div class="wrap" id="singleResults">
   <div class="res-layout">
 
     <!-- FILTER SIDEBAR -->
@@ -199,12 +266,6 @@
       <div class="fgroup">
         <b>Airlines</b>
         <div id="airlineFilters"></div>
-      </div>
-
-      <div class="fgroup">
-        <b>Max price</b>
-        <input type="range" id="priceRange" min="20000" max="35000" step="500" value="35000">
-        <div class="range-out"><span>৳20,000</span><span id="priceOut">৳35,000</span></div>
       </div>
 
       <div class="fgroup">
@@ -227,18 +288,18 @@
       <div class="res-head">
         <p><b id="resCount">0</b> flights · <span id="routeLabel">Dhaka → Dubai</span></p>
         <div class="sort-tabs">
-          <button class="active" data-sort="cheap">Cheapest</button>
+          <button class="active" data-sort="best">Recommended</button>
           <button data-sort="fast">Fastest</button>
-          <button data-sort="best">Best Value</button>
+          <button data-sort="early">Earliest</button>
         </div>
       </div>
 
       <div id="flightList"></div>
 
       <p style="margin-top:24px;font-size:13px;color:var(--gray);text-align:center">
-        Fares shown are indicative. Confirm live availability on
+        Schedules shown are a sample for Dhaka → Dubai and may change. Fares change daily with seats and season. Tap <b>Get Price</b>, message us on
         <a href="#" data-trm="wa" target="_blank" rel="noopener" style="color:var(--sky);font-weight:600">WhatsApp</a>
-        or call <a href="#" data-trm="phone-tel" style="color:var(--sky);font-weight:600"></a>.
+        or call <a href="#" data-trm="phone-tel" style="color:var(--sky);font-weight:600"></a> for today's best fare.
       </p>
     </div>
 
@@ -250,7 +311,7 @@
   <div class="wrap">
     <div class="footer-grid">
       <div>
-        <img src="assets/images/logo.png" alt="TRM Holidays" class="footer-logo">
+        <img src="assets/images/logo.jpeg" alt="TRM Holidays" class="footer-logo">
         <p>TRM Holidays — your memory maker. Flights, hotels and tour packages for travellers across Bangladesh, at home and abroad.</p>
         <div class="socials">
           <a href="#" data-trm="facebook" target="_blank" rel="noopener" aria-label="Facebook"><i class="fa-brands fa-facebook-f"></i></a>
@@ -267,7 +328,7 @@
           <li><a href="flights.html"><i class="fa-solid fa-chevron-right"></i> Flights</a></li>
           <li><a href="hotels.html"><i class="fa-solid fa-chevron-right"></i> Hotels</a></li>
           <li><a href="tours.html"><i class="fa-solid fa-chevron-right"></i> Tour Packages</a></li>
-          <li><a href="index.html#why"><i class="fa-solid fa-chevron-right"></i> About Us</a></li>
+          <li><a href="about.html"><i class="fa-solid fa-chevron-right"></i> About Us</a></li>
           <li><a href="contact.html"><i class="fa-solid fa-chevron-right"></i> Contact</a></li>
         </ul>
       </div>
@@ -289,6 +350,7 @@
           <li><i class="fa-solid fa-phone"></i><a href="#" data-trm="phone-tel"></a></li>
           <li><i class="fa-brands fa-whatsapp"></i><a href="#" data-trm="wa" target="_blank" rel="noopener">WhatsApp us</a></li>
           <li><i class="fa-solid fa-envelope"></i><a href="#" data-trm="email"></a></li>
+          <li><i class="fa-solid fa-envelope"></i><a href="#" data-trm="email2"></a></li>
           <li><i class="fa-regular fa-clock"></i><span data-trm="hours"></span></li>
         </ul>
       </div>
@@ -308,16 +370,15 @@
 <script>
 document.getElementById('year').textContent = new Date().getFullYear();
 
-/* ---------- Mock flight inventory (display only) ---------- */
+/* ---------- Sample Dhaka → Dubai schedule (display only) ----------
+   Only shown for that route. Times, flight numbers and baggage are
+   indicative — confirm with the airline before quoting a customer. */
 const FLIGHTS = [
-  { id:'F1', airline:'Biman Bangladesh', code:'BG', flightNo:'BG-047', dep:'08:00', arr:'11:30', mins:330, stops:0, price:28500, from:'DAC', to:'DXB', bag:'30kg check-in + 7kg cabin', meal:'Complimentary hot meal', cancel:'Refundable · ৳4,000 fee' },
-  { id:'F2', airline:'Emirates',          code:'EK', flightNo:'EK-585', dep:'11:00', arr:'13:15', mins:435, stops:1, price:24000, from:'DAC', to:'DXB', bag:'35kg check-in + 7kg cabin', meal:'Multi-course meal + drinks', cancel:'Refundable · ৳6,500 fee' },
-  { id:'F3', airline:'Qatar Airways',     code:'QR', flightNo:'QR-641', dep:'15:00', arr:'20:00', mins:480, stops:1, price:22500, from:'DAC', to:'DXB', bag:'30kg check-in + 7kg cabin', meal:'Hot meal via Doha', cancel:'Partially refundable · ৳7,000 fee' },
-  { id:'F4', airline:'US-Bangla Airlines',code:'BS', flightNo:'BS-341', dep:'06:30', arr:'10:00', mins:390, stops:0, price:26000, from:'DAC', to:'DXB', bag:'30kg check-in + 7kg cabin', meal:'Snack box included', cancel:'Refundable · ৳3,500 fee' },
-  { id:'F5', airline:'FlyDubai',          code:'FZ', flightNo:'FZ-585', dep:'21:45', arr:'01:20', mins:335, stops:0, price:27200, from:'DAC', to:'DXB', bag:'30kg check-in + 7kg cabin', meal:'Paid menu on board', cancel:'Non-refundable · date change ৳5,000' },
-  { id:'F6', airline:'Thai Airways',      code:'TG', flightNo:'TG-322', dep:'09:20', arr:'18:40', mins:680, stops:1, price:31800, from:'DAC', to:'DXB', bag:'40kg check-in + 7kg cabin', meal:'Two full meals via Bangkok', cancel:'Refundable · ৳5,500 fee' },
-  { id:'F7', airline:'Novoair',           code:'VQ', flightNo:'VQ-912', dep:'07:15', arr:'12:05', mins:470, stops:1, price:25400, from:'DAC', to:'DXB', bag:'25kg check-in + 7kg cabin', meal:'Snack + soft drink', cancel:'Partially refundable · ৳4,500 fee' },
-  { id:'F8', airline:'Qatar Airways',     code:'QR', flightNo:'QR-639', dep:'23:10', arr:'07:30', mins:620, stops:2, price:21900, from:'DAC', to:'DXB', bag:'30kg check-in + 7kg cabin', meal:'Meals on both legs', cancel:'Non-refundable · date change ৳6,000' }
+  { id:'F1', airline:'Biman Bangladesh', code:'BG', flightNo:'BG-047', dep:'08:00', arr:'11:30', mins:330, stops:0, from:'DAC', to:'DXB', bag:'30kg check-in + 7kg cabin', meal:'Complimentary hot meal', cancel:'Refundable (airline fee applies)' },
+  { id:'F2', airline:'Emirates',          code:'EK', flightNo:'EK-585', dep:'11:00', arr:'14:40', mins:340, stops:0, from:'DAC', to:'DXB', bag:'35kg check-in + 7kg cabin', meal:'Multi-course meal + drinks', cancel:'Refundable (airline fee applies)' },
+  { id:'F3', airline:'Qatar Airways',     code:'QR', flightNo:'QR-641', dep:'15:00', arr:'20:00', mins:480, stops:1, from:'DAC', to:'DXB', bag:'30kg check-in + 7kg cabin', meal:'Hot meal via Doha', cancel:'Partially refundable' },
+  { id:'F4', airline:'US-Bangla Airlines',code:'BS', flightNo:'BS-341', dep:'06:30', arr:'10:00', mins:390, stops:0, from:'DAC', to:'DXB', bag:'30kg check-in + 7kg cabin', meal:'Snack box included', cancel:'Refundable (airline fee applies)' },
+  { id:'F5', airline:'FlyDubai',          code:'FZ', flightNo:'FZ-585', dep:'21:45', arr:'01:20', mins:335, stops:0, from:'DAC', to:'DXB', bag:'30kg check-in + 7kg cabin', meal:'Paid menu on board', cancel:'Non-refundable · date change allowed with fee' },
 ];
 
 const AIRLINES = [...new Set(FLIGHTS.map(f => f.airline))];
@@ -332,7 +393,7 @@ document.getElementById('airlineFilters').innerHTML = AIRLINES.map(a =>
 ).join('');
 
 /* ---------- State ---------- */
-let sortMode = 'cheap';
+let sortMode = 'best';
 
 function timeBucket(dep){
   const h = +dep.split(':')[0];
@@ -349,11 +410,16 @@ function checkedValues(cls){
   return [...document.querySelectorAll('.' + cls + ':checked')].map(i => i.value);
 }
 
+/* The sample list only covers Dhaka → Dubai */
+function isSampleRoute(){
+  return /dhaka|dac/i.test(document.getElementById('fromCity').value) &&
+         /dubai|dxb/i.test(document.getElementById('toCity').value);
+}
+
 function applyFilters(){
   const airlines = checkedValues('air-f');
   const times    = checkedValues('time-f');
   const stops    = checkedValues('stop-f');
-  const maxPrice = +document.getElementById('priceRange').value;
 
   let list = FLIGHTS.filter(f => {
     if (airlines.length && !airlines.includes(f.airline)) return false;
@@ -362,14 +428,14 @@ function applyFilters(){
       const bucket = f.stops >= 2 ? '2' : String(f.stops);
       if (!stops.includes(bucket)) return false;
     }
-    return f.price <= maxPrice;
+    return true;
   });
 
   switch (sortMode){
-    case 'fast': list.sort((a,b) => a.mins - b.mins); break;
-    // "Best value" balances fare against how long you're in the air
-    case 'best': list.sort((a,b) => (a.price + a.mins * 22) - (b.price + b.mins * 22)); break;
-    default:     list.sort((a,b) => a.price - b.price);
+    case 'fast':  list.sort((a,b) => a.mins - b.mins); break;
+    case 'early': list.sort((a,b) => a.dep.localeCompare(b.dep)); break;
+    // Recommended: fewest stops first, then shortest journey
+    default:      list.sort((a,b) => (a.stops - b.stops) || (a.mins - b.mins));
   }
 
   render(list);
@@ -383,12 +449,30 @@ function render(list){
     (document.getElementById('fromCity').value || 'Dhaka') + ' → ' +
     (document.getElementById('toCity').value || 'Dubai');
 
+  if (!isSampleRoute()){
+    document.getElementById('resCount').textContent = '—';
+    const from = document.getElementById('fromCity').value.trim();
+    const to = document.getElementById('toCity').value.trim();
+    box.innerHTML =
+      '<div class="empty">' +
+        '<div class="ico"><i class="fa-solid fa-plane-departure"></i></div>' +
+        '<h3>We&rsquo;ll find the fares for you</h3>' +
+        '<p>Send us your route and dates — we compare airlines for ' + TRM.esc(from) + ' → ' + TRM.esc(to) + ' and reply with the best options.</p>' +
+        '<a class="btn btn-wa" style="margin-top:18px" target="_blank" rel="noopener" href="' +
+          TRM.waLink('Hi TRM Holidays! Please send me fares for ' + from + ' → ' + to +
+                     (document.getElementById('departDate').value ? ' on ' + TRM.niceDate(document.getElementById('departDate').value) : '') +
+                     ' (' + document.getElementById('paxSel').value + ').') +
+        '"><i class="fa-brands fa-whatsapp"></i> Get Fares on WhatsApp</a>' +
+      '</div>';
+    return;
+  }
+
   if (!list.length){
     box.innerHTML =
       '<div class="empty">' +
         '<div class="ico"><i class="fa-solid fa-plane-slash"></i></div>' +
         '<h3>No flights match these filters</h3>' +
-        '<p>Try clearing a filter or raising your maximum price.</p>' +
+        '<p>Try clearing a filter.</p>' +
         '<button class="btn btn-navy" style="margin-top:18px" onclick="resetFilters()">Clear Filters</button>' +
       '</div>';
     return;
@@ -416,11 +500,11 @@ function render(list){
         '</div>' +
 
         '<div class="fare">' +
-          '<div><small>per person</small><b>৳' + TRM.money(f.price) + '</b></div>' +
+          '<div><small>Fare</small><b class="ask">On request</b></div>' +
           '<a class="btn btn-gold btn-sm" href="' +
-            TRM.waLink('Hi TRM Holidays! I want to book ' + f.airline + ' ' + f.flightNo +
-                       ' (' + f.from + ' → ' + f.to + ', ' + f.dep + ') at ৳' + TRM.money(f.price) + '.') +
-            '" target="_blank" rel="noopener">Select</a>' +
+            TRM.waLink('Hi TRM Holidays! Please send me the fare for ' + f.airline + ' ' + f.flightNo +
+                       ' (' + f.from + ' → ' + f.to + ', ' + f.dep + ').') +
+            '" target="_blank" rel="noopener"><i class="fa-brands fa-whatsapp"></i> Get Price</a>' +
         '</div>' +
 
       '</div>' +
@@ -446,26 +530,61 @@ function toggleFlight(id){
 
 function resetFilters(){
   document.querySelectorAll('.air-f, .time-f, .stop-f').forEach(c => c.checked = false);
-  const pr = document.getElementById('priceRange');
-  pr.value = pr.max;
-  document.getElementById('priceOut').textContent = '৳' + TRM.money(+pr.max);
   applyFilters();
 }
 
-/* One Way hides the return date */
-function toggleReturnDate(radio){
-  document.getElementById('returnDateField').style.display =
-    radio.value === 'round' ? '' : 'none';
+/* ---------- Search form: Round Trip / One Way / Multi City ---------- */
+const flightSearch = initFlightSearch(document.getElementById('flightForm'),
+                                      document.getElementById('tripTypes'));
+
+function showMultiSummary(){
+  const legs = flightSearch.legs();
+  const pax = document.getElementById('paxSel').value;
+
+  document.getElementById('msMeta').textContent =
+    legs.length + ' flights · ' + pax + ' · ' + legs[0].from + ' → ' + legs[legs.length - 1].to;
+
+  document.getElementById('msLegs').innerHTML = legs.map((l, i) =>
+    '<li>' +
+      '<span class="ms-no">' + (i + 1) + '</span>' +
+      '<div class="ms-route"><b>' + TRM.esc(l.from) + '</b><i class="fa-solid fa-plane"></i><b>' + TRM.esc(l.to) + '</b></div>' +
+      '<span class="ms-date"><i class="fa-regular fa-calendar"></i> ' + TRM.niceDate(l.date) + '</span>' +
+    '</li>'
+  ).join('');
+
+  document.getElementById('msWa').href = TRM.waLink(
+    'Hi TRM Holidays! Please send me the price for this multi-city trip (' + pax + '):\n' +
+    legs.map((l, i) => (i + 1) + '. ' + l.from + ' → ' + l.to + ' on ' + TRM.niceDate(l.date)).join('\n')
+  );
+
+  document.getElementById('multiSummary').hidden = false;
+  document.getElementById('singleResults').hidden = true;
 }
+
+function showSingleResults(){
+  document.getElementById('multiSummary').hidden = true;
+  document.getElementById('singleResults').hidden = false;
+  applyFilters();
+}
+
+document.getElementById('flightForm').addEventListener('submit', e => {
+  e.preventDefault();
+  const problem = flightSearch.validate();
+  if (problem){ toast(problem, 'err'); return; }
+
+  history.replaceState(null, '', '?' + flightSearch.toQuery().toString());
+  if (flightSearch.trip() === 'multi'){
+    showMultiSummary();
+    document.getElementById('multiSummary').scrollIntoView({ behavior: 'smooth', block: 'start' });
+  } else {
+    showSingleResults();
+    toast('Search updated', 'ok');
+  }
+});
 
 /* ---------- Events ---------- */
 document.addEventListener('change', e => {
   if (e.target.matches('.air-f, .time-f, .stop-f')) applyFilters();
-});
-
-document.getElementById('priceRange').addEventListener('input', e => {
-  document.getElementById('priceOut').textContent = '৳' + TRM.money(+e.target.value);
-  applyFilters();
 });
 
 document.querySelectorAll('.sort-tabs button').forEach(btn => {
@@ -486,7 +605,13 @@ document.querySelectorAll('.sort-tabs button').forEach(btn => {
   document.getElementById('returnDate').value = d.toISOString().split('T')[0];
 })();
 
-applyFilters();
+/* Search sent from the homepage (or a shared link) */
+(function readSearch(){
+  const qs = new URLSearchParams(location.search);
+  if (qs.has('trip')) flightSearch.fromQuery(qs);
+  if (flightSearch.trip() === 'multi' && !flightSearch.validate()) showMultiSummary();
+  else showSingleResults();
+})();
 </script>
 
 </body>

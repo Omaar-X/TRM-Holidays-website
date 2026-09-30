@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="About TRM Holidays — a Dhaka-based travel agency in Banani offering domestic and international tours, air tickets, hotels and visa support.">
+<meta name="theme-color" content="#1A2B6B">
+<title>About Us | TRM Holidays</title>
+
+<link rel="icon" href="assets/images/logo.jpeg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<link rel="stylesheet" href="https://unpkg.com/aos@2.3.4/dist/aos.css">
+<link rel="stylesheet" href="assets/css/trm.css">
+
+<style>
+/* ---------- Mission / vision ---------- */
+.mv-grid{grid-template-columns:1fr 1fr}
+.mv-card{background:#fff;border:1px solid #E4EBF6;border-radius:var(--radius);padding:28px;box-shadow:var(--shadow-sm)}
+.mv-card .ico,.svc .ico{
+  width:52px;height:52px;border-radius:14px;display:grid;place-items:center;margin-bottom:16px;
+  background:linear-gradient(135deg,var(--sky),var(--royal));color:#fff;font-size:21px;
+}
+.mv-card h3{margin-bottom:8px}
+.mv-card p{color:#42506E}
+
+/* ---------- Services ---------- */
+.svc{
+  display:flex;flex-direction:column;background:#fff;border:1px solid #E4EBF6;border-radius:var(--radius);
+  padding:26px 22px;box-shadow:var(--shadow-sm);transition:transform .25s var(--ease),box-shadow .25s var(--ease);
+}
+.svc:hover{transform:translateY(-5px);box-shadow:var(--shadow)}
+.svc h3{font-size:17px;margin-bottom:8px}
+.svc p{font-size:14px;color:var(--gray);flex:1}
+.svc-more{margin-top:14px;font-family:var(--font-head);font-size:13px;font-weight:700;color:var(--sky)}
+
+/* ---------- Why ---------- */
+.why-item{text-align:center;padding:10px}
+.why-item > i{font-size:28px;color:var(--gold);margin-bottom:14px}
+.why-item h3{font-size:16.5px;margin-bottom:8px}
+.why-item p{font-size:14px;color:var(--gray)}
+
+/* ---------- Stats ---------- */
+.stat{text-align:center;padding:10px}
+.stat b{display:block;font-family:var(--font-head);font-weight:800;font-size:clamp(1.8rem,3.5vw,2.6rem);color:var(--navy);line-height:1.15}
+.stat span{font-size:14px;color:var(--gray);font-weight:500}
+
+/* ---------- Office ---------- */
+.office{display:grid;grid-template-columns:1fr 1.2fr;gap:44px;align-items:center}
+.office .eyebrow{
+  display:inline-block;font-family:var(--font-head);font-size:12px;font-weight:700;
+  letter-spacing:2px;text-transform:uppercase;color:var(--sky);margin-bottom:8px;
+}
+.office-list{margin:18px 0 24px;display:grid;gap:14px}
+.office-list li{display:flex;gap:12px;align-items:flex-start;color:var(--dark);font-size:15px}
+.office-list i{width:20px;color:var(--sky);margin-top:4px;text-align:center}
+.office-list a:hover{color:var(--sky)}
+.office-map{height:340px;border-radius:var(--radius-lg);overflow:hidden;box-shadow:var(--shadow);background:#fff}
+.office-map iframe{width:100%;height:100%;border:0;display:block}
+
+@media(max-width:900px){
+  .g-4.svc-grid,.g-4.why-grid{grid-template-columns:repeat(2,1fr)}
+  .office{grid-template-columns:1fr;gap:30px}
+}
+@media(max-width:768px){
+  .mv-grid{grid-template-columns:1fr}
+  .g-4.svc-grid,.g-4.why-grid{grid-template-columns:1fr}
+  .stats-grid{grid-template-columns:repeat(2,1fr)!important}
+  .office-map{height:260px}
+}
+</style>
+</head>
+
+<body>
+
+<!-- ══════════════ NAVBAR ══════════════ -->
+<header class="nav solid">
+  <div class="wrap">
+    <a href="index.html" class="brand">
+      <img src="assets/images/logo.jpeg" alt="TRM Holidays" class="brand-logo">
+      <span class="brand-text"><b>TRM Holidays</b><span>Your Memory Maker</span></span>
+    </a>
+    <nav class="nav-links">
+      <a href="index.html">Home</a>
+      <a href="about.html" class="active">About</a>
+      <a href="flights.html">Flights</a>
+      <a href="hotels.html">Hotels</a>
+      <a href="tours.html">Tour Packages</a>
+      <a href="contact.html">Contact</a>
+    </nav>
+    <div class="nav-actions">
+      <a href="contact.html" class="btn btn-outline"><i class="fa-solid fa-headset"></i> Contact</a>
+      <a href="#" data-trm="wa" class="btn btn-gold" target="_blank" rel="noopener">Book Now</a>
+    </div>
+    <button class="burger" id="burger" aria-label="Open menu" aria-expanded="false"><i class="fa-solid fa-bars"></i></button>
+  </div>
+</header>
+
+<div class="mobile-menu" id="mobileMenu">
+  <a href="index.html">Home</a>
+  <a href="about.html" class="active">About</a>
+  <a href="flights.html">Flights</a>
+  <a href="hotels.html">Hotels</a>
+  <a href="tours.html">Tour Packages</a>
+  <a href="contact.html">Contact</a>
+  <a href="#" data-trm="wa" class="btn btn-gold" target="_blank" rel="noopener">Book Now</a>
+</div>
+
+<!-- ══════════════ BANNER ══════════════ -->
+<section class="page-banner">
+  <div class="wrap">
+    <h1>About Us</h1>
+    <div class="crumb">
+      <a href="index.html">Home</a><i class="fa-solid fa-chevron-right"></i><span>About Us</span>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════ OUR STORY ══════════════ -->
+<section class="section">
+  <div class="wrap about">
+    <div class="about-media" data-aos="fade-up">
+      <img src="https://images.unsplash.com/photo-1436491865332-7a61a109cc05?w=1000&q=80" alt="View of an aeroplane wing above the clouds" loading="lazy">
+      <div class="about-badge">
+        <b>2023</b>
+        <span>Established in<br>Banani, Dhaka</span>
+      </div>
+    </div>
+
+    <div class="about-copy" data-aos="fade-up" data-aos-delay="100">
+      <span class="eyebrow">Our story</span>
+      <h2>Your Memory Maker, at Home and Abroad</h2>
+      <p>
+        TRM Holidays was founded in <strong>2023</strong> in Banani, Dhaka, with a simple idea:
+        planning a trip should feel as exciting as taking one. What began as a small team
+        booking tickets for friends and families has grown into a full-service travel agency
+        trusted by travellers across Bangladesh.
+      </p>
+      <p>
+        Today we handle the whole journey in one place — air tickets, hotel bookings, visa
+        processing and complete tour packages. Whether it's a weekend at Cox's Bazar or Sajek,
+        or a family holiday in Dubai, Thailand or the Maldives, one team plans it with you
+        and stays reachable on WhatsApp before you book and while you're away.
+      </p>
+      <p>
+        Every package is priced up front, every hotel is one we have checked, and every
+        trip has a real person behind it who answers when you call. That is what
+        <em>"Your Memory Maker"</em> means to us.
+      </p>
+      <ul class="about-points">
+        <li><i class="fa-solid fa-circle-check"></i> Established in 2023</li>
+        <li><i class="fa-solid fa-circle-check"></i> Office in Banani, Dhaka</li>
+        <li><i class="fa-solid fa-circle-check"></i> Transparent, upfront pricing</li>
+        <li><i class="fa-solid fa-circle-check"></i> Real support, 24/7</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════ MISSION / VISION ══════════════ -->
+<section class="section section--off section--tight">
+  <div class="wrap">
+    <div class="grid mv-grid">
+      <div class="mv-card" data-aos="fade-up">
+        <div class="ico"><i class="fa-solid fa-bullseye"></i></div>
+        <h3>Our Mission</h3>
+        <p>Make travel simple, honest and affordable for every Bangladeshi traveller — clear prices, reliable arrangements and support from the first call to the flight home.</p>
+      </div>
+      <div class="mv-card" data-aos="fade-up" data-aos-delay="100">
+        <div class="ico"><i class="fa-solid fa-eye"></i></div>
+        <h3>Our Vision</h3>
+        <p>To be the travel partner families and companies in Bangladesh trust first — for a weekend in the hills or a holiday across the world.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════ MANAGEMENT ══════════════ -->
+<section class="section" id="management">
+  <div class="wrap">
+    <div class="sec-head" data-aos="fade-up">
+      <span class="eyebrow">Our management</span>
+      <h2>The People Behind Your Trips</h2>
+      <p>A small, dedicated team that plans every journey personally — from the first call to the flight home.</p>
+    </div>
+
+    <div class="grid g-4 team-grid">
+      <div class="team-card" data-aos="fade-up">
+        <div class="team-photo"><img src="assets/images/team/tutul.jpg" alt="S M Tutul, Chief Executive Officer" loading="lazy"></div>
+        <h3>S M Tutul</h3>
+        <span class="team-role">Chief Executive Officer</span>
+        <a href="tel:+8801611535453" class="team-phone"><i class="fa-solid fa-phone"></i> +880 1611 535 453</a>
+      </div>
+      <div class="team-card" data-aos="fade-up" data-aos-delay="80">
+        <div class="team-photo"><img src="assets/images/team/rashel.jpg" alt="A B M Rashel, Director" loading="lazy"></div>
+        <h3>A B M Rashel</h3>
+        <span class="team-role">Director</span>
+        <a href="tel:+8801805041114" class="team-phone"><i class="fa-solid fa-phone"></i> +880 1805 041 114</a>
+      </div>
+      <div class="team-card" data-aos="fade-up" data-aos-delay="160">
+        <div class="team-photo"><img src="assets/images/team/antora.jpg" alt="Most. Antora Akter, Sales Executive" loading="lazy"></div>
+        <h3>Most. Antora Akter</h3>
+        <span class="team-role">Sales Executive</span>
+        <a href="tel:+8801805041113" class="team-phone"><i class="fa-solid fa-phone"></i> +880 1805 041 113</a>
+      </div>
+      <div class="team-card" data-aos="fade-up" data-aos-delay="240">
+        <div class="team-photo"><img src="assets/images/team/riya.jpg" alt="Sarara Jaman Riya, Sales Executive" loading="lazy"></div>
+        <h3>Sarara Jaman Riya</h3>
+        <span class="team-role">Sales Executive</span>
+        <a href="tel:+8801805041115" class="team-phone"><i class="fa-solid fa-phone"></i> +880 1805 041 115</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════ WHAT WE DO ══════════════ -->
+<section class="section">
+  <div class="wrap">
+    <div class="sec-head" data-aos="fade-up">
+      <span class="eyebrow">What we do</span>
+      <h2>Everything for Your Trip, in One Place</h2>
+    </div>
+
+    <div class="grid g-4 svc-grid">
+      <a href="tours.html?region=domestic" class="svc" data-aos="fade-up">
+        <div class="ico"><i class="fa-solid fa-location-dot"></i></div>
+        <h3>Domestic Tours</h3>
+        <p>Cox's Bazar, Sajek, Bandarban, Sylhet, the Sundarbans and more.</p>
+        <span class="svc-more">View packages <i class="fa-solid fa-arrow-right"></i></span>
+      </a>
+      <a href="tours.html?region=international" class="svc" data-aos="fade-up" data-aos-delay="80">
+        <div class="ico"><i class="fa-solid fa-earth-asia"></i></div>
+        <h3>International Tours</h3>
+        <p>Dubai, Thailand, Türkiye, Maldives, Bali, Singapore and beyond.</p>
+        <span class="svc-more">View packages <i class="fa-solid fa-arrow-right"></i></span>
+      </a>
+      <a href="flights.html" class="svc" data-aos="fade-up" data-aos-delay="160">
+        <div class="ico"><i class="fa-solid fa-plane-departure"></i></div>
+        <h3>Air Tickets</h3>
+        <p>Domestic and international flights at the best available fares.</p>
+        <span class="svc-more">Search flights <i class="fa-solid fa-arrow-right"></i></span>
+      </a>
+      <a href="hotels.html" class="svc" data-aos="fade-up" data-aos-delay="240">
+        <div class="ico"><i class="fa-solid fa-hotel"></i></div>
+        <h3>Hotels &amp; Visa</h3>
+        <p>Hotel reservations and visa processing support, handled for you.</p>
+        <span class="svc-more">Find hotels <i class="fa-solid fa-arrow-right"></i></span>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════ WHY CHOOSE US ══════════════ -->
+<section class="section section--off">
+  <div class="wrap">
+    <div class="sec-head" data-aos="fade-up">
+      <span class="eyebrow">Why TRM Holidays</span>
+      <h2>Travel Planned Properly</h2>
+    </div>
+
+    <div class="grid g-4 why-grid">
+      <div class="why-item" data-aos="fade-up">
+        <i class="fa-solid fa-tags"></i>
+        <h3>Best Price Guarantee</h3>
+        <p>No hidden service charges at the end — the price we quote is the price you pay.</p>
+      </div>
+      <div class="why-item" data-aos="fade-up" data-aos-delay="80">
+        <i class="fa-solid fa-map-location-dot"></i>
+        <h3>Expert Local Guides</h3>
+        <p>Bangla-speaking guides who know the route, the food and the shortcuts.</p>
+      </div>
+      <div class="why-item" data-aos="fade-up" data-aos-delay="160">
+        <i class="fa-solid fa-headset"></i>
+        <h3>24/7 Support</h3>
+        <p>One WhatsApp number, answered before you book and while you're away.</p>
+      </div>
+      <div class="why-item" data-aos="fade-up" data-aos-delay="240">
+        <i class="fa-solid fa-shield-halved"></i>
+        <h3>Safe &amp; Trusted</h3>
+        <p>Verified hotels, licensed transport and clear cancellation terms.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════ STATS ══════════════ -->
+<section class="section section--tight">
+  <div class="wrap">
+    <div class="grid g-4 stats-grid">
+      <div class="stat"><b>10,000+</b><span>Happy Travelers</span></div>
+      <div class="stat"><b>500+</b><span>Tour Packages</span></div>
+      <div class="stat"><b>2023</b><span>Established</span></div>
+      <div class="stat"><b>50+</b><span>Destinations</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════ OFFICE ══════════════ -->
+<section class="section section--off">
+  <div class="wrap office">
+    <div data-aos="fade-up">
+      <span class="eyebrow">Visit us</span>
+      <h2>Our Office</h2>
+      <ul class="office-list">
+        <li><i class="fa-solid fa-location-dot"></i><span data-trm="address"></span></li>
+        <li><i class="fa-solid fa-phone"></i><a href="#" data-trm="phone-tel"></a></li>
+        <li><i class="fa-solid fa-envelope"></i><a href="#" data-trm="email"></a></li>
+        <li><i class="fa-solid fa-envelope"></i><a href="#" data-trm="email2"></a></li>
+        <li><i class="fa-regular fa-clock"></i><span data-trm="hours"></span></li>
+      </ul>
+      <div class="about-btns">
+        <a href="contact.html" class="btn btn-navy"><i class="fa-solid fa-headset"></i> Contact Us</a>
+        <a href="#" data-trm="wa" data-msg="Hi TRM Holidays! I'd like to plan a trip." class="btn btn-wa" target="_blank" rel="noopener"><i class="fa-brands fa-whatsapp"></i> WhatsApp</a>
+      </div>
+    </div>
+    <div class="office-map" data-aos="fade-up" data-aos-delay="100">
+      <iframe data-trm="map" title="TRM Holidays office on Google Maps" loading="lazy"
+              referrerpolicy="no-referrer-when-downgrade" allowfullscreen></iframe>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════ FOOTER ══════════════ -->
+<footer class="footer">
+  <div class="wrap">
+    <div class="footer-grid">
+      <div>
+        <img src="assets/images/logo.jpeg" alt="TRM Holidays" class="footer-logo">
+        <p>TRM Holidays — your memory maker. Flights, hotels and tour packages for travellers across Bangladesh, at home and abroad.</p>
+        <div class="socials">
+          <a href="#" data-trm="facebook" target="_blank" rel="noopener" aria-label="Facebook"><i class="fa-brands fa-facebook-f"></i></a>
+          <a href="#" data-trm="instagram" target="_blank" rel="noopener" aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a>
+          <a href="#" data-trm="youtube" target="_blank" rel="noopener" aria-label="YouTube"><i class="fa-brands fa-youtube"></i></a>
+          <a href="#" data-trm="tiktok" target="_blank" rel="noopener" aria-label="TikTok"><i class="fa-brands fa-tiktok"></i></a>
+          <a href="#" data-trm="wa" target="_blank" rel="noopener" aria-label="WhatsApp"><i class="fa-brands fa-whatsapp"></i></a>
+        </div>
+      </div>
+      <div>
+        <h4>Quick Links</h4>
+        <ul class="footer-links">
+          <li><a href="index.html"><i class="fa-solid fa-chevron-right"></i> Home</a></li>
+          <li><a href="flights.html"><i class="fa-solid fa-chevron-right"></i> Flights</a></li>
+          <li><a href="hotels.html"><i class="fa-solid fa-chevron-right"></i> Hotels</a></li>
+          <li><a href="tours.html"><i class="fa-solid fa-chevron-right"></i> Tour Packages</a></li>
+          <li><a href="about.html"><i class="fa-solid fa-chevron-right"></i> About Us</a></li>
+          <li><a href="contact.html"><i class="fa-solid fa-chevron-right"></i> Contact</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Popular Tours</h4>
+        <ul class="footer-links">
+          <li><a href="tour-detail.html?id=TR-001"><i class="fa-solid fa-chevron-right"></i> Cox's Bazar Escape</a></li>
+          <li><a href="tour-detail.html?id=TR-003"><i class="fa-solid fa-chevron-right"></i> Dubai Luxury Explorer</a></li>
+          <li><a href="tour-detail.html?id=TR-002"><i class="fa-solid fa-chevron-right"></i> Bangkok City &amp; Beach</a></li>
+          <li><a href="tour-detail.html?id=TR-006"><i class="fa-solid fa-chevron-right"></i> Maldives Honeymoon</a></li>
+          <li><a href="tour-detail.html?id=TR-005"><i class="fa-solid fa-chevron-right"></i> Turkey &amp; Cappadocia</a></li>
+          <li><a href="tour-detail.html?id=TR-004"><i class="fa-solid fa-chevron-right"></i> Sajek Valley Trek</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Get In Touch</h4>
+        <ul class="contact-list">
+          <li><i class="fa-solid fa-location-dot"></i><span data-trm="address"></span></li>
+          <li><i class="fa-solid fa-phone"></i><a href="#" data-trm="phone-tel"></a></li>
+          <li><i class="fa-brands fa-whatsapp"></i><a href="#" data-trm="wa" target="_blank" rel="noopener">WhatsApp us</a></li>
+          <li><i class="fa-solid fa-envelope"></i><a href="#" data-trm="email"></a></li>
+          <li><i class="fa-solid fa-envelope"></i><a href="#" data-trm="email2"></a></li>
+          <li><i class="fa-regular fa-clock"></i><span data-trm="hours"></span></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>&copy; <span id="year"></span> TRM Holidays. All rights reserved.</span>
+      <nav><a href="#">Privacy Policy</a><a href="#">Terms &amp; Conditions</a><a href="#">Cancellation Policy</a></nav>
+    </div>
+  </div>
+</footer>
+
+<a href="#" data-trm="wa" data-msg="Hi TRM Holidays! I'd like to know more about you." class="wa-float" target="_blank" rel="noopener" aria-label="Chat on WhatsApp"><i class="fa-brands fa-whatsapp"></i></a>
+<button class="top-btn" id="topBtn" aria-label="Back to top"><i class="fa-solid fa-arrow-up"></i></button>
+
+<script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
+<script src="assets/js/trm.js"></script>
+<script>
+document.getElementById('year').textContent = new Date().getFullYear();
+</script>
+
+</body>
+</html>

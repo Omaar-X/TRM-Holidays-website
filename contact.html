@@ -7,7 +7,7 @@
 <meta name="theme-color" content="#1A2B6B">
 <title>Contact Us | TRM Holidays</title>
 
-<link rel="icon" href="assets/images/logo.png">
+<link rel="icon" href="assets/images/logo.jpeg">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
@@ -49,9 +49,14 @@
 
 .map-box{
   height:250px;border-radius:var(--radius);overflow:hidden;
-  border:1px dashed #C9D8EE;background:var(--off);
-  display:grid;place-items:center;text-align:center;color:var(--gray);padding:20px;margin-top:6px;
+  border:1px solid #E4EBF6;background:var(--off);margin-top:6px;
 }
+.map-box iframe{width:100%;height:100%;border:0;display:block}
+.map-link{
+  display:inline-flex;align-items:center;gap:8px;margin-top:10px;
+  font-family:var(--font-head);font-size:13.5px;font-weight:600;color:var(--sky);
+}
+.map-link:hover{color:var(--navy)}
 .map-box i{font-size:34px;color:var(--sky);margin-bottom:10px;display:block}
 .map-box code{
   display:block;margin-top:8px;font-size:11px;background:#fff;
@@ -59,7 +64,8 @@
 }
 
 /* ---------- Social row ---------- */
-.social-row{display:grid;grid-template-columns:repeat(5,1fr);gap:14px;margin-top:16px}
+.social-row{display:flex;flex-wrap:wrap;justify-content:center;gap:14px;margin-top:16px}
+.social-row .social-btn{flex:0 1 180px}
 .social-btn{
   display:flex;flex-direction:column;align-items:center;justify-content:center;gap:9px;
   padding:22px 10px;border-radius:var(--radius);color:#fff;font-family:var(--font-head);
@@ -75,11 +81,10 @@
 
 @media(max-width:900px){
   .contact-grid{grid-template-columns:1fr}
-  .social-row{grid-template-columns:repeat(3,1fr)}
 }
 @media(max-width:560px){
   .two-col{grid-template-columns:1fr}
-  .social-row{grid-template-columns:repeat(2,1fr)}
+  .social-row .social-btn{flex:1 1 40%}
   .form-card{padding:22px}
 }
 </style>
@@ -91,15 +96,15 @@
 <header class="nav solid">
   <div class="wrap">
     <a href="index.html" class="brand">
-      <img src="assets/images/logo.png" alt="TRM Holidays" class="brand-logo">
+      <img src="assets/images/logo.jpeg" alt="TRM Holidays" class="brand-logo">
       <span class="brand-text"><b>TRM Holidays</b><span>Your Memory Maker</span></span>
     </a>
     <nav class="nav-links">
       <a href="index.html">Home</a>
+      <a href="about.html">About</a>
       <a href="flights.html">Flights</a>
       <a href="hotels.html">Hotels</a>
       <a href="tours.html">Tour Packages</a>
-      <a href="index.html#why">About</a>
       <a href="contact.html" class="active">Contact</a>
     </nav>
     <div class="nav-actions">
@@ -112,10 +117,10 @@
 
 <div class="mobile-menu" id="mobileMenu">
   <a href="index.html">Home</a>
+  <a href="about.html">About</a>
   <a href="flights.html">Flights</a>
   <a href="hotels.html">Hotels</a>
   <a href="tours.html">Tour Packages</a>
-  <a href="index.html#why">About</a>
   <a href="contact.html" class="active">Contact</a>
   <a href="#" data-trm="wa" class="btn btn-gold" target="_blank" rel="noopener">WhatsApp</a>
 </div>
@@ -177,8 +182,8 @@
           </div>
 
           <div class="field">
-            <label for="cMessage">Message <span class="req">*</span></label>
-            <textarea id="cMessage" data-rule="message" placeholder="Tell us your travel dates, how many people, and your budget…" required></textarea>
+            <label for="cMessage">Message <small>(optional)</small></label>
+            <textarea id="cMessage" placeholder="Tell us your travel dates, how many people, and your budget…"></textarea>
           </div>
 
           <button type="submit" class="btn btn-gold btn-block" id="sendBtn">
@@ -230,6 +235,7 @@
           <div>
             <b>Email</b>
             <p><a href="#" data-trm="email"></a></p>
+            <p><a href="#" data-trm="email2"></a></p>
           </div>
         </div>
 
@@ -243,12 +249,12 @@
         </div>
 
         <div class="map-box">
-          <div>
-            <i class="fa-solid fa-map-location-dot"></i>
-            <b style="color:var(--navy);font-family:var(--font-head)">Find us on the map</b>
-            <code>&lt;!-- Paste your Google Maps embed iframe here --&gt;</code>
-          </div>
+          <iframe data-trm="map" title="TRM Holidays office on Google Maps" loading="lazy"
+                  referrerpolicy="no-referrer-when-downgrade" allowfullscreen></iframe>
         </div>
+        <a href="#" data-trm="map-link" class="map-link" target="_blank" rel="noopener">
+          <i class="fa-solid fa-diamond-turn-right"></i> Get directions
+        </a>
       </div>
 
     </div>
@@ -279,7 +285,7 @@
   <div class="wrap">
     <div class="footer-grid">
       <div>
-        <img src="assets/images/logo.png" alt="TRM Holidays" class="footer-logo">
+        <img src="assets/images/logo.jpeg" alt="TRM Holidays" class="footer-logo">
         <p>TRM Holidays — your memory maker. Flights, hotels and tour packages for travellers across Bangladesh, at home and abroad.</p>
         <div class="socials">
           <a href="#" data-trm="facebook" target="_blank" rel="noopener" aria-label="Facebook"><i class="fa-brands fa-facebook-f"></i></a>
@@ -296,7 +302,7 @@
           <li><a href="flights.html"><i class="fa-solid fa-chevron-right"></i> Flights</a></li>
           <li><a href="hotels.html"><i class="fa-solid fa-chevron-right"></i> Hotels</a></li>
           <li><a href="tours.html"><i class="fa-solid fa-chevron-right"></i> Tour Packages</a></li>
-          <li><a href="index.html#why"><i class="fa-solid fa-chevron-right"></i> About Us</a></li>
+          <li><a href="about.html"><i class="fa-solid fa-chevron-right"></i> About Us</a></li>
           <li><a href="contact.html"><i class="fa-solid fa-chevron-right"></i> Contact</a></li>
         </ul>
       </div>
@@ -318,6 +324,7 @@
           <li><i class="fa-solid fa-phone"></i><a href="#" data-trm="phone-tel"></a></li>
           <li><i class="fa-brands fa-whatsapp"></i><a href="#" data-trm="wa" target="_blank" rel="noopener">WhatsApp us</a></li>
           <li><i class="fa-solid fa-envelope"></i><a href="#" data-trm="email"></a></li>
+          <li><i class="fa-solid fa-envelope"></i><a href="#" data-trm="email2"></a></li>
           <li><i class="fa-regular fa-clock"></i><span data-trm="hours"></span></li>
         </ul>
       </div>

@@ -7,7 +7,7 @@
 <meta name="theme-color" content="#1A2B6B">
 <title>Admin Dashboard | TRM Holidays</title>
 
-<link rel="icon" href="assets/images/logo.png">
+<link rel="icon" href="assets/images/logo.jpeg">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
@@ -205,7 +205,7 @@ td .sub{display:block;font-size:12px;color:var(--gray)}
 <!-- ══════════════ LOGIN ══════════════ -->
 <div class="login-screen" id="loginScreen">
   <div class="login-card">
-    <img src="assets/images/logo.png" alt="TRM Holidays">
+    <img src="assets/images/logo.jpeg" alt="TRM Holidays">
     <h1>Admin Dashboard</h1>
     <p>TRM Holidays — staff access only</p>
 
@@ -223,9 +223,8 @@ td .sub{display:block;font-size:12px;color:var(--gray)}
 
     <div class="login-note">
       <i class="fa-solid fa-triangle-exclamation"></i>
-      <b>Note:</b> this gate only hides the screen — anyone who views the page source can read the
-      password. Keep this URL private, and put the real permission check inside your Apps Script
-      (see <code>ADMIN_TOKEN</code> in Code.gs).
+      <b>Note:</b> the password is checked by the Apps Script backend (<code>ADMIN_TOKEN</code> in
+      Code.gs), not by this page. Keep it secret and never commit it to the website files.
     </div>
   </div>
 </div>
@@ -236,7 +235,7 @@ td .sub{display:block;font-size:12px;color:var(--gray)}
   <div class="dash-bar">
     <div class="wrap">
       <div class="dash-brand">
-        <img src="assets/images/logo.png" alt="TRM Holidays">
+        <img src="assets/images/logo.jpeg" alt="TRM Holidays">
         <div><b>TRM Holidays</b><small>Admin Panel</small></div>
       </div>
       <div style="display:flex;gap:10px">
@@ -332,7 +331,7 @@ td .sub{display:block;font-size:12px;color:var(--gray)}
         <div class="tbl-scroll">
           <table>
             <thead><tr>
-              <th>ID</th><th>Package Name</th><th>Category</th>
+              <th>ID</th><th>Package Name</th><th>Region · Type</th>
               <th>Duration</th><th>Price</th><th>Status</th><th>Action</th>
             </tr></thead>
             <tbody id="pkgBody"></tbody>
@@ -365,12 +364,12 @@ td .sub{display:block;font-size:12px;color:var(--gray)}
 <script>
 /* ══════════════════════════════════════════════════════════
    LOGIN
-   NOTE: this is a convenience gate, not real security. The
-   password sits in the page source. Real protection belongs
-   in Code.gs (ADMIN_TOKEN) — see the note on the login card.
+   The password is never stored in this page. Whatever is typed
+   is sent to Apps Script as the admin token, and Code.gs decides
+   (ADMIN_TOKEN) — so reading the source reveals nothing.
    ══════════════════════════════════════════════════════════ */
-const ADMIN_PASSWORD = 'TRM@admin2025';
-const SESSION_KEY = 'trm_admin_ok';
+const SESSION_KEY = 'trm_admin_token';
+let ADMIN_TOKEN = sessionStorage.getItem(SESSION_KEY) || '';
 
 function showDashboard(){
   document.getElementById('loginScreen').style.display = 'none';
@@ -378,19 +377,31 @@ function showDashboard(){
   loadAll();
 }
 
-document.getElementById('loginForm').addEventListener('submit', e => {
+document.getElementById('loginForm').addEventListener('submit', async e => {
   e.preventDefault();
   const input = document.getElementById('pw');
   const field = input.closest('.field');
+  const btn = e.target.querySelector('button[type="submit"]');
+  const token = input.value;
+  if (!token) return;
 
-  if (input.value === ADMIN_PASSWORD){
-    sessionStorage.setItem(SESSION_KEY, '1');
+  // No backend yet: open the demo dashboard (sample rows only)
+  if (!TRM.isApiConfigured()){ showDashboard(); return; }
+
+  btn.disabled = true;
+  try {
+    const res = await TRM.apiGet('admin_contacts', { token: token });
+    if (!res.success) throw new Error(res.error || 'Unauthorized');
+    ADMIN_TOKEN = token;
+    sessionStorage.setItem(SESSION_KEY, token);
     field.classList.remove('err');
     showDashboard();
-  } else {
+  } catch (err) {
     field.classList.add('err');
     input.value = '';
     input.focus();
+  } finally {
+    btn.disabled = false;
   }
 });
 
@@ -406,7 +417,7 @@ document.getElementById('logoutBtn').addEventListener('click', () => {
   location.reload();
 });
 
-if (sessionStorage.getItem(SESSION_KEY) === '1') showDashboard();
+if (ADMIN_TOKEN) showDashboard();
 
 /* ══════════════ TABS ══════════════ */
 document.querySelectorAll('.dash-tab').forEach(tab => {
@@ -462,7 +473,7 @@ async function loadAll(){
     INQUIRIES = DEMO_INQUIRIES.slice();
     MESSAGES  = DEMO_MESSAGES.slice();
     PACKAGES  = TOURS.map(t => ({
-      id: t.id, name: t.name, category: t.category,
+      id: t.id, name: t.name, category: t.category, region: TRM.regionOf(t),
       duration: t.days + 'D' + t.nights + 'N', price: t.price, status: 'Active'
     }));
     renderAll();
@@ -473,8 +484,8 @@ async function loadAll(){
 
   try {
     const [inq, msg, pkg] = await Promise.all([
-      TRM.apiGet('admin_inquiries', { token: TRM.ADMIN_TOKEN }),
-      TRM.apiGet('admin_contacts', { token: TRM.ADMIN_TOKEN }),
+      TRM.apiGet('admin_inquiries', { token: ADMIN_TOKEN }),
+      TRM.apiGet('admin_contacts', { token: ADMIN_TOKEN }),
       TRM.apiGet('get_tours')
     ]);
     INQUIRIES = (inq.success && inq.data) ? inq.data : [];
@@ -548,7 +559,7 @@ function setStatus(id, sel){
   renderStats();
 
   if (TRM.isApiConfigured()){
-    TRM.apiPost({ type: 'update_status', id: id, status: sel.value })
+    TRM.apiPost({ type: 'update_status', token: ADMIN_TOKEN, id: id, status: sel.value })
       .then(() => toast('Status updated', 'ok'))
       .catch(() => toast('Could not save status to the sheet.', 'err'));
   } else {
@@ -609,7 +620,7 @@ function markReplied(id){
   renderMessages();
 
   if (TRM.isApiConfigured()){
-    TRM.apiPost({ type: 'update_status', id: id, status: 'Replied' })
+    TRM.apiPost({ type: 'update_status', token: ADMIN_TOKEN, id: id, status: 'Replied' })
       .then(() => toast('Marked as replied', 'ok'))
       .catch(() => toast('Could not save to the sheet.', 'err'));
   } else {
@@ -620,7 +631,7 @@ function markReplied(id){
 /* ---------- Packages ---------- */
 function renderPackages(){
   const q = document.getElementById('pkgSearch').value.toLowerCase();
-  const list = PACKAGES.filter(p => !q || (p.name + ' ' + p.category).toLowerCase().includes(q));
+  const list = PACKAGES.filter(p => !q || (p.name + ' ' + p.category + ' ' + TRM.regionOf(p)).toLowerCase().includes(q));
 
   if (!list.length){ showEmpty('pkgBody', 7); return; }
 
@@ -628,7 +639,7 @@ function renderPackages(){
     '<tr>' +
       '<td><span class="id">' + p.id + '</span></td>' +
       '<td><b>' + p.name + '</b></td>' +
-      '<td style="text-transform:capitalize">' + p.category + '</td>' +
+      '<td style="text-transform:capitalize">' + TRM.regionOf(p) + ' · ' + p.category + '</td>' +
       '<td>' + (p.duration || (p.days + 'D' + p.nights + 'N')) + '</td>' +
       '<td><b>৳' + TRM.money(p.price) + '</b></td>' +
       '<td><span class="badge-tag ' + (p.status === 'Active' ? 'tag-active' : 'tag-off') + '">' +

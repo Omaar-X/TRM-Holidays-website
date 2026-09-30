@@ -7,7 +7,7 @@
 <meta name="theme-color" content="#1A2B6B">
 <title>Hotel Search | TRM Holidays</title>
 
-<link rel="icon" href="assets/images/logo.png">
+<link rel="icon" href="assets/images/logo.jpeg">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
@@ -89,14 +89,9 @@
   padding:20px;border-left:1px solid #EDF2FA;display:flex;flex-direction:column;
   justify-content:center;align-items:flex-end;text-align:right;gap:9px;
 }
-.score{display:flex;align-items:center;gap:9px}
-.score b{
-  background:var(--navy);color:#fff;font-family:var(--font-head);font-weight:700;
-  font-size:14px;padding:5px 10px;border-radius:8px 8px 8px 0;
-}
-.score small{font-size:12px;color:var(--gray);text-align:right;line-height:1.3}
 .hprice b{display:block;font-family:var(--font-head);font-size:23px;font-weight:800;color:var(--navy);line-height:1.2}
-.hprice small{font-size:11.5px;color:var(--gray)}
+.hprice small{font-size:11.5px;color:var(--gray);display:block}
+.hprice b.ask{font-size:15px;font-weight:700;color:var(--sky)}
 .hotel-side .btn{width:100%;justify-content:center}
 
 /* ---------- GRID view ---------- */
@@ -108,7 +103,6 @@
   border-left:none;border-top:1px solid #EDF2FA;flex-direction:row;
   align-items:center;justify-content:space-between;text-align:left;
 }
-.grid-view .hotel-side .score{display:none}
 .grid-view .hotel-side .btn{width:auto}
 
 @media(max-width:1024px){
@@ -122,7 +116,6 @@
   .hotel-side{border-left:none;border-top:1px solid #EDF2FA;flex-direction:row;
     align-items:center;justify-content:space-between;text-align:left}
   .hotel-side .btn{width:auto}
-  .list-view .hotel-side .score{display:none}
   #hotelList.grid-view{grid-template-columns:1fr}
   .view-toggle{width:100%}
   .view-toggle button{flex:1;justify-content:center}
@@ -136,15 +129,15 @@
 <header class="nav solid">
   <div class="wrap">
     <a href="index.html" class="brand">
-      <img src="assets/images/logo.png" alt="TRM Holidays" class="brand-logo">
+      <img src="assets/images/logo.jpeg" alt="TRM Holidays" class="brand-logo">
       <span class="brand-text"><b>TRM Holidays</b><span>Your Memory Maker</span></span>
     </a>
     <nav class="nav-links">
       <a href="index.html">Home</a>
+      <a href="about.html">About</a>
       <a href="flights.html">Flights</a>
       <a href="hotels.html" class="active">Hotels</a>
       <a href="tours.html">Tour Packages</a>
-      <a href="index.html#why">About</a>
       <a href="contact.html">Contact</a>
     </nav>
     <div class="nav-actions">
@@ -157,10 +150,10 @@
 
 <div class="mobile-menu" id="mobileMenu">
   <a href="index.html">Home</a>
+  <a href="about.html">About</a>
   <a href="flights.html">Flights</a>
   <a href="hotels.html" class="active">Hotels</a>
   <a href="tours.html">Tour Packages</a>
-  <a href="index.html#why">About</a>
   <a href="contact.html">Contact</a>
   <a href="#" data-trm="wa" class="btn btn-gold" target="_blank" rel="noopener">Book Now</a>
 </div>
@@ -201,12 +194,6 @@
       </div>
 
       <div class="fgroup">
-        <b>Price per night</b>
-        <input type="range" id="priceRange" min="2800" max="18000" step="200" value="18000">
-        <div class="range-out"><span>৳2,800</span><span id="priceOut">৳18,000</span></div>
-      </div>
-
-      <div class="fgroup">
         <b>Amenities</b>
         <div id="amenityFilters"></div>
       </div>
@@ -230,9 +217,9 @@
       <div id="hotelList" class="list-view"></div>
 
       <p style="margin-top:24px;font-size:13px;color:var(--gray);text-align:center">
-        Rates are per night for two guests and change with the season. Confirm on
+        Photos are for illustration only. Room rates change with the season. Tap <b>Get Price</b>, message us on
         <a href="#" data-trm="wa" target="_blank" rel="noopener" style="color:var(--sky);font-weight:600">WhatsApp</a>
-        or call <a href="#" data-trm="phone-tel" style="color:var(--sky);font-weight:600"></a>.
+        or call <a href="#" data-trm="phone-tel" style="color:var(--sky);font-weight:600"></a> for the best rate on your dates.
       </p>
     </div>
 
@@ -244,7 +231,7 @@
   <div class="wrap">
     <div class="footer-grid">
       <div>
-        <img src="assets/images/logo.png" alt="TRM Holidays" class="footer-logo">
+        <img src="assets/images/logo.jpeg" alt="TRM Holidays" class="footer-logo">
         <p>TRM Holidays — your memory maker. Flights, hotels and tour packages for travellers across Bangladesh, at home and abroad.</p>
         <div class="socials">
           <a href="#" data-trm="facebook" target="_blank" rel="noopener" aria-label="Facebook"><i class="fa-brands fa-facebook-f"></i></a>
@@ -261,7 +248,7 @@
           <li><a href="flights.html"><i class="fa-solid fa-chevron-right"></i> Flights</a></li>
           <li><a href="hotels.html"><i class="fa-solid fa-chevron-right"></i> Hotels</a></li>
           <li><a href="tours.html"><i class="fa-solid fa-chevron-right"></i> Tour Packages</a></li>
-          <li><a href="index.html#why"><i class="fa-solid fa-chevron-right"></i> About Us</a></li>
+          <li><a href="about.html"><i class="fa-solid fa-chevron-right"></i> About Us</a></li>
           <li><a href="contact.html"><i class="fa-solid fa-chevron-right"></i> Contact</a></li>
         </ul>
       </div>
@@ -283,6 +270,7 @@
           <li><i class="fa-solid fa-phone"></i><a href="#" data-trm="phone-tel"></a></li>
           <li><i class="fa-brands fa-whatsapp"></i><a href="#" data-trm="wa" target="_blank" rel="noopener">WhatsApp us</a></li>
           <li><i class="fa-solid fa-envelope"></i><a href="#" data-trm="email"></a></li>
+          <li><i class="fa-solid fa-envelope"></i><a href="#" data-trm="email2"></a></li>
           <li><i class="fa-regular fa-clock"></i><span data-trm="hours"></span></li>
         </ul>
       </div>
@@ -304,28 +292,28 @@ document.getElementById('year').textContent = new Date().getFullYear();
 
 /* ---------- Mock hotel inventory (Cox's Bazar) ---------- */
 const HOTELS = [
-  { id:'H1', name:'Sea Palace Hotel',      stars:3, area:'Kolatoli',   price:3500,  score:8.2, reviews:412,
+  { id:'H1', name:'Sea Palace Hotel',      stars:3, area:'Kolatoli',
     amenities:['WiFi','Restaurant','AC','Parking'],
     img:'https://images.unsplash.com/photo-1566073771259-6a8506099945?w=700&q=80' },
-  { id:'H2', name:'Long Beach Hotel',      stars:4, area:'Kolatoli',   price:6500,  score:8.7, reviews:938,
+  { id:'H2', name:'Long Beach Hotel',      stars:4, area:'Kolatoli',
     amenities:['WiFi','Pool','Restaurant','AC','Gym','Beach Access'],
     img:'https://images.unsplash.com/photo-1571003123894-1f0594d2b5d9?w=700&q=80' },
-  { id:'H3', name:'Ocean Paradise Hotel',  stars:5, area:'Hotel Zone', price:12000, score:9.1, reviews:1206,
+  { id:'H3', name:'Ocean Paradise Hotel',  stars:5, area:'Hotel Zone',
     amenities:['WiFi','Pool','Restaurant','AC','Gym','Parking','Beach Access'],
     img:'https://images.unsplash.com/photo-1520250497591-112f2f40a3f4?w=700&q=80' },
-  { id:'H4', name:'Sayeman Beach Resort',  stars:4, area:'Laboni',     price:7500,  score:8.9, reviews:764,
+  { id:'H4', name:'Sayeman Beach Resort',  stars:4, area:'Laboni',
     amenities:['WiFi','Pool','Restaurant','AC','Beach Access'],
     img:'https://images.unsplash.com/photo-1582719508461-905c673771fd?w=700&q=80' },
-  { id:'H5', name:'Hotel Mermaid',         stars:3, area:'Sugandha',   price:4000,  score:8.0, reviews:329,
+  { id:'H5', name:'Hotel Mermaid',         stars:3, area:'Sugandha',
     amenities:['WiFi','Restaurant','AC'],
     img:'https://images.unsplash.com/photo-1611892440504-42a792e24d32?w=700&q=80' },
-  { id:'H6', name:'Royal Tulip Sea Pearl', stars:5, area:'Hotel Zone', price:18000, score:9.4, reviews:1583,
+  { id:'H6', name:'Royal Tulip Sea Pearl', stars:5, area:'Hotel Zone',
     amenities:['WiFi','Pool','Restaurant','AC','Gym','Parking','Beach Access'],
     img:'https://images.unsplash.com/photo-1542314831-068cd1dbfeeb?w=700&q=80' },
-  { id:'H7', name:"Cox's Today Hotel",     stars:3, area:'Laboni',     price:3200,  score:7.8, reviews:255,
+  { id:'H7', name:"Cox's Today Hotel",     stars:3, area:'Laboni',
     amenities:['WiFi','Restaurant','AC','Parking'],
     img:'https://images.unsplash.com/photo-1445019980597-93fa8acb246c?w=700&q=80' },
-  { id:'H8', name:'Seagull Hotel',         stars:3, area:'Sugandha',   price:2800,  score:7.6, reviews:198,
+  { id:'H8', name:'Seagull Hotel',         stars:3, area:'Sugandha',
     amenities:['WiFi','Restaurant','AC'],
     img:'https://images.unsplash.com/photo-1551882547-ff40c63fe5fa?w=700&q=80' }
 ];
@@ -362,25 +350,17 @@ function checkedValues(cls){
   return [...document.querySelectorAll('.' + cls + ':checked')].map(i => i.value);
 }
 
-function scoreLabel(score){
-  if (score >= 9) return 'Exceptional';
-  if (score >= 8.5) return 'Excellent';
-  if (score >= 8) return 'Very good';
-  return 'Good';
-}
-
 function applyFilters(){
   const stars = checkedValues('star-f').map(Number);
   const amens = checkedValues('amen-f');
   const areas = checkedValues('area-f');
-  const maxPrice = +document.getElementById('priceRange').value;
 
   const list = HOTELS.filter(h => {
     if (stars.length && !stars.includes(h.stars)) return false;
     if (areas.length && !areas.includes(h.area)) return false;
     if (amens.length && !amens.every(a => h.amenities.includes(a))) return false;
-    return h.price <= maxPrice;
-  }).sort((a,b) => a.price - b.price);
+    return true;
+  }).sort((a,b) => b.stars - a.stars);   // higher category first
 
   render(list);
 }
@@ -388,8 +368,27 @@ function applyFilters(){
 function render(list){
   const box = document.getElementById('hotelList');
   document.getElementById('resCount').textContent = list.length;
-  document.getElementById('cityLabel').textContent =
-    document.getElementById('cityInput').value || "Cox's Bazar";
+  const city = document.getElementById('cityInput').value.trim();
+
+  /* The list below only covers Cox's Bazar */
+  if (city && !/cox/i.test(city)){
+    document.getElementById('resCount').textContent = '—';
+    document.getElementById('cityLabel').textContent = city;
+    box.className = '';
+    box.innerHTML =
+      '<div class="empty">' +
+        '<div class="ico"><i class="fa-solid fa-hotel"></i></div>' +
+        '<h3>We&rsquo;ll find hotels in ' + TRM.esc(city) + '</h3>' +
+        '<p>Tell us your dates and budget and we&rsquo;ll send you the best options.</p>' +
+        '<a class="btn btn-wa" style="margin-top:18px" target="_blank" rel="noopener" href="' +
+          TRM.waLink('Hi TRM Holidays! Please send me hotel options in ' + city + ' from ' +
+                     TRM.niceDate(document.getElementById('checkIn').value) + ' to ' +
+                     TRM.niceDate(document.getElementById('checkOut').value) + '.') +
+        '"><i class="fa-brands fa-whatsapp"></i> Ask on WhatsApp</a>' +
+      '</div>';
+    return;
+  }
+  document.getElementById('cityLabel').textContent = "Cox's Bazar";
 
   if (!list.length){
     box.className = '';
@@ -397,7 +396,7 @@ function render(list){
       '<div class="empty">' +
         '<div class="ico"><i class="fa-solid fa-bed"></i></div>' +
         '<h3>No properties match these filters</h3>' +
-        '<p>Try removing an amenity or raising your price limit.</p>' +
+        '<p>Try removing an amenity or area filter.</p>' +
         '<button class="btn btn-navy" style="margin-top:18px" onclick="resetFilters()">Clear Filters</button>' +
       '</div>';
     return;
@@ -424,15 +423,11 @@ function render(list){
       '</div>' +
 
       '<div class="hotel-side">' +
-        '<div class="score">' +
-          '<small>' + scoreLabel(h.score) + '<br>' + h.reviews + ' reviews</small>' +
-          '<b>' + h.score.toFixed(1) + '</b>' +
-        '</div>' +
-        '<div class="hprice"><b>৳' + TRM.money(h.price) + '</b><small>per night</small></div>' +
+        '<div class="hprice"><small>Room rate</small><b class="ask">On request</b></div>' +
         '<a class="btn btn-gold btn-sm" target="_blank" rel="noopener" href="' +
-          TRM.waLink('Hi TRM Holidays! I want to book ' + h.name + " (" + h.stars + '-star, ' + h.area +
-                     ") at ৳" + TRM.money(h.price) + ' per night.') +
-        '">View Deal</a>' +
+          TRM.waLink('Hi TRM Holidays! Please send me the room rate for ' + h.name +
+                     ' (' + h.stars + '-star, ' + h.area + ", Cox's Bazar).") +
+        '"><i class="fa-brands fa-whatsapp"></i> Get Price</a>' +
       '</div>' +
 
     '</article>'
@@ -441,20 +436,12 @@ function render(list){
 
 function resetFilters(){
   document.querySelectorAll('.star-f, .amen-f, .area-f').forEach(c => c.checked = false);
-  const pr = document.getElementById('priceRange');
-  pr.value = pr.max;
-  document.getElementById('priceOut').textContent = '৳' + TRM.money(+pr.max);
   applyFilters();
 }
 
 /* ---------- Events ---------- */
 document.addEventListener('change', e => {
   if (e.target.matches('.star-f, .amen-f, .area-f')) applyFilters();
-});
-
-document.getElementById('priceRange').addEventListener('input', e => {
-  document.getElementById('priceOut').textContent = '৳' + TRM.money(+e.target.value);
-  applyFilters();
 });
 
 document.querySelectorAll('.view-toggle button').forEach(btn => {

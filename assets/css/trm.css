@@ -223,6 +223,7 @@ ul{list-style:none}
   color:var(--navy);margin-bottom:6px;
 }
 .field label .req{color:var(--red)}
+.field label small{color:var(--gray);font-weight:400}
 .input,.field input,.field select,.field textarea{
   width:100%;padding:12px 14px;border:1.5px solid #DCE5F3;border-radius:var(--radius-sm);
   background:#fff;font-size:14.5px;transition:border-color .2s,box-shadow .2s;
@@ -339,7 +340,7 @@ ul{list-style:none}
   .top-btn{right:16px;bottom:80px}
 }
 
-/* ---------- Real logo mark (assets/images/logo.png) ---------- */
+/* ---------- Real logo mark (assets/images/logo.jpeg) ---------- */
 .brand-logo{
   width:44px;height:44px;flex:0 0 44px;border-radius:50%;
   object-fit:cover;background:#fff;
@@ -357,4 +358,174 @@ ul{list-style:none}
    so this override needs !important. Mobile widths only. */
 @media(max-width:768px){
   input,select,textarea{font-size:16px!important}
+}
+
+/* ---------- Domestic / International ---------- */
+.region-tag{
+  position:absolute;top:12px;right:12px;z-index:2;
+  display:inline-flex;align-items:center;gap:5px;
+  font-family:var(--font-head);font-size:10.5px;font-weight:700;letter-spacing:.4px;
+  padding:5px 10px;border-radius:20px;color:#fff;backdrop-filter:blur(6px);
+}
+.region-tag i{font-size:10px}
+.region-dom{background:rgba(26,43,107,.85)}
+.region-intl{background:rgba(35,71,197,.85)}
+
+.region-tabs{display:flex;gap:10px;justify-content:center;margin-bottom:18px;flex-wrap:wrap}
+.region-tab{
+  display:inline-flex;align-items:center;gap:9px;
+  padding:12px 22px;border-radius:40px;border:2px solid #DCE5F3;background:#fff;
+  font-family:var(--font-head);font-size:14.5px;font-weight:700;color:var(--navy);
+  transition:all .2s var(--ease);
+}
+.region-tab small{font-weight:600;font-size:12px;color:var(--gray)}
+.region-tab:hover{border-color:var(--sky)}
+.region-tab.active{background:var(--navy);border-color:var(--navy);color:#fff}
+.region-tab.active small{color:var(--sky-light)}
+
+.region-head{
+  display:flex;align-items:flex-end;justify-content:space-between;gap:16px;
+  flex-wrap:wrap;margin:0 0 24px;
+}
+.region-head h2{margin:0}
+.region-head p{color:var(--gray);margin-top:6px}
+.region-head .eyebrow{
+  display:inline-block;font-family:var(--font-head);font-size:12px;font-weight:700;
+  letter-spacing:2px;text-transform:uppercase;color:var(--sky);margin-bottom:6px;
+}
+.region-block + .region-block{margin-top:64px}
+
+@media(max-width:768px){
+  /* One row of three on phones: icon + label, count underneath */
+  .region-tabs{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+  .region-tab{
+    flex-direction:column;gap:2px;padding:9px 4px;border-radius:var(--radius-sm);
+    font-size:13px;line-height:1.25;min-width:0;
+  }
+  .region-tab small{font-size:11px}
+  .region-head{align-items:flex-start}
+  .region-block + .region-block{margin-top:48px}
+}
+
+/* ---------- About (home section + about.html) ---------- */
+.about{display:grid;grid-template-columns:1fr 1.05fr;gap:56px;align-items:center}
+.about-media{position:relative}
+.about-media img{width:100%;height:480px;object-fit:cover;border-radius:var(--radius-lg);box-shadow:var(--shadow-lg)}
+.about-badge{
+  position:absolute;right:-18px;bottom:28px;background:var(--gold);color:#fff;
+  border-radius:var(--radius);padding:18px 22px;box-shadow:0 14px 34px rgba(245,166,35,.4);
+  display:flex;align-items:center;gap:12px;
+}
+.about-badge b{font-family:var(--font-head);font-size:34px;font-weight:800;line-height:1}
+.about-badge span{font-size:12.5px;font-weight:600;line-height:1.35}
+.about-copy .eyebrow,.about-short .eyebrow{
+  display:inline-block;font-family:var(--font-head);font-size:12px;font-weight:700;
+  letter-spacing:2px;text-transform:uppercase;color:var(--sky);margin-bottom:10px;
+}
+.about-copy h2{margin-bottom:16px}
+.about-copy p{color:#42506E;margin-bottom:14px}
+.about-points{display:grid;grid-template-columns:1fr 1fr;gap:10px 18px;margin:20px 0 22px}
+.about-points li{display:flex;gap:9px;align-items:flex-start;font-size:14.5px;font-weight:500;color:var(--navy)}
+.about-points i{color:var(--ok);margin-top:4px}
+.about-office{
+  display:flex;gap:14px;align-items:center;background:var(--off);
+  border:1px solid #E4EBF6;border-radius:var(--radius);padding:14px 18px;margin-bottom:22px;
+}
+.about-office > i{
+  width:42px;height:42px;flex:0 0 42px;border-radius:12px;display:grid;place-items:center;
+  background:var(--navy);color:#fff;font-size:17px;
+}
+.about-office small{display:block;font-size:12px;color:var(--gray);text-transform:uppercase;letter-spacing:1px;font-weight:600}
+.about-office b{font-family:var(--font-head);font-size:14.5px;color:var(--navy)}
+.about-btns{display:flex;flex-wrap:wrap;gap:12px}
+
+@media(max-width:900px){
+  .about{grid-template-columns:1fr;gap:40px}
+  .about-media img{height:340px}
+  .about-badge{right:14px}
+}
+@media(max-width:768px){
+  .about-media img{height:260px}
+  .about-badge{padding:12px 16px;bottom:14px}
+  .about-badge b{font-size:26px}
+  .about-points{grid-template-columns:1fr}
+  .about-btns .btn{flex:1}
+}
+
+.about-short{max-width:720px;margin:0 auto;text-align:center}
+.about-short h2{margin-bottom:14px}
+.about-short p{color:#42506E;margin-bottom:22px}
+
+/* ---------- Management team (about.html) ---------- */
+.team-grid{gap:28px}
+.team-card{
+  background:var(--white);border-radius:var(--radius-lg);box-shadow:var(--shadow-sm);
+  padding:32px 20px 26px;text-align:center;
+  transition:transform .3s var(--ease),box-shadow .3s var(--ease);
+}
+.team-card:hover{transform:translateY(-6px);box-shadow:var(--shadow)}
+.team-photo{
+  width:156px;height:156px;margin:0 auto 18px;border-radius:50%;padding:5px;
+  background:linear-gradient(135deg,var(--gold),var(--sky));
+}
+.team-photo img{
+  width:100%;height:100%;border-radius:50%;object-fit:cover;
+  border:4px solid var(--white);background:var(--off);
+}
+.team-card h3{font-size:1.1rem;margin-bottom:4px}
+.team-role{
+  display:inline-block;font-size:12.5px;font-weight:600;letter-spacing:.5px;text-transform:uppercase;
+  color:var(--gold-dark);margin-bottom:14px;
+}
+.team-phone{
+  display:inline-flex;align-items:center;gap:7px;font-size:14px;font-weight:500;color:var(--navy);
+  padding:7px 14px;border-radius:30px;background:var(--off);transition:background .2s,color .2s;white-space:nowrap;
+}
+.team-phone:hover{background:var(--navy);color:var(--white)}
+.team-phone i{font-size:12px}
+@media(max-width:768px){
+  .team-grid.g-4{grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+  .team-card{padding:22px 10px 18px}
+  .team-photo{width:112px;height:112px;padding:4px}
+  .team-photo img{border-width:3px}
+  .team-card h3{font-size:.95rem}
+  .team-role{font-size:11px;margin-bottom:10px}
+  .team-phone{font-size:11px;padding:6px 9px;gap:5px;max-width:100%;white-space:normal;line-height:1.35}
+}
+
+/* ---------- Flight search: multi-city legs ---------- */
+.multi-legs{display:none;flex:1 1 100%;gap:10px}
+.is-multi .multi-legs{display:grid}
+.is-multi .single-only{display:none!important}
+.leg-row{display:flex;gap:12px;align-items:flex-end}
+.leg-row .sf{flex:1 1 150px;min-width:0}
+.leg-no{
+  flex:0 0 74px;align-self:center;margin-top:18px;
+  font-family:var(--font-head);font-size:12.5px;font-weight:700;color:var(--navy);
+}
+.leg-remove,.leg-remove-spacer{flex:0 0 44px;width:44px;height:44px;margin-bottom:1px}
+.leg-remove{
+  border-radius:50%;border:1.5px solid #DCE5F3;background:#fff;color:var(--gray);
+  display:grid;place-items:center;font-size:15px;transition:all .2s var(--ease);
+}
+.leg-remove:hover{border-color:var(--red);color:var(--red)}
+.leg-add{
+  justify-self:start;display:inline-flex;align-items:center;gap:8px;
+  padding:9px 16px;border-radius:30px;border:1.5px dashed var(--sky);
+  font-family:var(--font-head);font-size:13.5px;font-weight:600;color:var(--sky);
+  transition:all .2s var(--ease);
+}
+.leg-add:hover{background:var(--sky);color:#fff;border-style:solid}
+.leg-note{font-size:13px;color:var(--gray)}
+
+@media(max-width:768px){
+  .leg-row{
+    position:relative;display:grid;grid-template-columns:1fr 1fr;gap:10px;
+    padding:14px;border:1px solid #E4EBF6;border-radius:var(--radius-sm);background:rgba(244,247,252,.6);
+  }
+  .leg-no{grid-column:1/-1;margin:0;align-self:start}
+  .leg-row .sf:last-of-type{grid-column:1/-1}
+  .leg-remove{position:absolute;top:6px;right:6px;width:34px;height:34px;font-size:13px}
+  .leg-remove-spacer{display:none}
+  .leg-add{justify-self:stretch;justify-content:center}
 }
