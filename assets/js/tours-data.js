@@ -23,7 +23,7 @@ const TOURS = [
     rating: 4.8, reviews: 214,
     people: '2-15',
     hotel: '3★ Beachfront',
-    img: 'https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=900&q=80',
+    img: 'https://images.unsplash.com/photo-1687340148555-e060afb6aee1?w=900&q=80',
     desc: "Five days on the world's longest unbroken sea beach. Sunrise at Laboni Point, an afternoon at Himchari waterfall, and a full day trip out to Inani and Marine Drive."
   },
   {
@@ -68,7 +68,7 @@ const TOURS = [
     rating: 4.6, reviews: 141,
     people: '4-25',
     hotel: 'Hill Resort',
-    img: 'https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=900&q=80',
+    img: 'https://images.unsplash.com/photo-1641730601084-7dd3e7d3c8b9?w=900&q=80',
     desc: 'Above the clouds in the Kasalong range. Sunrise at Konglak Para, a Lusai village walk, and the long open-jeep ride up from Khagrachari.'
   },
   {
@@ -83,7 +83,7 @@ const TOURS = [
     rating: 4.9, reviews: 96,
     people: '2-18',
     hotel: '4★ + Cave Hotel',
-    img: 'https://images.unsplash.com/photo-1570939274717-7eda259b50ed?w=900&q=80',
+    img: 'https://images.unsplash.com/photo-1604156789095-3348604c0f43?w=900&q=80',
     desc: 'Hagia Sophia, the Blue Mosque and the Grand Bazaar, then a flight to Cappadocia for a sunrise hot-air balloon over the fairy chimneys.'
   },
   {
@@ -113,7 +113,7 @@ const TOURS = [
     rating: 4.7, reviews: 187,
     people: '6-30',
     hotel: 'Launch (on board)',
-    img: 'https://images.unsplash.com/photo-1441974231531-c6227db76b6e?w=900&q=80',
+    img: 'https://images.unsplash.com/photo-1549300461-11c5b94e8855?w=900&q=80',
     desc: 'Three days aboard a river launch through the largest mangrove forest on earth — Karamjal, Kotka, Jamtola Beach and Hiron Point.'
   },
   {
@@ -143,7 +143,7 @@ const TOURS = [
     rating: 4.6, reviews: 158,
     people: '4-22',
     hotel: 'Hill Resort',
-    img: 'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=900&q=80',
+    img: 'https://images.unsplash.com/photo-1651923364613-a630fbde966e?w=900&q=80',
     desc: 'Nilgiri, Nilachal, Boga Lake and the Chimbuk range — the highest road in Bangladesh, plus a boat ride on the Sangu river.'
   },
   {
@@ -158,7 +158,7 @@ const TOURS = [
     rating: 4.5, reviews: 112,
     people: '2-20',
     hotel: '3★ Resort',
-    img: 'https://images.unsplash.com/photo-1582650625119-3a31f8fa2699?w=900&q=80',
+    img: 'https://images.unsplash.com/photo-1603097148068-564d0158227e?w=900&q=80',
     desc: 'Endless green in Sreemangal — Lawachara rainforest, the seven-layer tea, Ratargul swamp forest and Jaflong on the Indian border.'
   },
   {
@@ -188,7 +188,7 @@ const TOURS = [
     rating: 4.8, reviews: 96,
     people: '8-35',
     hotel: '3★ Beach + Hill',
-    img: 'https://images.unsplash.com/photo-1519046904884-53103b34b206?w=900&q=80',
+    img: 'https://images.unsplash.com/photo-1585993573411-b6eaed50db98?w=900&q=80',
     desc: 'Sea and hills in one trip — four days on the Cox\'s Bazar coast, then up into the Bandarban hill tracks. Built for groups and corporate outings.'
   }
 ];

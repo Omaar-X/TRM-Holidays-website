@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /
+Disallow: /admin.html
+
+Sitemap: https://omaar-x.github.io/TRM-Holidays-website/sitemap.xml

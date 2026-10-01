@@ -3,11 +3,29 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="description" content="Search and compare flights from Dhaka with TRM Holidays — Biman, US-Bangla, Emirates, Qatar Airways and more.">
+<meta name="description" content="Search and compare flights from Dhaka with TRM Holidays — Biman, US-Bangla, Emirates, Qatar Airways and more. Send your route and we reply with the best fares.">
 <meta name="theme-color" content="#1A2B6B">
+<link rel="canonical" href="https://omaar-x.github.io/TRM-Holidays-website/flights.html">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="TRM Holidays">
+<meta property="og:title" content="Flight Search | TRM Holidays">
+<meta property="og:description" content="Search and compare flights from Dhaka with TRM Holidays — Biman, US-Bangla, Emirates, Qatar Airways and more. Send your route and we reply with the best fares.">
+<meta property="og:url" content="https://omaar-x.github.io/TRM-Holidays-website/flights.html">
+<meta property="og:image" content="https://omaar-x.github.io/TRM-Holidays-website/assets/images/og-cover.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="TRM Holidays — Your Memory Maker">
+<meta name="twitter:card" content="summary_large_image">
 <title>Flight Search | TRM Holidays</title>
 
-<link rel="icon" href="assets/images/logo.jpeg">
+<link rel="icon" href="favicon.ico" sizes="any">
+<link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="192x192" href="android-chrome-192x192.png">
+<link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
+<link rel="manifest" href="site.webmanifest">
+<meta name="msapplication-TileColor" content="#1A2B6B">
+<meta name="msapplication-config" content="browserconfig.xml">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
@@ -206,6 +224,7 @@
 <!-- ══════════════ SEARCH BAR ══════════════ -->
 <section class="fsearch">
   <div class="wrap">
+    <h1 class="sr-only">Flight Search</h1>
     <div class="trip-types" id="tripTypes">
       <label><input type="radio" name="trip" value="round" checked> Round Trip</label>
       <label><input type="radio" name="trip" value="oneway"> One Way</label>
@@ -357,12 +376,16 @@
     </div>
     <div class="footer-bottom">
       <span>&copy; <span id="year"></span> TRM Holidays. All rights reserved.</span>
-      <nav><a href="#">Privacy Policy</a><a href="#">Terms &amp; Conditions</a><a href="#">Cancellation Policy</a></nav>
+      <nav><a href="privacy.html">Privacy Policy</a><a href="terms.html">Terms &amp; Conditions</a><a href="cancellation.html">Cancellation Policy</a></nav>
     </div>
   </div>
 </footer>
 
-<a href="#" data-trm="wa" data-msg="Hi TRM Holidays! I need help booking a flight." class="wa-float" target="_blank" rel="noopener" aria-label="Chat on WhatsApp"><i class="fa-brands fa-whatsapp"></i></a>
+<div class="float-contact">
+  <a href="#" data-trm="tel" class="fc fc-call" aria-label="Call us" title="Call us"><i class="fa-solid fa-phone"></i></a>
+  <a href="#" data-trm="messenger" class="fc fc-msg" target="_blank" rel="noopener" aria-label="Message us on Messenger" title="Message us on Messenger"><i class="fa-brands fa-facebook-messenger"></i></a>
+  <a href="#" data-trm="wa" data-msg="Hi TRM Holidays! I need help booking a flight." class="fc fc-wa" target="_blank" rel="noopener" aria-label="Chat on WhatsApp" title="Chat on WhatsApp"><i class="fa-brands fa-whatsapp"></i></a>
+</div>
 <button class="top-btn" id="topBtn" aria-label="Back to top"><i class="fa-solid fa-arrow-up"></i></button>
 
 <script src="assets/js/trm.js"></script>

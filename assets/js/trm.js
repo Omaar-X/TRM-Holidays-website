@@ -22,6 +22,7 @@ const TRM = {
 
   // Leave a link empty and its icon/button is hidden everywhere
   FACEBOOK:  'https://www.facebook.com/trmholidaysbd',
+  MESSENGER: 'https://m.me/trmholidaysbd',               // Facebook Messenger chat for the page above
   INSTAGRAM: '',
   YOUTUBE:   '',
   TIKTOK:    '',
@@ -61,7 +62,7 @@ TRM.money = function (n) {
    --------------------------------------------------------------- */
 function fillContactInfo() {
   // Optional details: hide the element (or its <li>) when the value is empty
-  const OPTIONAL = { email2: 'EMAIL2', facebook: 'FACEBOOK', instagram: 'INSTAGRAM', youtube: 'YOUTUBE', tiktok: 'TIKTOK' };
+  const OPTIONAL = { email2: 'EMAIL2', facebook: 'FACEBOOK', messenger: 'MESSENGER', instagram: 'INSTAGRAM', youtube: 'YOUTUBE', tiktok: 'TIKTOK' };
 
   document.querySelectorAll('[data-trm]').forEach(function (el) {
     const key = OPTIONAL[el.dataset.trm];
@@ -82,6 +83,7 @@ function fillContactInfo() {
       case 'map-link':  el.href = 'https://www.google.com/maps/search/?api=1&query=' + encodeURIComponent(TRM.MAP_QUERY); break;
       case 'hours':     el.textContent = TRM.HOURS; break;
       case 'facebook':  el.href = TRM.FACEBOOK; break;
+      case 'messenger': el.href = TRM.MESSENGER; break;
       case 'instagram': el.href = TRM.INSTAGRAM; break;
       case 'youtube':   el.href = TRM.YOUTUBE; break;
       case 'tiktok':    el.href = TRM.TIKTOK; break;
@@ -146,10 +148,10 @@ function initLoader() {
   const loader = document.getElementById('loader');
   if (!loader) return;
   window.addEventListener('load', function () {
-    setTimeout(function () { loader.classList.add('hide'); }, 1200);
+    setTimeout(function () { loader.classList.add('hide'); }, 250);
   });
-  // Safety net: never trap the user behind the loader
-  setTimeout(function () { loader.classList.add('hide'); }, 4000);
+  // Safety net: slow images/CDNs must never keep the user behind the loader
+  setTimeout(function () { loader.classList.add('hide'); }, 1500);
 }
 
 function initTopBtn() {
